@@ -1,0 +1,1575 @@
+{
+ "tree": [
+  {
+   "slug": "opory-osveshcheniya-granyonye",
+   "title": {
+    "ru": "Опоры освещения гранёные"
+   },
+   "image": "opora_stvpznak_0.jpg",
+   "count": 7,
+   "children": [],
+   "items": [
+    "opory-osveshcheniya-granenye-konicheskie-flancevye-stv",
+    "opora-osveshcheniya-granyonaya-flancevaya-silovaya-sfg",
+    "opora-osveshcheniya-granyonaya-skladyvayushchayasya-ogks",
+    "opora-osveshcheniya-kontaktnoy-seti-granyonaya-flancevaya-tip-oksgf",
+    "opory-pod-videonablyudenie-osv",
+    "opory-osveshcheniya-granenye-konicheskie-pryamostoechnye-stvp",
+    "opory-osveshcheniya-granyonye-konicheskie-silovye-tip-spg"
+   ]
+  },
+  {
+   "slug": "elektromontazhnye-izdeliya",
+   "title": {
+    "ru": "Электромонтажные изделия"
+   },
+   "image": "lotok_lm.jpg",
+   "count": 80,
+   "children": [
+    "ankera",
+    "derzhateli",
+    "flazhki",
+    "homuty",
+    "koroba",
+    "kronshteyny",
+    "kryshki",
+    "lotki",
+    "mufty",
+    "nakladki",
+    "osnovaniya",
+    "peremychki",
+    "podveski",
+    "polki-kabelnye",
+    "polosy-zazemleniya",
+    "prizhimy",
+    "profilya",
+    "shinoderzhateli",
+    "shvellera",
+    "skoby",
+    "soediniteli",
+    "stoyki-kabelnye",
+    "ugolki",
+    "zaglushki-torcevye",
+    "zazhimy"
+   ],
+   "items": [
+    "lotok-perforirovannyy-lm",
+    "lotok-krestoobraznyy-klm-kk",
+    "lotki-ll-2",
+    "lotki-nl-0",
+    "lotok-uglovoy-vverh-45gr-uvlm",
+    "koroba-serii-kkb-0",
+    "koroba-serii-kp",
+    "lotok-troynikovyy-tlm-tk",
+    "lotok-uglovoy-45gr-ulm",
+    "lotok-uglovoy-90gr-ulm",
+    "lotok-uvlm-uglovoy-vverh-90gr",
+    "lotok-uglovoy-vniz-45gr-unlm-ks",
+    "lotok-uglovoy-vniz-90gr-unlm",
+    "stoyka-kabelnaya-k-100-3000",
+    "polki-kabelnye-k1160-k1161-k1162-k1163-k1164",
+    "stoyki-kabelnye-k1150-k1151-k1152-k1153-k1154-k1155",
+    "polka-kabelnaya-p100-900",
+    "stoyka-kabelnaya-potolochnaya-skp-200-skp-400-skp-500-skp-600-skp-800-skp-1000-skp-1200",
+    "shveller-perforirovannyy-k235",
+    "kryshka-lotka-kr",
+    "podveska-k1165uz",
+    "rasporka-rp",
+    "lotki-montazhnye-lm",
+    "mufty-natyazhnye-k798-k804-k805",
+    "klyuch-k1156",
+    "kryshka-uglovaya-vniz-90gr-kls",
+    "osnovanie-odinochnoy-polki-k1158",
+    "razdelitelnaya-peregorodka-rl",
+    "shinoderzhatel-shp-1-750-u1-0",
+    "peremychka-pgs-25-280",
+    "planka-soedinitelnaya-sl",
+    "skoba-dvuhlapkovaya-sd",
+    "stoyki-kabelnye",
+    "kronshteyn-kn15-u3",
+    "soedinitel-peregorodok-k168uz",
+    "skoba-k142",
+    "anker-aok-500",
+    "kronshteyn-kn25-u3",
+    "soedinitel-sharnirnyy-sl-ssh",
+    "skoba-k1157",
+    "perehodnoy-soedinitel-sl-sp",
+    "serga-k1016",
+    "skoby",
+    "kronshteyn-k986-u3",
+    "anker-k675",
+    "kronshteyn-knl15-u3",
+    "podves-k-354",
+    "skoba-odnolapkovaya-so",
+    "anker-k809",
+    "kronshteyn-u116-u3",
+    "prizhim-koroba-pk",
+    "homuty-s437-s437-s439-s440-s441-s442",
+    "zazhim-k296-u3",
+    "kryshka-uglovaya-vverh-90gr-klp",
+    "nakladki-nt-1-nt-2-nt-4-nt-5",
+    "profil-perforirovannyy-z-obraznyy-k238",
+    "zazhim-k676-u3",
+    "kryshka-uglovaya-vniz-45gr-kls",
+    "osnovanie-zakrepa-k127",
+    "profil-perforirovannyy-s-obraznyy-k1081-k1011-k1101",
+    "shinoderzhatel-shp-1-750-u1",
+    "lotki-kabelnye-metallicheskie-nl",
+    "birka-markirovochnaya-u134",
+    "derzhatel-shin-zazemleniya-k188",
+    "derzhatel-trubnyy-k939-u3",
+    "derzhatel-u25m-u3",
+    "flazhok-f25",
+    "kryshka-krestoobraznaya-krk",
+    "kryshka-lotka-uglovaya-vverh-45gr-klp",
+    "kryshka-troynikovaya-krt",
+    "kryshka-uglovaya-45gr-kru",
+    "kryshka-uglovaya-90gr-kru",
+    "mufta-trubnaya-tr-2-tr-4-tr-5-tr-7-tr-8-tr-9-tr-10",
+    "podveska-zakladnaya-k-341",
+    "polosa-perforirovannaya-k106-k107-k200-k202-k209",
+    "polosa-zazemleniya-4h25",
+    "skoba-sk",
+    "ugolok-perforirovannyy-k236-k237-k242",
+    "zaglushka-torcevaya-zt-005-01",
+    "zaglushka-torcevaya-zt-50h50"
+   ]
+  },
+  {
+   "slug": "machty-radioreleynye",
+   "title": {
+    "ru": "Мачты радиорелейные"
+   },
+   "image": "2.jpg",
+   "count": 4,
+   "children": [],
+   "items": [
+    "opora-radioreleynoy-i-sotovoy-svyazi",
+    "machta-sotovoy-svyazi-bashnya-vyshka",
+    "machta-odn-opory-dvoynogo-naznacheniya",
+    "machta-rrl-pmg-ploshchadka-mnogogrannaya"
+   ]
+  },
+  {
+   "slug": "machty-osveshcheniya-pmo-vmo",
+   "title": {
+    "ru": "Мачты освещения (ПМО, ВМО)"
+   },
+   "image": "stpr.jpg",
+   "count": 7,
+   "children": [],
+   "items": [
+    "prozhektornye-opory-osveshcheniya-so-stacionarnoy-koronoy-stpr",
+    "pmo-s-mobilnoy-koronoy",
+    "stpr-s-stacionarnoy-koronoy",
+    "pmo-s-molniepriyomnikom",
+    "prozhektornye-machty-osveshcheniya-s-mobilnoy-ramoy-pmo-sh",
+    "prozhektornaya-machta-metallicheskaya-machta-pmm",
+    "prozhektornye-machty-osveshcheniya-so-stacionarnoy-ploshchadkoy-pmo-sp"
+   ]
+  },
+  {
+   "slug": "opory-trubchatye",
+   "title": {
+    "ru": "Опоры трубчатые"
+   },
+   "image": "opora_trubchataya_nesilovaya_flancevaya_otfotp_znak_0.jpg",
+   "count": 3,
+   "children": [],
+   "items": [
+    "opory-nesilovye-flancevaya-trubchatye-otf-otp",
+    "opora-trubchataya-flancevaya-silovaya-otsfotsp",
+    "opora-kontaktnoy-seti-flancevaya-trubchataya-okstfokstp"
+   ]
+  },
+  {
+   "slug": "kronshteyny-opor-osveshcheniya",
+   "title": {
+    "ru": "Кронштейны опор освещения"
+   },
+   "image": "dvuh_rozhkovyy_.png",
+   "count": 10,
+   "children": [],
+   "items": [
+    "dvuhrozhkovye-kronshteyny-0",
+    "trehrozhkovye-kronshteyny",
+    "odnorozhkovye-kronshteyny",
+    "chetyryohrozhkovye-kronshteyny",
+    "kronshteyny-konsolnye-tipa-kg-g-obraznye",
+    "t-obraznye-kronshteyny",
+    "nasadki-serii-nv-2-dlya-kronshteynov",
+    "nasadki-serii-nv-3-dlya-kronshteynov",
+    "nasadki-serii-nv-4-dlya-kronshteynov",
+    "nasadki-serii-nv-5-dlya-kronshteynov"
+   ]
+  },
+  {
+   "slug": "zakladnye-detali-fundamenta",
+   "title": {
+    "ru": "Закладные детали фундамента"
+   },
+   "image": "katochka_17.jpg",
+   "count": 3,
+   "children": [],
+   "items": [
+    "fundament-ankernyy-zf",
+    "ankernyy-blok-dlya-prozhektornyh-macht-i-macht-svyazi",
+    "zakladnaya-detal-trubnaya"
+   ]
+  },
+  {
+   "slug": "opory-dekorativnogo-osveshcheniya",
+   "title": {
+    "ru": "Опоры декоративного освещения"
+   },
+   "image": "alatau.jpg",
+   "count": 12,
+   "children": [],
+   "items": [
+    "opora-parkovaya-alatau",
+    "opora-parkovaya-astana",
+    "opora-parkovaya-berkut",
+    "parkovyy-fonar-duet",
+    "parkovyy-fonar-kamerton",
+    "parkovyy-fonar-luna",
+    "dekorativnaya-opora-osveshcheniya-park",
+    "dekorativnaya-opora-osveshcheniya-saturn",
+    "dekorativnaya-opora-osveshcheniya-skver",
+    "sadovo-parkovyy-svetilnik-solo",
+    "sadovo-parkovyy-svetilnik-shar",
+    "sadovo-parkovyy-svetilnik-shar-2"
+   ]
+  },
+  {
+   "slug": "mnogogrannye-opory-lep",
+   "title": {
+    "ru": "Многогранные опоры ЛЭП"
+   },
+   "image": "katochka_2.jpg",
+   "count": 1,
+   "children": [],
+   "items": [
+    "mnogogrannaya-opora-lep"
+   ]
+  },
+  {
+   "slug": "opora-lep",
+   "title": {
+    "ru": "Опора ЛЭП"
+   },
+   "image": "1u35-2t_2.jpg",
+   "count": 103,
+   "children": [
+    "ankerno-uglovye-opory-220-kv",
+    "ankerno-uglovye-vl-110-kv",
+    "ankerno-uglovye-vl-35-kv",
+    "perehodnye-opory-vl-110-kv",
+    "perehodnye-opory-vl-35-kv",
+    "promezhutochnye-opory-110-kv",
+    "promezhutochnye-opory-vl-35-kv"
+   ],
+   "items": [
+    "opora-u35-2t-ankerno-uglovaya-lep",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-5",
+    "promezhutochnaya-opora-p35-1vu",
+    "promezhutochnaya-opora-ps35-2",
+    "ankerno-uglovaya-opora-1u110-2",
+    "ankerno-uglovaya-opora-1u110-4p15",
+    "opora-u35-2t5-ankerno-uglovaya-lep",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-6",
+    "promezhutochnaya-opora-p35-1n",
+    "promezhutochnaya-opora-ps35-2v",
+    "promezhutochnaya-opora-p35-2v",
+    "promezhutochnaya-opora-ps35-4vt",
+    "ankerno-uglovaya-opora-1u110-315",
+    "ankerno-uglovye-opory-napryazheniem-110-kv",
+    "opora-u35-2t10-ankerno-uglovaya",
+    "opora-u35-4-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-1",
+    "promezhutochnaya-opora-p35-2vpg",
+    "promezhutochnaya-opora-ps35-4n",
+    "ankerno-uglovaya-opora-1u110-35",
+    "perehodnye-opory-vl-110-kv",
+    "opora-u35-1-ankerno-uglovaya-lep",
+    "opora-u35-45-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-1t",
+    "promezhutochnaya-opora-p35-2vt",
+    "promezhutochnaya-opora-ps35-4pg",
+    "ankerno-uglovaya-opora-1u110-4",
+    "promezhutochnye-opory-lep-110-kv",
+    "opora-u35-15-ankerno-uglovaya-lep",
+    "opora-u35-49-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-2",
+    "promezhutochnaya-opora-p35-2vu",
+    "promezhutochnaya-opora-ps35-4pg-0",
+    "ankerno-uglovaya-opora-1u110-410",
+    "ankerno-uglovye-opory-vl-220-kv",
+    "opora-u35-1t-ankerno-uglovaya-lep",
+    "opora-u35-2t-ts-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-2t",
+    "promezhutochnaya-opora-p35-2n",
+    "promezhutochnaya-opora-ps35-4t",
+    "ankerno-uglovaya-opora-1u110-415",
+    "opora-u35-1ts-ankerno-uglovaya-lep",
+    "opora-u35-2ts-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-1v",
+    "promezhutochnaya-opora-p35-2pg-0",
+    "promezhutochnaya-opora-ps35-4t-0",
+    "ankerno-uglovaya-opora-1u110-45",
+    "opora-u35-1t-ts5-ankerno-uglovaya-lep",
+    "opora-u35-2ts5-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-2pg",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-3",
+    "promezhutochnaya-opora-p35-1vpg",
+    "promezhutochnaya-opora-p35-2u",
+    "ankerno-uglovaya-opora-1u110-115",
+    "ankerno-uglovaya-opora-1u110-4p5",
+    "opora-u35-25-ankerno-uglovaya-lep",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-4",
+    "promezhutochnaya-opora-p35-1vt",
+    "promezhutochnaya-opora-p35-2-0",
+    "ankerno-uglovaya-opora-1u110-15",
+    "ankerno-uglovaya-opora-1u110-4p10",
+    "ankerno-uglovaya-opora-1u110-1",
+    "ankerno-uglovaya-opora-1u110-110",
+    "ankerno-uglovaya-opora-1u110-210",
+    "ankerno-uglovaya-opora-1u110-215",
+    "ankerno-uglovaya-opora-1u110-25",
+    "ankerno-uglovaya-opora-1u110-3",
+    "ankerno-uglovaya-opora-1u110-310",
+    "ankerno-uglovaya-opora-1u110-4p",
+    "ankerno-uglovaya-opora-1u110-4v",
+    "ankerno-uglovaya-opora-1u110-5",
+    "ankerno-uglovaya-opora-1u110-510",
+    "ankerno-uglovaya-opora-1u110-515",
+    "ankerno-uglovaya-opora-1u110-55",
+    "ankerno-uglovaya-opora-1u110-8",
+    "ankerno-uglovaya-opora-u35-2t",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-1",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-6-0",
+    "opora-1u35-2-ankerno-uglovaya-lep",
+    "opora-1u35-210-ankerno-uglovaya-lep",
+    "opora-1u35-25-ankerno-uglovaya-lep",
+    "opora-u35-1t5-ankerno-uglovaya-lep",
+    "opora-u35-1ts-ankerno-uglovaya-lep-0",
+    "opora-u35-1ts5-ankerno-uglovaya-lep",
+    "opora-u35-2-ankerno-uglovaya-lep",
+    "opora-u35-3-ankerno-uglovaya-lep",
+    "opora-u35-35-ankerno-uglovaya-lep",
+    "opora-u35-39-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-1p35-2-35",
+    "promezhutochnaya-opora-1p35-2",
+    "promezhutochnaya-opora-1p35-2pg-35",
+    "promezhutochnaya-opora-1p35-2t-35",
+    "promezhutochnaya-opora-1p35-2t",
+    "promezhutochnaya-opora-p35-1pg",
+    "promezhutochnaya-opora-p35-1t-ts",
+    "promezhutochnaya-opora-p35-1ts",
+    "promezhutochnaya-opora-p35-1u",
+    "promezhutochnaya-opora-p35-2t-ts",
+    "promezhutochnaya-opora-p35-2ts",
+    "promezhutochnaya-opora-ps35-2n",
+    "promezhutochnaya-opora-ps35-4",
+    "promezhutochnaya-opora-ps35-4v",
+    "promezhutochnaya-opora-ps35-4vpg"
+   ]
+  },
+  {
+   "slug": "zabory-i-ograzhdeniya",
+   "title": {
+    "ru": "Заборы и ограждения"
+   },
+   "image": "11-md.jpg",
+   "count": 5,
+   "children": [],
+   "items": [
+    "barernye-ograzhdeniya-11-md",
+    "dorozhnoe-metallicheskoe-ograzhdenie-odnostoronnee-11do",
+    "dorozhnoe-metallicheskoe-ograzhdenie-dvuhstoronnee-11dd",
+    "mostovoe-barernoe-ograzhdenie-11-mo",
+    "11-dd-sborka-konstrukcii"
+   ]
+  },
+  {
+   "slug": "svetodiodnye-svetilniki",
+   "title": {
+    "ru": "Светодиодные светильники"
+   },
+   "image": "dku-led-01-120w_0.jpg",
+   "count": 3,
+   "children": [],
+   "items": [
+    "ulichnye-svetodiodnye-svetilniki-dku-led-01",
+    "svetodiodnye-svetilniki-prozhektornogo-tipa-so-vtorichnoy-optikoy-dku-led-04",
+    "svetodiodnye-svetilniki-prozhektornogo-tipa-so-vtorichnoy-optikoy-dku-led-05"
+   ]
+  },
+  {
+   "slug": "flagshtok-ulichnyy",
+   "title": {
+    "ru": "Флагшток уличный"
+   },
+   "image": "flagshtok_of_znak_0.jpg",
+   "count": 1,
+   "children": [],
+   "items": [
+    "flagshtok-machta-ulichnogo-flaga-6-8-9-10121416182025303540-m"
+   ]
+  },
+  {
+   "slug": "molnieotvody-mogk",
+   "title": {
+    "ru": "Молниеотводы МОГК"
+   },
+   "image": "molnieotvod_mogk_znak.jpg",
+   "count": 1,
+   "children": [],
+   "items": [
+    "molnieotvod"
+   ]
+  },
+  {
+   "slug": "svetofornye-opory",
+   "title": {
+    "ru": "Светофорные опоры"
+   },
+   "image": "opora_portalnogo_tipa_vozdushnaya_zebra_znak_0_0.jpg",
+   "count": 2,
+   "children": [],
+   "items": [
+    "svetofornyy-portal",
+    "g-obraznaya-svetofornaya-opora"
+   ]
+  },
+  {
+   "slug": "metallokonstrukcii",
+   "title": {
+    "ru": "Металлоконструкции"
+   },
+   "image": "pmz_19.jpg",
+   "count": 5,
+   "children": [
+    "machty-pmzh"
+   ],
+   "items": [
+    "machta-pmzh-193-prozhektornaya-serii-34079-172",
+    "prozhektornaya-machta-pmzh-228-prozhektornaya-serii-34079-172",
+    "machta-mo-23-osvetitelnaya-serii-35011-155",
+    "poyasa",
+    "machta-pmzh-166-prozhektornaya-serii-34079-172"
+   ]
+  },
+  {
+   "slug": "uslugi",
+   "title": {
+    "ru": "Услуги"
+   },
+   "image": "img_20250818_155550_1.jpg",
+   "count": 7,
+   "children": [],
+   "items": [
+    "uslugi-goryachego-cinkovaniya",
+    "ocinkovannyy-sortament-metalloprokata",
+    "gnutyy-shveller-ocinkovannyy",
+    "ugolok-gnutyy-ocinkovannyy",
+    "polosa-stalnaya-ocinkovannaya",
+    "plazmennaya-rezka-metalla",
+    "gibka-metalla"
+   ]
+  }
+ ],
+ "categories": {
+  "ankera": {
+   "slug": "ankera",
+   "title": {
+    "ru": "Анкера"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "anker_aok-500.00.000.sb_.jpg",
+   "count": 3,
+   "items": [
+    "anker-aok-500",
+    "anker-k675",
+    "anker-k809"
+   ]
+  },
+  "ankerno-uglovye-opory-220-kv": {
+   "slug": "ankerno-uglovye-opory-220-kv",
+   "title": {
+    "ru": "Анкерно-угловые опоры 220 кВ"
+   },
+   "parent": "opora-lep",
+   "children": [],
+   "image": "metallicheskie-opory-lep.jpg",
+   "count": 1,
+   "items": [
+    "ankerno-uglovye-opory-vl-220-kv"
+   ]
+  },
+  "ankerno-uglovye-vl-110-kv": {
+   "slug": "ankerno-uglovye-vl-110-kv",
+   "title": {
+    "ru": "Анкерно-угловые ВЛ 110 кВ"
+   },
+   "parent": "opora-lep",
+   "children": [],
+   "image": "u110-2_8.jpg",
+   "count": 27,
+   "items": [
+    "ankerno-uglovaya-opora-1u110-410",
+    "ankerno-uglovaya-opora-1u110-415",
+    "ankerno-uglovaya-opora-1u110-45",
+    "ankerno-uglovaya-opora-1u110-1",
+    "ankerno-uglovaya-opora-1u110-4v",
+    "ankerno-uglovaya-opora-1u110-110",
+    "ankerno-uglovaya-opora-1u110-4p",
+    "ankerno-uglovaya-opora-1u110-115",
+    "ankerno-uglovaya-opora-1u110-4p5",
+    "ankerno-uglovaya-opora-1u110-15",
+    "ankerno-uglovaya-opora-1u110-25",
+    "ankerno-uglovaya-opora-1u110-515",
+    "ankerno-uglovaya-opora-1u110-3",
+    "ankerno-uglovaya-opora-1u110-55",
+    "ankerno-uglovaya-opora-1u110-310",
+    "ankerno-uglovaya-opora-1u110-8",
+    "ankerno-uglovaya-opora-1u110-315",
+    "ankerno-uglovye-opory-napryazheniem-110-kv",
+    "ankerno-uglovaya-opora-1u110-35",
+    "ankerno-uglovaya-opora-1u110-4",
+    "ankerno-uglovaya-opora-1u110-2",
+    "ankerno-uglovaya-opora-1u110-210",
+    "ankerno-uglovaya-opora-1u110-215",
+    "ankerno-uglovaya-opora-1u110-4p10",
+    "ankerno-uglovaya-opora-1u110-4p15",
+    "ankerno-uglovaya-opora-1u110-5",
+    "ankerno-uglovaya-opora-1u110-510"
+   ]
+  },
+  "ankerno-uglovye-vl-35-kv": {
+   "slug": "ankerno-uglovye-vl-35-kv",
+   "title": {
+    "ru": "Анкерно-угловые ВЛ 35 кВ"
+   },
+   "parent": "opora-lep",
+   "children": [],
+   "image": "1u35-210_1.jpg",
+   "count": 26,
+   "items": [
+    "opora-1u35-25-ankerno-uglovaya-lep",
+    "opora-u35-35-ankerno-uglovaya-lep",
+    "ankerno-uglovaya-opora-u35-2t",
+    "opora-u35-39-ankerno-uglovaya-lep",
+    "opora-u35-2t10-ankerno-uglovaya",
+    "opora-u35-4-ankerno-uglovaya-lep",
+    "opora-u35-1-ankerno-uglovaya-lep",
+    "opora-u35-45-ankerno-uglovaya-lep",
+    "opora-u35-15-ankerno-uglovaya-lep",
+    "opora-u35-49-ankerno-uglovaya-lep",
+    "opora-u35-1t-ankerno-uglovaya-lep",
+    "opora-u35-2t-ts-ankerno-uglovaya-lep",
+    "opora-u35-1ts-ankerno-uglovaya-lep",
+    "opora-u35-2ts-ankerno-uglovaya-lep",
+    "opora-u35-1t-ts5-ankerno-uglovaya-lep",
+    "opora-u35-2ts5-ankerno-uglovaya-lep",
+    "opora-u35-1t5-ankerno-uglovaya-lep",
+    "opora-u35-2-ankerno-uglovaya-lep",
+    "opora-u35-25-ankerno-uglovaya-lep",
+    "opora-u35-2t-ankerno-uglovaya-lep",
+    "opora-1u35-2-ankerno-uglovaya-lep",
+    "opora-1u35-210-ankerno-uglovaya-lep",
+    "opora-u35-1ts-ankerno-uglovaya-lep-0",
+    "opora-u35-1ts5-ankerno-uglovaya-lep",
+    "opora-u35-2t5-ankerno-uglovaya-lep",
+    "opora-u35-3-ankerno-uglovaya-lep"
+   ]
+  },
+  "derzhateli": {
+   "slug": "derzhateli",
+   "title": {
+    "ru": "Держатели"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "derzhatel_shin_zazemleniya_k188.jpg",
+   "count": 3,
+   "items": [
+    "derzhatel-shin-zazemleniya-k188",
+    "derzhatel-trubnyy-k939-u3",
+    "derzhatel-u25m-u3"
+   ]
+  },
+  "elektromontazhnye-izdeliya": {
+   "slug": "elektromontazhnye-izdeliya",
+   "title": {
+    "ru": "Электромонтажные изделия"
+   },
+   "parent": null,
+   "children": [
+    "ankera",
+    "derzhateli",
+    "flazhki",
+    "homuty",
+    "koroba",
+    "kronshteyny",
+    "kryshki",
+    "lotki",
+    "mufty",
+    "nakladki",
+    "osnovaniya",
+    "peremychki",
+    "podveski",
+    "polki-kabelnye",
+    "polosy-zazemleniya",
+    "prizhimy",
+    "profilya",
+    "shinoderzhateli",
+    "shvellera",
+    "skoby",
+    "soediniteli",
+    "stoyki-kabelnye",
+    "ugolki",
+    "zaglushki-torcevye",
+    "zazhimy"
+   ],
+   "image": "lotok_lm.jpg",
+   "count": 80,
+   "items": [
+    "lotok-perforirovannyy-lm",
+    "lotok-krestoobraznyy-klm-kk",
+    "lotki-ll-2",
+    "lotki-nl-0",
+    "lotok-uglovoy-vverh-45gr-uvlm",
+    "koroba-serii-kkb-0",
+    "koroba-serii-kp",
+    "lotok-troynikovyy-tlm-tk",
+    "lotok-uglovoy-45gr-ulm",
+    "lotok-uglovoy-90gr-ulm",
+    "lotok-uvlm-uglovoy-vverh-90gr",
+    "lotok-uglovoy-vniz-45gr-unlm-ks",
+    "lotok-uglovoy-vniz-90gr-unlm",
+    "stoyka-kabelnaya-k-100-3000",
+    "polki-kabelnye-k1160-k1161-k1162-k1163-k1164",
+    "stoyki-kabelnye-k1150-k1151-k1152-k1153-k1154-k1155",
+    "polka-kabelnaya-p100-900",
+    "stoyka-kabelnaya-potolochnaya-skp-200-skp-400-skp-500-skp-600-skp-800-skp-1000-skp-1200",
+    "shveller-perforirovannyy-k235",
+    "kryshka-lotka-kr",
+    "podveska-k1165uz",
+    "rasporka-rp",
+    "lotki-montazhnye-lm",
+    "mufty-natyazhnye-k798-k804-k805",
+    "klyuch-k1156",
+    "kryshka-uglovaya-vniz-90gr-kls",
+    "osnovanie-odinochnoy-polki-k1158",
+    "razdelitelnaya-peregorodka-rl",
+    "shinoderzhatel-shp-1-750-u1-0",
+    "peremychka-pgs-25-280",
+    "planka-soedinitelnaya-sl",
+    "skoba-dvuhlapkovaya-sd",
+    "stoyki-kabelnye",
+    "kronshteyn-kn15-u3",
+    "soedinitel-peregorodok-k168uz",
+    "skoba-k142",
+    "anker-aok-500",
+    "kronshteyn-kn25-u3",
+    "soedinitel-sharnirnyy-sl-ssh",
+    "skoba-k1157",
+    "perehodnoy-soedinitel-sl-sp",
+    "serga-k1016",
+    "skoby",
+    "kronshteyn-k986-u3",
+    "anker-k675",
+    "kronshteyn-knl15-u3",
+    "podves-k-354",
+    "skoba-odnolapkovaya-so",
+    "anker-k809",
+    "kronshteyn-u116-u3",
+    "prizhim-koroba-pk",
+    "homuty-s437-s437-s439-s440-s441-s442",
+    "zazhim-k296-u3",
+    "kryshka-uglovaya-vverh-90gr-klp",
+    "nakladki-nt-1-nt-2-nt-4-nt-5",
+    "profil-perforirovannyy-z-obraznyy-k238",
+    "zazhim-k676-u3",
+    "kryshka-uglovaya-vniz-45gr-kls",
+    "osnovanie-zakrepa-k127",
+    "profil-perforirovannyy-s-obraznyy-k1081-k1011-k1101",
+    "shinoderzhatel-shp-1-750-u1",
+    "lotki-kabelnye-metallicheskie-nl",
+    "birka-markirovochnaya-u134",
+    "derzhatel-shin-zazemleniya-k188",
+    "derzhatel-trubnyy-k939-u3",
+    "derzhatel-u25m-u3",
+    "flazhok-f25",
+    "kryshka-krestoobraznaya-krk",
+    "kryshka-lotka-uglovaya-vverh-45gr-klp",
+    "kryshka-troynikovaya-krt",
+    "kryshka-uglovaya-45gr-kru",
+    "kryshka-uglovaya-90gr-kru",
+    "mufta-trubnaya-tr-2-tr-4-tr-5-tr-7-tr-8-tr-9-tr-10",
+    "podveska-zakladnaya-k-341",
+    "polosa-perforirovannaya-k106-k107-k200-k202-k209",
+    "polosa-zazemleniya-4h25",
+    "skoba-sk",
+    "ugolok-perforirovannyy-k236-k237-k242",
+    "zaglushka-torcevaya-zt-005-01",
+    "zaglushka-torcevaya-zt-50h50"
+   ]
+  },
+  "flagshtok-ulichnyy": {
+   "slug": "flagshtok-ulichnyy",
+   "title": {
+    "ru": "Флагшток уличный"
+   },
+   "parent": null,
+   "children": [],
+   "image": "flagshtok_of_znak_0.jpg",
+   "count": 1,
+   "items": [
+    "flagshtok-machta-ulichnogo-flaga-6-8-9-10121416182025303540-m"
+   ]
+  },
+  "flazhki": {
+   "slug": "flazhki",
+   "title": {
+    "ru": "Флажки"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "flazhok_f25.jpg",
+   "count": 1,
+   "items": [
+    "flazhok-f25"
+   ]
+  },
+  "homuty": {
+   "slug": "homuty",
+   "title": {
+    "ru": "Хомуты"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "skoba_s437.u2.jpg",
+   "count": 1,
+   "items": [
+    "homuty-s437-s437-s439-s440-s441-s442"
+   ]
+  },
+  "koroba": {
+   "slug": "koroba",
+   "title": {
+    "ru": "Короба"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "korob_kabelnyy_blochnogo_tipa_kkb-p-095-06-2.jpg",
+   "count": 2,
+   "items": [
+    "koroba-serii-kkb-0",
+    "koroba-serii-kp"
+   ]
+  },
+  "kronshteyny-opor-osveshcheniya": {
+   "slug": "kronshteyny-opor-osveshcheniya",
+   "title": {
+    "ru": "Кронштейны опор освещения"
+   },
+   "parent": null,
+   "children": [],
+   "image": "dvuh_rozhkovyy_.png",
+   "count": 10,
+   "items": [
+    "dvuhrozhkovye-kronshteyny-0",
+    "trehrozhkovye-kronshteyny",
+    "odnorozhkovye-kronshteyny",
+    "chetyryohrozhkovye-kronshteyny",
+    "kronshteyny-konsolnye-tipa-kg-g-obraznye",
+    "t-obraznye-kronshteyny",
+    "nasadki-serii-nv-2-dlya-kronshteynov",
+    "nasadki-serii-nv-3-dlya-kronshteynov",
+    "nasadki-serii-nv-4-dlya-kronshteynov",
+    "nasadki-serii-nv-5-dlya-kronshteynov"
+   ]
+  },
+  "kronshteyny": {
+   "slug": "kronshteyny",
+   "title": {
+    "ru": "Кронштейны"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "kronshteyn_kn25_u3.sb_.jpg",
+   "count": 5,
+   "items": [
+    "kronshteyn-kn25-u3",
+    "kronshteyn-knl15-u3",
+    "kronshteyn-u116-u3",
+    "kronshteyn-k986-u3",
+    "kronshteyn-kn15-u3"
+   ]
+  },
+  "kryshki": {
+   "slug": "kryshki",
+   "title": {
+    "ru": "Крышки"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "kryshka_kr_300.0012_00001_0.jpg",
+   "count": 9,
+   "items": [
+    "kryshka-lotka-kr",
+    "kryshka-troynikovaya-krt",
+    "kryshka-uglovaya-45gr-kru",
+    "kryshka-uglovaya-90gr-kru",
+    "kryshka-lotka-uglovaya-vverh-45gr-klp",
+    "kryshka-uglovaya-vverh-90gr-klp",
+    "kryshka-uglovaya-vniz-45gr-kls",
+    "kryshka-uglovaya-vniz-90gr-kls",
+    "kryshka-krestoobraznaya-krk"
+   ]
+  },
+  "lep": {
+   "slug": "lep",
+   "title": {
+    "ru": "ЛЭП"
+   },
+   "parent": null,
+   "children": [],
+   "image": "",
+   "count": 0,
+   "items": []
+  },
+  "lotki": {
+   "slug": "lotki",
+   "title": {
+    "ru": "Лотки"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "lotok_lm.jpg",
+   "count": 13,
+   "items": [
+    "lotok-perforirovannyy-lm",
+    "lotki-ll-2",
+    "lotki-nl-0",
+    "lotok-krestoobraznyy-klm-kk",
+    "lotok-uglovoy-vverh-45gr-uvlm",
+    "lotok-troynikovyy-tlm-tk",
+    "lotok-uglovoy-45gr-ulm",
+    "lotok-uglovoy-90gr-ulm",
+    "lotok-uvlm-uglovoy-vverh-90gr",
+    "lotok-uglovoy-vniz-45gr-unlm-ks",
+    "lotok-uglovoy-vniz-90gr-unlm",
+    "lotki-montazhnye-lm",
+    "lotki-kabelnye-metallicheskie-nl"
+   ]
+  },
+  "machty-osveshcheniya-pmo-vmo": {
+   "slug": "machty-osveshcheniya-pmo-vmo",
+   "title": {
+    "ru": "Мачты освещения (ПМО, ВМО)"
+   },
+   "parent": null,
+   "children": [],
+   "image": "stpr.jpg",
+   "count": 7,
+   "items": [
+    "prozhektornye-opory-osveshcheniya-so-stacionarnoy-koronoy-stpr",
+    "pmo-s-mobilnoy-koronoy",
+    "stpr-s-stacionarnoy-koronoy",
+    "pmo-s-molniepriyomnikom",
+    "prozhektornye-machty-osveshcheniya-s-mobilnoy-ramoy-pmo-sh",
+    "prozhektornaya-machta-metallicheskaya-machta-pmm",
+    "prozhektornye-machty-osveshcheniya-so-stacionarnoy-ploshchadkoy-pmo-sp"
+   ]
+  },
+  "machty-pmzh": {
+   "slug": "machty-pmzh",
+   "title": {
+    "ru": "Мачты ПМЖ"
+   },
+   "parent": "metallokonstrukcii",
+   "children": [],
+   "image": "pmz_22.jpg",
+   "count": 3,
+   "items": [
+    "prozhektornaya-machta-pmzh-228-prozhektornaya-serii-34079-172",
+    "machta-pmzh-166-prozhektornaya-serii-34079-172",
+    "machta-pmzh-193-prozhektornaya-serii-34079-172"
+   ]
+  },
+  "machty-radioreleynye": {
+   "slug": "machty-radioreleynye",
+   "title": {
+    "ru": "Мачты радиорелейные"
+   },
+   "parent": null,
+   "children": [],
+   "image": "2.jpg",
+   "count": 4,
+   "items": [
+    "opora-radioreleynoy-i-sotovoy-svyazi",
+    "machta-sotovoy-svyazi-bashnya-vyshka",
+    "machta-odn-opory-dvoynogo-naznacheniya",
+    "machta-rrl-pmg-ploshchadka-mnogogrannaya"
+   ]
+  },
+  "metallokonstrukcii": {
+   "slug": "metallokonstrukcii",
+   "title": {
+    "ru": "Металлоконструкции"
+   },
+   "parent": null,
+   "children": [
+    "machty-pmzh"
+   ],
+   "image": "pmz_19.jpg",
+   "count": 5,
+   "items": [
+    "machta-pmzh-193-prozhektornaya-serii-34079-172",
+    "prozhektornaya-machta-pmzh-228-prozhektornaya-serii-34079-172",
+    "machta-mo-23-osvetitelnaya-serii-35011-155",
+    "poyasa",
+    "machta-pmzh-166-prozhektornaya-serii-34079-172"
+   ]
+  },
+  "mnogogrannye-opory-lep": {
+   "slug": "mnogogrannye-opory-lep",
+   "title": {
+    "ru": "Многогранные опоры ЛЭП"
+   },
+   "parent": null,
+   "children": [],
+   "image": "katochka_2.jpg",
+   "count": 1,
+   "items": [
+    "mnogogrannaya-opora-lep"
+   ]
+  },
+  "molnieotvody-mogk": {
+   "slug": "molnieotvody-mogk",
+   "title": {
+    "ru": "Молниеотводы МОГК"
+   },
+   "parent": null,
+   "children": [],
+   "image": "molnieotvod_mogk_znak.jpg",
+   "count": 1,
+   "items": [
+    "molnieotvod"
+   ]
+  },
+  "mufty": {
+   "slug": "mufty",
+   "title": {
+    "ru": "Муфты"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "lotok222.jpg",
+   "count": 2,
+   "items": [
+    "mufty-natyazhnye-k798-k804-k805",
+    "mufta-trubnaya-tr-2-tr-4-tr-5-tr-7-tr-8-tr-9-tr-10"
+   ]
+  },
+  "nakladki": {
+   "slug": "nakladki",
+   "title": {
+    "ru": "Накладки"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "nakladka_nt1.jpg",
+   "count": 1,
+   "items": [
+    "nakladki-nt-1-nt-2-nt-4-nt-5"
+   ]
+  },
+  "opora-lep": {
+   "slug": "opora-lep",
+   "title": {
+    "ru": "Опора ЛЭП"
+   },
+   "parent": null,
+   "children": [
+    "ankerno-uglovye-opory-220-kv",
+    "ankerno-uglovye-vl-110-kv",
+    "ankerno-uglovye-vl-35-kv",
+    "perehodnye-opory-vl-110-kv",
+    "perehodnye-opory-vl-35-kv",
+    "promezhutochnye-opory-110-kv",
+    "promezhutochnye-opory-vl-35-kv"
+   ],
+   "image": "1u35-2t_2.jpg",
+   "count": 103,
+   "items": [
+    "opora-u35-2t-ankerno-uglovaya-lep",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-5",
+    "promezhutochnaya-opora-p35-1vu",
+    "promezhutochnaya-opora-ps35-2",
+    "ankerno-uglovaya-opora-1u110-2",
+    "ankerno-uglovaya-opora-1u110-4p15",
+    "opora-u35-2t5-ankerno-uglovaya-lep",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-6",
+    "promezhutochnaya-opora-p35-1n",
+    "promezhutochnaya-opora-ps35-2v",
+    "promezhutochnaya-opora-p35-2v",
+    "promezhutochnaya-opora-ps35-4vt",
+    "ankerno-uglovaya-opora-1u110-315",
+    "ankerno-uglovye-opory-napryazheniem-110-kv",
+    "opora-u35-2t10-ankerno-uglovaya",
+    "opora-u35-4-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-1",
+    "promezhutochnaya-opora-p35-2vpg",
+    "promezhutochnaya-opora-ps35-4n",
+    "ankerno-uglovaya-opora-1u110-35",
+    "perehodnye-opory-vl-110-kv",
+    "opora-u35-1-ankerno-uglovaya-lep",
+    "opora-u35-45-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-1t",
+    "promezhutochnaya-opora-p35-2vt",
+    "promezhutochnaya-opora-ps35-4pg",
+    "ankerno-uglovaya-opora-1u110-4",
+    "promezhutochnye-opory-lep-110-kv",
+    "opora-u35-15-ankerno-uglovaya-lep",
+    "opora-u35-49-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-2",
+    "promezhutochnaya-opora-p35-2vu",
+    "promezhutochnaya-opora-ps35-4pg-0",
+    "ankerno-uglovaya-opora-1u110-410",
+    "ankerno-uglovye-opory-vl-220-kv",
+    "opora-u35-1t-ankerno-uglovaya-lep",
+    "opora-u35-2t-ts-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-2t",
+    "promezhutochnaya-opora-p35-2n",
+    "promezhutochnaya-opora-ps35-4t",
+    "ankerno-uglovaya-opora-1u110-415",
+    "opora-u35-1ts-ankerno-uglovaya-lep",
+    "opora-u35-2ts-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-1v",
+    "promezhutochnaya-opora-p35-2pg-0",
+    "promezhutochnaya-opora-ps35-4t-0",
+    "ankerno-uglovaya-opora-1u110-45",
+    "opora-u35-1t-ts5-ankerno-uglovaya-lep",
+    "opora-u35-2ts5-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-p35-2pg",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-3",
+    "promezhutochnaya-opora-p35-1vpg",
+    "promezhutochnaya-opora-p35-2u",
+    "ankerno-uglovaya-opora-1u110-115",
+    "ankerno-uglovaya-opora-1u110-4p5",
+    "opora-u35-25-ankerno-uglovaya-lep",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-4",
+    "promezhutochnaya-opora-p35-1vt",
+    "promezhutochnaya-opora-p35-2-0",
+    "ankerno-uglovaya-opora-1u110-15",
+    "ankerno-uglovaya-opora-1u110-4p10",
+    "ankerno-uglovaya-opora-1u110-1",
+    "ankerno-uglovaya-opora-1u110-110",
+    "ankerno-uglovaya-opora-1u110-210",
+    "ankerno-uglovaya-opora-1u110-215",
+    "ankerno-uglovaya-opora-1u110-25",
+    "ankerno-uglovaya-opora-1u110-3",
+    "ankerno-uglovaya-opora-1u110-310",
+    "ankerno-uglovaya-opora-1u110-4p",
+    "ankerno-uglovaya-opora-1u110-4v",
+    "ankerno-uglovaya-opora-1u110-5",
+    "ankerno-uglovaya-opora-1u110-510",
+    "ankerno-uglovaya-opora-1u110-515",
+    "ankerno-uglovaya-opora-1u110-55",
+    "ankerno-uglovaya-opora-1u110-8",
+    "ankerno-uglovaya-opora-u35-2t",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-1",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-6-0",
+    "opora-1u35-2-ankerno-uglovaya-lep",
+    "opora-1u35-210-ankerno-uglovaya-lep",
+    "opora-1u35-25-ankerno-uglovaya-lep",
+    "opora-u35-1t5-ankerno-uglovaya-lep",
+    "opora-u35-1ts-ankerno-uglovaya-lep-0",
+    "opora-u35-1ts5-ankerno-uglovaya-lep",
+    "opora-u35-2-ankerno-uglovaya-lep",
+    "opora-u35-3-ankerno-uglovaya-lep",
+    "opora-u35-35-ankerno-uglovaya-lep",
+    "opora-u35-39-ankerno-uglovaya-lep",
+    "promezhutochnaya-opora-1p35-2-35",
+    "promezhutochnaya-opora-1p35-2",
+    "promezhutochnaya-opora-1p35-2pg-35",
+    "promezhutochnaya-opora-1p35-2t-35",
+    "promezhutochnaya-opora-1p35-2t",
+    "promezhutochnaya-opora-p35-1pg",
+    "promezhutochnaya-opora-p35-1t-ts",
+    "promezhutochnaya-opora-p35-1ts",
+    "promezhutochnaya-opora-p35-1u",
+    "promezhutochnaya-opora-p35-2t-ts",
+    "promezhutochnaya-opora-p35-2ts",
+    "promezhutochnaya-opora-ps35-2n",
+    "promezhutochnaya-opora-ps35-4",
+    "promezhutochnaya-opora-ps35-4v",
+    "promezhutochnaya-opora-ps35-4vpg"
+   ]
+  },
+  "opory-dekorativnogo-osveshcheniya": {
+   "slug": "opory-dekorativnogo-osveshcheniya",
+   "title": {
+    "ru": "Опоры декоративного освещения"
+   },
+   "parent": null,
+   "children": [],
+   "image": "alatau.jpg",
+   "count": 12,
+   "items": [
+    "opora-parkovaya-alatau",
+    "opora-parkovaya-astana",
+    "opora-parkovaya-berkut",
+    "parkovyy-fonar-duet",
+    "parkovyy-fonar-kamerton",
+    "parkovyy-fonar-luna",
+    "dekorativnaya-opora-osveshcheniya-park",
+    "dekorativnaya-opora-osveshcheniya-saturn",
+    "dekorativnaya-opora-osveshcheniya-skver",
+    "sadovo-parkovyy-svetilnik-solo",
+    "sadovo-parkovyy-svetilnik-shar",
+    "sadovo-parkovyy-svetilnik-shar-2"
+   ]
+  },
+  "opory-osveshcheniya-granyonye": {
+   "slug": "opory-osveshcheniya-granyonye",
+   "title": {
+    "ru": "Опоры освещения гранёные"
+   },
+   "parent": null,
+   "children": [],
+   "image": "opora_stvpznak_0.jpg",
+   "count": 7,
+   "items": [
+    "opory-osveshcheniya-granenye-konicheskie-flancevye-stv",
+    "opora-osveshcheniya-granyonaya-flancevaya-silovaya-sfg",
+    "opora-osveshcheniya-granyonaya-skladyvayushchayasya-ogks",
+    "opora-osveshcheniya-kontaktnoy-seti-granyonaya-flancevaya-tip-oksgf",
+    "opory-pod-videonablyudenie-osv",
+    "opory-osveshcheniya-granenye-konicheskie-pryamostoechnye-stvp",
+    "opory-osveshcheniya-granyonye-konicheskie-silovye-tip-spg"
+   ]
+  },
+  "opory-trubchatye": {
+   "slug": "opory-trubchatye",
+   "title": {
+    "ru": "Опоры трубчатые"
+   },
+   "parent": null,
+   "children": [],
+   "image": "opora_trubchataya_nesilovaya_flancevaya_otfotp_znak_0.jpg",
+   "count": 3,
+   "items": [
+    "opory-nesilovye-flancevaya-trubchatye-otf-otp",
+    "opora-trubchataya-flancevaya-silovaya-otsfotsp",
+    "opora-kontaktnoy-seti-flancevaya-trubchataya-okstfokstp"
+   ]
+  },
+  "osnovaniya": {
+   "slug": "osnovaniya",
+   "title": {
+    "ru": "Основания"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "osnovanie_zakrepa_k127.jpg",
+   "count": 2,
+   "items": [
+    "osnovanie-zakrepa-k127",
+    "osnovanie-odinochnoy-polki-k1158"
+   ]
+  },
+  "perehodnye-opory-vl-110-kv": {
+   "slug": "perehodnye-opory-vl-110-kv",
+   "title": {
+    "ru": "Переходные опоры ВЛ 110 кВ"
+   },
+   "parent": "opora-lep",
+   "children": [],
+   "image": "collectionofelectrictowers5.jpg",
+   "count": 1,
+   "items": [
+    "perehodnye-opory-vl-110-kv"
+   ]
+  },
+  "perehodnye-opory-vl-35-kv": {
+   "slug": "perehodnye-opory-vl-35-kv",
+   "title": {
+    "ru": "Переходные опоры ВЛ 35 кв"
+   },
+   "parent": "opora-lep",
+   "children": [],
+   "image": "uap35-1_2.jpg",
+   "count": 6,
+   "items": [
+    "ankerno-uglovaya-perehodnaya-opora-uap35-4",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-5",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-6",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-6-0",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-1",
+    "ankerno-uglovaya-perehodnaya-opora-uap35-3"
+   ]
+  },
+  "peremychki": {
+   "slug": "peremychki",
+   "title": {
+    "ru": "Перемычки"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "peremychka_pgs_25-280_0.jpg",
+   "count": 1,
+   "items": [
+    "peremychka-pgs-25-280"
+   ]
+  },
+  "podveski": {
+   "slug": "podveski",
+   "title": {
+    "ru": "Подвески"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "podveska_k1165uz.jpg",
+   "count": 3,
+   "items": [
+    "podveska-k1165uz",
+    "podves-k-354",
+    "podveska-zakladnaya-k-341"
+   ]
+  },
+  "polki-kabelnye": {
+   "slug": "polki-kabelnye",
+   "title": {
+    "ru": "Полки кабельные"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "polka_kabelnaya_k1161.-k1163_0.jpg",
+   "count": 2,
+   "items": [
+    "polki-kabelnye-k1160-k1161-k1162-k1163-k1164",
+    "polka-kabelnaya-p100-900"
+   ]
+  },
+  "polosy-zazemleniya": {
+   "slug": "polosy-zazemleniya",
+   "title": {
+    "ru": "Полосы заземления"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "polosa_zazemleniya_4h25_0.jpg",
+   "count": 2,
+   "items": [
+    "polosa-zazemleniya-4h25",
+    "polosa-perforirovannaya-k106-k107-k200-k202-k209"
+   ]
+  },
+  "prizhimy": {
+   "slug": "prizhimy",
+   "title": {
+    "ru": "Прижимы"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "prizhim_koroba_pk.jpg",
+   "count": 1,
+   "items": [
+    "prizhim-koroba-pk"
+   ]
+  },
+  "profilya": {
+   "slug": "profilya",
+   "title": {
+    "ru": "Профиля"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "profil_perforirovannyy_z-obraznyy_k238_0.jpg",
+   "count": 2,
+   "items": [
+    "profil-perforirovannyy-z-obraznyy-k238",
+    "profil-perforirovannyy-s-obraznyy-k1081-k1011-k1101"
+   ]
+  },
+  "promezhutochnye-opory-110-kv": {
+   "slug": "promezhutochnye-opory-110-kv",
+   "title": {
+    "ru": "Промежуточные опоры 110 кВ"
+   },
+   "parent": "opora-lep",
+   "children": [],
+   "image": "collectionofelectrictowers21.jpg",
+   "count": 1,
+   "items": [
+    "promezhutochnye-opory-lep-110-kv"
+   ]
+  },
+  "promezhutochnye-opory-vl-35-kv": {
+   "slug": "promezhutochnye-opory-vl-35-kv",
+   "title": {
+    "ru": "Промежуточные опоры ВЛ 35 КВ"
+   },
+   "parent": "opora-lep",
+   "children": [],
+   "image": "1p35-2_1.jpg",
+   "count": 41,
+   "items": [
+    "promezhutochnaya-opora-1p35-2t",
+    "promezhutochnaya-opora-p35-1u",
+    "promezhutochnaya-opora-ps35-4vpg",
+    "promezhutochnaya-opora-1p35-2t-35",
+    "promezhutochnaya-opora-p35-2v",
+    "promezhutochnaya-opora-ps35-4vt",
+    "promezhutochnaya-opora-p35-1",
+    "promezhutochnaya-opora-p35-2vpg",
+    "promezhutochnaya-opora-ps35-4n",
+    "promezhutochnaya-opora-p35-1t",
+    "promezhutochnaya-opora-p35-2vt",
+    "promezhutochnaya-opora-ps35-4pg",
+    "promezhutochnaya-opora-p35-2",
+    "promezhutochnaya-opora-p35-2vu",
+    "promezhutochnaya-opora-ps35-4pg-0",
+    "promezhutochnaya-opora-p35-2t",
+    "promezhutochnaya-opora-p35-2n",
+    "promezhutochnaya-opora-ps35-4t",
+    "promezhutochnaya-opora-p35-1v",
+    "promezhutochnaya-opora-p35-2pg-0",
+    "promezhutochnaya-opora-ps35-2",
+    "promezhutochnaya-opora-p35-1n",
+    "promezhutochnaya-opora-ps35-2v",
+    "promezhutochnaya-opora-p35-1pg",
+    "promezhutochnaya-opora-ps35-2n",
+    "promezhutochnaya-opora-1p35-2",
+    "promezhutochnaya-opora-p35-1t-ts",
+    "promezhutochnaya-opora-ps35-4",
+    "promezhutochnaya-opora-1p35-2-35",
+    "promezhutochnaya-opora-p35-1ts",
+    "promezhutochnaya-opora-ps35-4v",
+    "promezhutochnaya-opora-1p35-2pg-35",
+    "promezhutochnaya-opora-p35-1vpg",
+    "promezhutochnaya-opora-p35-1vt",
+    "promezhutochnaya-opora-p35-1vu",
+    "promezhutochnaya-opora-p35-2-0",
+    "promezhutochnaya-opora-p35-2pg",
+    "promezhutochnaya-opora-p35-2t-ts",
+    "promezhutochnaya-opora-p35-2ts",
+    "promezhutochnaya-opora-p35-2u",
+    "promezhutochnaya-opora-ps35-4t-0"
+   ]
+  },
+  "road-fences": {
+   "slug": "road-fences",
+   "title": {
+    "ru": "Road fences"
+   },
+   "parent": null,
+   "children": [],
+   "image": "",
+   "count": 0,
+   "items": []
+  },
+  "shinoderzhateli": {
+   "slug": "shinoderzhateli",
+   "title": {
+    "ru": "Шинодержатели"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "shinoderzhatel_shp-1-750_u1_0.jpg",
+   "count": 2,
+   "items": [
+    "shinoderzhatel-shp-1-750-u1",
+    "shinoderzhatel-shp-1-750-u1-0"
+   ]
+  },
+  "shvellera": {
+   "slug": "shvellera",
+   "title": {
+    "ru": "Швеллера"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "shveller_perforirovannyy_k235_0.jpg",
+   "count": 1,
+   "items": [
+    "shveller-perforirovannyy-k235"
+   ]
+  },
+  "skoby": {
+   "slug": "skoby",
+   "title": {
+    "ru": "Скобы"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "skoba_k1157_0.jpg",
+   "count": 5,
+   "items": [
+    "skoba-k1157",
+    "skoba-odnolapkovaya-so",
+    "skoba-sk",
+    "skoba-dvuhlapkovaya-sd",
+    "skoba-k142"
+   ]
+  },
+  "soediniteli": {
+   "slug": "soediniteli",
+   "title": {
+    "ru": "Соединители"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "perehodnoy_soedenitel_sl-sp_0.jpg",
+   "count": 4,
+   "items": [
+    "perehodnoy-soedinitel-sl-sp",
+    "planka-soedinitelnaya-sl",
+    "soedinitel-peregorodok-k168uz",
+    "soedinitel-sharnirnyy-sl-ssh"
+   ]
+  },
+  "stoyki-kabelnye": {
+   "slug": "stoyki-kabelnye",
+   "title": {
+    "ru": "Стойки кабельные"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "k1150.jpg",
+   "count": 4,
+   "items": [
+    "stoyki-kabelnye-k1150-k1151-k1152-k1153-k1154-k1155",
+    "stoyka-kabelnaya-potolochnaya-skp-200-skp-400-skp-500-skp-600-skp-800-skp-1000-skp-1200",
+    "stoyka-kabelnaya-k-100-3000",
+    "stoyki-kabelnye"
+   ]
+  },
+  "svetodiodnye-svetilniki": {
+   "slug": "svetodiodnye-svetilniki",
+   "title": {
+    "ru": "Светодиодные светильники"
+   },
+   "parent": null,
+   "children": [],
+   "image": "dku-led-01-120w_0.jpg",
+   "count": 3,
+   "items": [
+    "ulichnye-svetodiodnye-svetilniki-dku-led-01",
+    "svetodiodnye-svetilniki-prozhektornogo-tipa-so-vtorichnoy-optikoy-dku-led-04",
+    "svetodiodnye-svetilniki-prozhektornogo-tipa-so-vtorichnoy-optikoy-dku-led-05"
+   ]
+  },
+  "svetofornye-opory": {
+   "slug": "svetofornye-opory",
+   "title": {
+    "ru": "Светофорные опоры"
+   },
+   "parent": null,
+   "children": [],
+   "image": "opora_portalnogo_tipa_vozdushnaya_zebra_znak_0_0.jpg",
+   "count": 2,
+   "items": [
+    "svetofornyy-portal",
+    "g-obraznaya-svetofornaya-opora"
+   ]
+  },
+  "ugolki": {
+   "slug": "ugolki",
+   "title": {
+    "ru": "Уголки"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "ugolok_perforirovannyy_k_236_0.jpg",
+   "count": 1,
+   "items": [
+    "ugolok-perforirovannyy-k236-k237-k242"
+   ]
+  },
+  "uslugi": {
+   "slug": "uslugi",
+   "title": {
+    "ru": "Услуги"
+   },
+   "parent": null,
+   "children": [],
+   "image": "img_20250818_155550_1.jpg",
+   "count": 7,
+   "items": [
+    "uslugi-goryachego-cinkovaniya",
+    "ocinkovannyy-sortament-metalloprokata",
+    "gnutyy-shveller-ocinkovannyy",
+    "ugolok-gnutyy-ocinkovannyy",
+    "polosa-stalnaya-ocinkovannaya",
+    "plazmennaya-rezka-metalla",
+    "gibka-metalla"
+   ]
+  },
+  "zabory-i-ograzhdeniya": {
+   "slug": "zabory-i-ograzhdeniya",
+   "title": {
+    "ru": "Заборы и ограждения"
+   },
+   "parent": null,
+   "children": [],
+   "image": "11-md.jpg",
+   "count": 5,
+   "items": [
+    "barernye-ograzhdeniya-11-md",
+    "dorozhnoe-metallicheskoe-ograzhdenie-odnostoronnee-11do",
+    "dorozhnoe-metallicheskoe-ograzhdenie-dvuhstoronnee-11dd",
+    "mostovoe-barernoe-ograzhdenie-11-mo",
+    "11-dd-sborka-konstrukcii"
+   ]
+  },
+  "zaglushki-torcevye": {
+   "slug": "zaglushki-torcevye",
+   "title": {
+    "ru": "Заглушки торцевые"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "zaglushka_torcevaya_zt_50h50.jpg",
+   "count": 2,
+   "items": [
+    "zaglushka-torcevaya-zt-50h50",
+    "zaglushka-torcevaya-zt-005-01"
+   ]
+  },
+  "zakladnye-detali-fundamenta": {
+   "slug": "zakladnye-detali-fundamenta",
+   "title": {
+    "ru": "Закладные детали фундамента"
+   },
+   "parent": null,
+   "children": [],
+   "image": "katochka_17.jpg",
+   "count": 3,
+   "items": [
+    "fundament-ankernyy-zf",
+    "ankernyy-blok-dlya-prozhektornyh-macht-i-macht-svyazi",
+    "zakladnaya-detal-trubnaya"
+   ]
+  },
+  "zazhimy": {
+   "slug": "zazhimy",
+   "title": {
+    "ru": "Зажимы"
+   },
+   "parent": "elektromontazhnye-izdeliya",
+   "children": [],
+   "image": "zazhim_k296_u3.sb__0.jpg",
+   "count": 2,
+   "items": [
+    "zazhim-k296-u3",
+    "zazhim-k676-u3"
+   ]
+  }
+ }
+}

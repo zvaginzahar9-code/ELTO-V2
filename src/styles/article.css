@@ -1,0 +1,449 @@
+/* ──────────────────────────────────────────────────────────────
+   ELTO — материал раздела: новость, вакансия, полезная информация
+
+   Разворот издания, а не карточка CMS. Ширина экрана работает по
+   очереди: рубрика и заголовок идут широко, кадр — во всю полосу,
+   текст сужается до читаемой колонки и встаёт по центру. Движения
+   здесь заметно меньше, чем на главной: материал читают, а не
+   смотрят.
+   ────────────────────────────────────────────────────────────── */
+
+.art {
+  /* кадр идёт во всю ширину окна, поэтому обрезаем по краям страницы */
+  overflow-x: clip;
+  padding-bottom: 0;
+}
+
+/* ── шапка ───────────────────────────────────────────────────── */
+
+.art__head {
+  padding-bottom: clamp(2rem, 6vh, 4rem);
+}
+
+.art__nav {
+  margin-bottom: clamp(1.6rem, 5vh, 3rem);
+}
+
+/* возврат к списку — не кнопка «назад», а строка навигации раздела */
+.back--art {
+  padding: 0.5em 0 0.7em;
+  border: 0;
+  border-bottom: 1px solid var(--ink-12);
+  border-radius: 0;
+  gap: 0.9em;
+  letter-spacing: 0.2em;
+  transition: color 0.4s var(--e-out), border-color 0.4s var(--e-out);
+}
+.back--art:hover {
+  background: none;
+  border-color: var(--green-dim);
+}
+.back--art .back__arrow {
+  color: var(--green-dim);
+  font-size: 1em;
+}
+.back--art:hover .back__arrow {
+  transform: translateX(-0.4em);
+}
+
+/* рубрика слева, счёт материалов справа, между ними — линейка */
+.art__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+  margin-bottom: clamp(1rem, 3vh, 1.8rem);
+}
+.art__eyebrow .index {
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.art__date {
+  font-size: var(--t-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+  white-space: nowrap;
+}
+.art__eyebrow-rule {
+  flex: 1 1 auto;
+  min-width: 2rem;
+  background: var(--ink-12);
+}
+.art__no {
+  font-size: var(--t-label);
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
+/*
+ * Заголовок материала не поднимаем в верхний регистр, хотя на главной
+ * display именно такой: в новостях встречаются имена собственные вроде
+ * «КазАвтоДор», и капитель стирает их написание.
+ */
+.art__title {
+  text-transform: none;
+  font-size: clamp(2.4rem, 6.4vw, 6.4rem);
+  max-width: 17ch;
+}
+/* три ступени кегля: заголовки новостей бывают и в три слова, и в строку */
+.art__title--md {
+  font-size: clamp(2.1rem, 4.8vw, 4.6rem);
+  max-width: 22ch;
+}
+.art__title--sm {
+  font-size: clamp(1.8rem, 3.4vw, 3.2rem);
+  max-width: 28ch;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* врезка: слева выходные данные, справа первый абзац материала */
+.art__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2.2fr);
+  gap: clamp(1.4rem, 4vw, 4rem);
+  align-items: start;
+  margin-top: clamp(1.8rem, 5vh, 3.2rem);
+  padding-top: clamp(1.2rem, 3vh, 2rem);
+  border-top: 1px solid var(--ink-12);
+}
+.art__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+}
+.art__lead {
+  max-width: 54ch;
+  font-size: clamp(1.1rem, 1.5vw, 1.44rem);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.art__lead a {
+  color: var(--green-dim);
+  border-bottom: 1px solid currentColor;
+}
+
+/* ── кадр ────────────────────────────────────────────────────── */
+
+/*
+ * Полоса во всю ширину окна. Снимок внутри показывается целиком:
+ * афиша в портрет и широкое фото со стройки приходят из одной
+ * выгрузки, и общий кроп 16:9 срезал бы у первой половину текста.
+ * Пустоту по краям закрывает та же картинка — размытая и глухая.
+ */
+.art__stage {
+  --stage-pad: clamp(1rem, 4vh, 3.4rem);
+
+  position: relative;
+  margin: 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  /* высота полосы — по кадру: 16:9, но не выше экрана и не выше самого
+     снимка. Иначе баннер в 108 пикселей висит посреди пустого поля */
+  height: min(78vh, 56.25vw, calc(var(--shot-h, 100vh) + 2 * var(--stage-pad)));
+  min-height: 38vh;
+  overflow: hidden;
+  background: var(--graphite);
+  isolation: isolate;
+}
+/* полоса остаётся графитовой, даже если снимок светлый во весь кадр */
+.art__stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(90% 75% at 50% 50%, transparent 30%, rgba(14, 16, 18, 0.55) 100%);
+}
+.art__amb {
+  position: absolute;
+  inset: 0;
+  transform: scale(1.22);
+  filter: blur(42px) saturate(0.5) brightness(0.32);
+}
+.art__amb picture,
+.art__amb img {
+  width: 100%;
+  height: 100%;
+}
+.art__frame {
+  position: absolute;
+  inset: var(--stage-pad) var(--gutter);
+  z-index: 1;
+}
+/*
+ * Размер кадра задаём явно, а не процентами внутри грида: там высота строки
+ * считается по содержимому, проценту не к чему привязаться — и портретный
+ * снимок разворачивало во всю ширину полосы, теряя низ. Потолок — меньшее
+ * из свободного места и собственного размера файла (--shot-w/--shot-h их
+ * проставляет ArticleShot), центрирует поле margin: auto. Пропорции держит
+ * object-fit: contain — ничего не обрезается и не растягивается.
+ */
+.art__frame picture {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: block;
+  width: min(100%, var(--shot-w, 100%));
+  height: min(100%, var(--shot-h, 100%));
+}
+.art__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* кадр приходит вертикальной шторкой — один раз, при открытии страницы */
+@media (prefers-reduced-motion: no-preference) {
+  .art__stage {
+    animation: art-wipe 1.1s var(--e-out) 0.32s both;
+  }
+}
+@keyframes art-wipe {
+  from {
+    clip-path: inset(38% 0 38% 0);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+/* ── тело ────────────────────────────────────────────────────── */
+
+.art__main {
+  padding-block: clamp(2.6rem, 8vh, 6rem) var(--shelf);
+}
+
+/* читаемая колонка по центру полосы — ширина строки важнее ширины экрана */
+.art__col {
+  max-width: 68ch;
+  margin-inline: auto;
+}
+.art__col--wide {
+  max-width: 92ch;
+}
+.art__col + .art__col,
+.art__col + .art__gallery,
+.art__gallery + .art__more,
+.art__col + .art__more {
+  margin-top: clamp(2.2rem, 6vh, 4rem);
+}
+
+.art__col .prose {
+  max-width: none;
+  font-size: clamp(1rem, 1.12vw, 1.12rem);
+  line-height: 1.72;
+}
+.art__col .prose p {
+  margin-bottom: 1.15em;
+}
+
+/* строка с двоеточием была смысловым заголовком ещё в тексте оригинала */
+.prose__sub {
+  margin: 1.8em 0 0.9em;
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green-dim);
+}
+.prose__sub + ul {
+  margin-top: 0;
+}
+
+/* перечень: маркер — короткая черта, как в технической документации */
+.art__col .prose ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.4em;
+  border-top: 1px solid var(--ink-12);
+}
+.art__col .prose ul li {
+  position: relative;
+  margin: 0;
+  padding: 0.62em 0 0.62em 2.2em;
+  border-bottom: 1px solid var(--ink-12);
+}
+.art__col .prose ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.34em;
+  width: 1.1em;
+  height: 1px;
+  background: var(--green-dim);
+}
+
+.art__col .prose iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  margin: 1.6em 0;
+}
+
+.art__h {
+  display: block;
+  color: var(--green-dim);
+  margin-bottom: 1rem;
+}
+
+/* ── снимки материала ────────────────────────────────────────── */
+
+.art__gallery {
+  max-width: 92ch;
+  margin-inline: auto;
+}
+.art__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.6rem, 1.4vw, 1.2rem);
+}
+.art__grid li {
+  aspect-ratio: 4 / 3;
+  padding: 0.8rem;
+  background: var(--cream);
+  border: 1px solid var(--ink-12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.art__grid picture,
+.art__grid img {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── соседние материалы ──────────────────────────────────────── */
+
+.art__more {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--ink-12);
+  border-block: 1px solid var(--ink-12);
+}
+.art__more-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: clamp(1.2rem, 3vw, 2.2rem);
+  background: var(--paper);
+  transition: background-color 0.45s var(--e-out);
+}
+.art__more-card[data-dir="next"] {
+  text-align: right;
+  align-items: flex-end;
+}
+.art__more-card:hover {
+  background: var(--cream);
+}
+.art__more-h {
+  font-size: var(--t-md);
+  max-width: 24ch;
+  transition: color 0.35s var(--e-out);
+}
+.art__more-card:hover .art__more-h {
+  color: var(--green-dim);
+}
+.art__more-label::before {
+  content: "← ";
+  color: var(--green-dim);
+}
+.art__more-card[data-dir="next"] .art__more-label::before {
+  content: none;
+}
+.art__more-card[data-dir="next"] .art__more-label::after {
+  content: " →";
+  color: var(--green-dim);
+}
+.art__more[data-pair="next"],
+.art__more[data-pair="prev"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* ── движение ────────────────────────────────────────────────── */
+
+/*
+ * Шапка собирается по очереди: возврат, рубрика, заголовок (его ведёт
+ * Reveal), выходные данные, врезка. Тело приходит позже, на прокрутке.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .art__in {
+    animation: art-rise 0.9s var(--e-out) both;
+  }
+  .art__nav.art__in {
+    animation-delay: 0.04s;
+  }
+  .art__eyebrow.art__in {
+    animation-delay: 0.12s;
+  }
+  .art__meta.art__in {
+    animation-delay: 0.3s;
+  }
+  .art__lead.art__in {
+    animation-delay: 0.38s;
+  }
+
+  .art__rise {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition: opacity 0.8s var(--e-out), transform 0.8s var(--e-out);
+  }
+  .art__rise[data-in="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes art-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── адаптив ─────────────────────────────────────────────────── */
+
+@media (max-width: 980px) {
+  .art__intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.2rem;
+  }
+  .art__meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5em 1.4em;
+  }
+  .art__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .art__stage {
+    --stage-pad: 1rem;
+    /* на телефоне полосу не жмём шириной экрана: вертикальной афише
+       нужна высота, а потолком всё равно остаётся размер файла */
+    height: min(62vh, calc(var(--shot-h, 100vh) + 2 * var(--stage-pad)));
+    min-height: 34vh;
+  }
+  .art__frame {
+    inset: var(--stage-pad);
+  }
+  .art__title {
+    max-width: none;
+  }
+  .art__more {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .art__more-card[data-dir="next"] {
+    text-align: left;
+    align-items: flex-start;
+  }
+}

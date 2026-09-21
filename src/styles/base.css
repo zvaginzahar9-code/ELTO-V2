@@ -1,0 +1,390 @@
+/* ──────────────────────────────────────────────────────────────
+   ELTO — база: сброс, грунты, типографика, общие примитивы
+   ────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--graphite);
+  color: var(--zinc);
+  font-family: var(--f-sans);
+  font-size: var(--t-body);
+  line-height: 1.62;
+  font-weight: 350;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  /* «МАНГИСТАУЭНЕРГОМУНАЙ» и подобные названия иначе распирают колонку
+     сетки шире экрана — на 320 px это видно сразу */
+  overflow-wrap: break-word;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+::selection {
+  background: var(--green);
+  color: var(--graphite);
+}
+
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* ── грунты ──────────────────────────────────────────────────── */
+
+.ground-dark {
+  background: var(--graphite);
+  color: var(--zinc);
+}
+
+.ground-paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.ground-paper a:hover {
+  color: var(--green-dim);
+}
+
+/* ── раскладка ───────────────────────────────────────────────── */
+
+.shell {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gpu {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ── типографика ─────────────────────────────────────────────── */
+
+.display {
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.028em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.display--tight {
+  letter-spacing: -0.04em;
+}
+
+.title {
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.label {
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.mono {
+  font-family: var(--f-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  font-size: var(--t-md);
+  line-height: 1.55;
+  font-weight: 350;
+  text-wrap: pretty;
+}
+
+.muted {
+  color: var(--zinc-45);
+}
+
+.ground-paper .muted {
+  color: var(--ink-45);
+}
+
+/* номер раздела — навигационный якорь */
+.index {
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--green);
+}
+
+/* ── маска строки: буква не проявляется, она приходит ─────────── */
+
+.mask {
+  display: block;
+  overflow: hidden;
+}
+.mask > span {
+  display: block;
+  will-change: transform;
+}
+
+/* anime.js splitText: обёртки строк и слов */
+.split-line {
+  display: block;
+  overflow: hidden;
+}
+.split-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ── кнопки ──────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.95em 1.6em;
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid var(--zinc-25);
+  border-radius: 2px;
+  color: var(--zinc);
+  transition: border-color 0.4s var(--e-out), color 0.4s var(--e-out),
+    background-color 0.4s var(--e-out);
+}
+.btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+.btn--solid {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--graphite);
+  font-weight: 700;
+}
+.btn--solid:hover {
+  background: var(--green-hi);
+  border-color: var(--green-hi);
+  color: var(--graphite);
+}
+.ground-paper .btn {
+  border-color: var(--ink-12);
+  color: var(--ink);
+}
+.ground-paper .btn:hover {
+  border-color: var(--green-dim);
+  color: var(--green-dim);
+}
+
+/* ── линейка-разделитель ─────────────────────────────────────── */
+
+.rule {
+  height: 1px;
+  background: var(--zinc-12);
+  border: 0;
+  margin: 0;
+}
+.ground-paper .rule {
+  background: var(--ink-12);
+}
+
+/* ── таблицы характеристик: данные — это моно ────────────────── */
+
+.spec {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--f-mono);
+  font-size: var(--t-small);
+  font-variant-numeric: tabular-nums;
+}
+.spec th,
+.spec td {
+  padding: 0.78em 1em;
+  text-align: left;
+  border-bottom: 1px solid var(--ink-12);
+  vertical-align: top;
+}
+.spec thead th {
+  font-weight: 700;
+  font-size: var(--t-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+  white-space: nowrap;
+}
+.spec tbody tr:nth-child(even) {
+  background: var(--ink-06);
+}
+.spec-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── тело статьи: контент оригинала как есть ─────────────────── */
+
+.prose {
+  max-width: 68ch;
+}
+.prose p {
+  margin: 0 0 1.05em;
+  text-wrap: pretty;
+}
+.prose p:last-child {
+  margin-bottom: 0;
+}
+.prose strong,
+.prose b {
+  font-weight: 600;
+}
+.prose ul,
+.prose ol {
+  margin: 0 0 1.05em;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+.prose ol {
+  list-style: decimal;
+}
+.prose li {
+  margin-bottom: 0.35em;
+}
+.prose a {
+  color: var(--green-dim);
+  border-bottom: 1px solid currentColor;
+}
+.prose img {
+  height: auto;
+  margin: 1.5em 0;
+}
+
+/* ── касание ─────────────────────────────────────────────────── */
+
+/*
+ * На устройстве с пальцем строчка текста — плохая цель. Поднимаем высоту
+ * ссылок до комфортной там, где указатель грубый, и только там: на десктопе
+ * это раздуло бы подвал и крошки без всякой пользы.
+ */
+@media (pointer: coarse) {
+  .foot__list a,
+  .foot__social a,
+  .foot__big,
+  .crumbs a,
+  .menu__foot a,
+  .contacts__big,
+  .omap__coords,
+  .omap__attr,
+  .foot__bar a,
+  .docs a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .nav__lang {
+    min-width: 44px;
+    min-height: 40px;
+  }
+
+  .foot__list a,
+  .foot__big,
+  .contacts__big {
+    padding-block: 0;
+  }
+}
+
+/* ── доступность ─────────────────────────────────────────────── */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

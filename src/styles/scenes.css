@@ -1,0 +1,936 @@
+/* ──────────────────────────────────────────────────────────────
+   ELTO — сцены главной
+   Ритм страницы: графит → бумага → графит. Смена грунта и есть монтаж.
+   ────────────────────────────────────────────────────────────── */
+
+.scene {
+  position: relative;
+}
+
+/* ── 01 ПОДЪЁМ ───────────────────────────────────────────────── */
+
+.hero {
+  height: 320vh;
+  background: var(--graphite);
+}
+
+.hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.hero__plate {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 58%;
+}
+.hero__plate > * {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 68%;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(14, 16, 18, 0.8) 0%, rgba(14, 16, 18, 0.42) 32%,
+      rgba(14, 16, 18, 0.04) 58%, rgba(14, 16, 18, 0.62) 100%),
+    linear-gradient(180deg, rgba(14, 16, 18, 0.62) 0%, rgba(14, 16, 18, 0.06) 28%,
+      rgba(14, 16, 18, 0.2) 62%, rgba(14, 16, 18, 0.9) 100%);
+}
+
+.hero__fade {
+  position: absolute;
+  inset: 0;
+  background: var(--graphite);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero__ui {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: clamp(0.8rem, 2.5vh, 2rem);
+  align-items: start;
+  padding-top: calc(var(--nav-h) + 1.1rem);
+  padding-bottom: clamp(1.2rem, 4vh, 2.6rem);
+  color: var(--zinc);
+  pointer-events: none;
+}
+.hero__ui a,
+.hero__ui button {
+  pointer-events: auto;
+}
+
+/*
+ * Строки закреплены явно: подписи в шапке кадра прячутся на телефоне через
+ * display:none, а это выкидывает элемент из сетки и поднимает всё остальное
+ * на строку вверх — слоган уезжал на место подписей, а кнопка на место
+ * слогана.
+ */
+.hero__top {
+  grid-row: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.hero__corner {
+  color: var(--zinc-45);
+}
+.hero__corner--green {
+  color: var(--green);
+}
+
+.hero__middle {
+  grid-row: 2;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  align-content: center;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  /* строка должна уметь сжиматься, иначе содержимое выдавливает её
+     вверх — прямо на подписи в шапке кадра */
+  min-height: 0;
+  /* и не выходить за свою строку сетки: на низком экране содержимое иначе
+     наползает на кнопку под ним */
+  overflow: hidden;
+}
+
+/* знак стоит на месте будущего заголовка и уступает ему кадр */
+.hero__mark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.hero__mark img {
+  width: clamp(180px, 20vw, 290px);
+  height: auto;
+}
+.hero__tagline {
+  color: var(--zinc-45);
+  letter-spacing: 0.42em;
+}
+
+.hero__copy {
+  /* строки заголовка разбиты вручную — ширину ограничивать нельзя,
+     иначе маска обрежет их по середине слова */
+  max-width: min(100%, 62rem);
+}
+.hero__title {
+  /* кегль ограничен и высотой экрана: на ноутбуке три строки заголовка
+     иначе перестают помещаться между подписями и цифрами */
+  font-size: min(var(--t-xxl), 10.5vh);
+  color: #fff;
+  margin-bottom: clamp(0.7rem, 1.8vh, 1.2rem);
+}
+.hero__sub {
+  max-width: 34ch;
+  color: var(--zinc-70);
+  opacity: 0;
+}
+
+.hero__telemetry {
+  display: grid;
+  gap: clamp(1.1rem, 2.6vh, 1.8rem);
+  text-align: right;
+  justify-items: end;
+}
+.hero__tel {
+  opacity: 0;
+}
+.hero__tel .label {
+  display: block;
+  color: var(--zinc-45);
+  margin-bottom: 0.3em;
+}
+.hero__tel b {
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+  font-weight: 500;
+  color: var(--green);
+  line-height: 1;
+}
+
+.hero__hint {
+  grid-row: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.hero__hint-label {
+  color: var(--zinc-45);
+}
+
+/* ── 02 КОМПАНИЯ ─────────────────────────────────────────────── */
+
+.company {
+  padding-block: var(--shelf);
+}
+
+.company__head {
+  margin-bottom: clamp(2rem, 5vh, 3.4rem);
+}
+.company__title {
+  font-size: var(--t-xl);
+  margin-top: 0.8rem;
+  max-width: 18ch;
+}
+
+.company__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 4rem);
+  align-items: start;
+}
+
+.company__text .lead {
+  margin-bottom: 1.1em;
+}
+
+.company__more {
+  margin-top: 1.4rem;
+}
+
+.company__figure {
+  margin: 0;
+  position: relative;
+}
+.company__figure picture {
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: var(--cream-2);
+  overflow: hidden;
+}
+.company__figure img {
+  width: 100%;
+  height: 100%;
+}
+.company__figure figcaption {
+  margin-top: 0.8rem;
+}
+
+.company__figures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 3rem);
+  margin-top: clamp(2.4rem, 7vh, 4.6rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--ink-12);
+}
+.fig dt {
+  color: var(--ink-45);
+  margin-bottom: 0.5em;
+}
+.fig__v {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* ── 03 ИЗ ЛИСТА В ОПОРУ ─────────────────────────────────────── */
+
+.production {
+  background: var(--graphite);
+}
+
+.production__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  /* колонка фиксируется по экрану: иначе её растянет широкий трек,
+     и заголовок уедет вслед за ним */
+  grid-template-columns: 100%;
+  grid-template-rows: auto 1fr auto;
+  padding-top: calc(var(--nav-h) + clamp(1rem, 4vh, 2.4rem));
+  padding-bottom: clamp(1.2rem, 4vh, 2.4rem);
+}
+
+.production__head {
+  grid-row: 1;
+}
+.production__title {
+  font-size: var(--t-lg);
+  margin-top: 0.6rem;
+}
+
+.production__track {
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  padding-inline: var(--gutter);
+  will-change: transform;
+}
+
+.stage {
+  --near: 0;
+  flex: 0 0 auto;
+  width: min(74vw, 900px);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.2rem, 3vw, 3rem);
+  align-items: center;
+  opacity: calc(0.35 + 0.65 * var(--near));
+  transition: opacity 0.2s linear;
+}
+
+.stage__plate {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--steel);
+  overflow: hidden;
+  border: 1px solid var(--zinc-12);
+}
+.stage__plate picture,
+.stage__plate img,
+.stage__video {
+  width: 100%;
+  height: 100%;
+}
+.stage__plate picture {
+  position: absolute;
+  inset: 0;
+}
+.stage__plate img {
+  object-fit: cover;
+}
+.stage__no {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.6rem;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--green);
+  /* смешивание давало фиолетовый на светлых кадрах — номер этапа должен
+     оставаться фирменно-зелёным на любом кадре */
+  text-shadow: 0 2px 14px rgba(14, 16, 18, 0.85);
+}
+
+.stage__h {
+  font-size: var(--t-lg);
+  color: #fff;
+  margin-bottom: 0.8rem;
+}
+.stage__p {
+  color: var(--zinc-70);
+  font-size: var(--t-small);
+  margin-bottom: 1.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.production__rail {
+  grid-row: 3;
+  height: 2px;
+  margin-inline: var(--gutter);
+  background: var(--zinc-12);
+  overflow: hidden;
+}
+.production__rail > span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/*
+ * Режим «меньше движения»: лента не едет по прокрутке, поэтому перестаёт
+ * быть закреплённой и превращается в обычную полосу, которую листают
+ * пальцем или колесом. Все четыре этапа остаются достижимы.
+ */
+.production[data-static="true"] {
+  height: auto;
+}
+.production[data-static="true"] .production__stage {
+  position: static;
+  height: auto;
+  padding-bottom: clamp(2rem, 6vh, 3.5rem);
+}
+.production[data-static="true"] .production__head {
+  margin-bottom: clamp(1.4rem, 4vh, 2.6rem);
+}
+.production[data-static="true"] .production__track {
+  transform: none;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+.production[data-static="true"] .stage {
+  --near: 1;
+  scroll-snap-align: start;
+}
+.production[data-static="true"] .production__rail {
+  display: none;
+}
+
+/* ── 04 СТОЙКА ───────────────────────────────────────────────── */
+
+.cat {
+  padding-block: var(--shelf);
+}
+
+.cat__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: clamp(1.6rem, 4vh, 3rem);
+}
+.cat__title {
+  font-size: var(--t-xl);
+  grid-column: 1;
+  margin-top: 0.7rem;
+}
+.cat__head .index {
+  grid-column: 1;
+}
+.cat__all {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: end;
+}
+
+.cat__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 34vw);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+}
+
+.cat__row {
+  border-top: 1px solid var(--ink-12);
+}
+.cat__row:last-child {
+  border-bottom: 1px solid var(--ink-12);
+}
+
+.cat__link {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: clamp(0.7rem, 1.6vh, 1.1rem);
+  transition: padding-left 0.5s var(--e-out), color 0.35s var(--e-out);
+}
+.cat__row.is-active .cat__link {
+  padding-left: clamp(0.4rem, 1.2vw, 1.1rem);
+  color: var(--green-dim);
+}
+.cat__no {
+  font-size: var(--t-label);
+  color: var(--ink-45);
+}
+.cat__row.is-active .cat__no {
+  color: var(--green-dim);
+}
+.cat__name {
+  font-size: clamp(1.05rem, 1.9vw, 1.7rem);
+}
+.cat__count {
+  font-size: var(--t-label);
+  color: var(--ink-45);
+}
+
+.cat__thumb {
+  display: none;
+}
+
+/* превью раскрывается снизу вверх — как поднимают опору */
+.cat__stage {
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+  aspect-ratio: 3 / 4;
+  background: var(--cream);
+  border: 1px solid var(--ink-12);
+}
+.cat__shot {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 2.5vw, 2.2rem);
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.85s var(--e-out), opacity 0.4s var(--e-out);
+}
+.cat__shot.is-on {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+.cat__shot picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cat__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.cat__shot figcaption {
+  position: absolute;
+  left: clamp(1rem, 2.5vw, 2.2rem);
+  bottom: clamp(0.8rem, 2vw, 1.4rem);
+  color: var(--ink-45);
+}
+
+/* ── 05 ПОЧЕМУ МЫ ────────────────────────────────────────────── */
+
+.why {
+  padding-block: var(--shelf);
+  background: var(--graphite-2);
+}
+
+.why__head {
+  margin-bottom: clamp(1.8rem, 5vh, 3.2rem);
+}
+.why__title {
+  font-size: var(--t-xl);
+  color: #fff;
+  margin-top: 0.7rem;
+}
+
+.why__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--zinc-12);
+  border: 1px solid var(--zinc-12);
+}
+/* карточка не ссылка: ни курсора, ни отклика на наведение */
+.why__card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.2rem, 2.6vw, 2.2rem);
+  background: var(--graphite-2);
+}
+.why__no {
+  display: block;
+  font-size: var(--t-label);
+  color: var(--green);
+  margin-bottom: 1.1rem;
+}
+.why__h {
+  font-size: var(--t-md);
+  color: #fff;
+}
+
+.why__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem clamp(1.5rem, 4vw, 4rem);
+  margin-top: clamp(2rem, 5vh, 3.4rem);
+}
+.why__line {
+  display: flex;
+  gap: 0.9rem;
+  align-items: baseline;
+  font-size: var(--t-small);
+  color: var(--zinc-70);
+}
+.why__bullet {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  transform: translateY(-2px);
+}
+
+/* ── 06 ГЕОГРАФИЯ ────────────────────────────────────────────── */
+
+.geo {
+  height: 220vh;
+  background: var(--graphite);
+}
+.geo__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+}
+.geo__plate {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+}
+.geo__plate > * {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.geo__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(14, 16, 18, 0.92) 0%, rgba(14, 16, 18, 0.45) 46%,
+    rgba(14, 16, 18, 0.1) 70%, rgba(14, 16, 18, 0.55) 100%);
+}
+.geo__inner {
+  position: relative;
+  padding-top: var(--nav-h);
+}
+.geo__title {
+  font-size: min(var(--t-xl), 9vh);
+  color: #fff;
+  margin-top: 0.8rem;
+  max-width: 24ch;
+}
+.geo__lead {
+  max-width: 44ch;
+  margin-top: 1.3rem;
+  font-size: clamp(1.05rem, 1.35vw, 1.5rem);
+  line-height: 1.5;
+  color: var(--zinc);
+}
+/* полоса партнёров — светлая: логотипы нарисованы под белый фон */
+.partners {
+  padding-block: clamp(2.6rem, 7vh, 4.6rem);
+}
+.partners__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--ink-12);
+  margin-bottom: clamp(1.4rem, 3vh, 2.2rem);
+}
+.partners__h {
+  color: var(--green-dim);
+}
+.partners__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+}
+.partners__item {
+  display: grid;
+  /* без сжимаемой колонки неявный трек вырастает до ширины логотипа
+     и распирает всю сетку за край экрана */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-items: center;
+  justify-items: center;
+  padding: clamp(0.6rem, 1.4vw, 1rem);
+  border: 1px solid var(--ink-12);
+  background: #fff;
+  min-height: 108px;
+}
+.partners__item picture {
+  display: grid;
+  /* колонка обязана быть сжимаемой: иначе трек вырастает до собственной
+     ширины логотипа и распирает всю сетку за край экрана */
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  width: 100%;
+  min-height: 0;
+}
+.partners__item img {
+  max-height: 56px;
+  width: auto;
+  filter: grayscale(1);
+  opacity: 0.82;
+  transition: filter 0.4s var(--e-out), opacity 0.4s var(--e-out);
+}
+.partners__item:hover img {
+  filter: none;
+  opacity: 1;
+}
+.partners__name {
+  color: var(--ink-45);
+  text-align: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+}
+
+/* ── 07 НОВОСТИ ──────────────────────────────────────────────── */
+
+.news {
+  padding-block: var(--shelf);
+}
+.news__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: clamp(1.6rem, 4vh, 2.8rem);
+}
+.news__title {
+  font-size: var(--t-xl);
+  margin-top: 0.7rem;
+}
+.news__all {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: end;
+}
+.news__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.6rem);
+}
+.news__shot {
+  aspect-ratio: 4 / 3;
+  background: var(--cream-2);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.news__shot picture,
+.news__shot img {
+  width: 100%;
+  height: 100%;
+}
+.news__card a:hover .news__shot img {
+  transform: scale(1.04);
+}
+.news__shot img {
+  transition: transform 0.9s var(--e-out);
+}
+.news__blank {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(135deg, var(--cream) 0 10px, var(--cream-2) 10px 20px);
+}
+.news__h {
+  font-size: var(--t-md);
+  margin-bottom: 0.45rem;
+}
+.news__card a:hover .news__h {
+  color: var(--green-dim);
+}
+.news__p {
+  font-size: var(--t-small);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── 08 КОНТАКТ ──────────────────────────────────────────────── */
+
+.cta {
+  padding-block: var(--shelf);
+  background: var(--graphite);
+}
+.cta__title {
+  font-size: var(--t-xxl);
+  color: #fff;
+  margin-top: 0.8rem;
+  margin-bottom: clamp(2rem, 6vh, 3.6rem);
+}
+.cta__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--zinc-12);
+}
+.cta__col .label {
+  display: block;
+  color: var(--zinc-45);
+  margin-bottom: 0.7em;
+}
+.cta__big {
+  font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+  color: #fff;
+  transition: color 0.3s var(--e-out);
+}
+.cta__big:hover {
+  color: var(--green);
+}
+.cta__address {
+  font-style: normal;
+  color: var(--zinc-70);
+}
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: clamp(1.8rem, 5vh, 3rem);
+}
+
+/* ── адаптив ─────────────────────────────────────────────────── */
+
+@media (max-width: 1180px) {
+  .hero__middle {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: clamp(1.4rem, 4vh, 2.4rem);
+  }
+  .hero__telemetry {
+    grid-auto-flow: column;
+    text-align: left;
+    justify-items: start;
+    gap: 1.6rem;
+  }
+  .partners__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .news__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .why__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .company__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cat__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cat__stage {
+    display: none;
+  }
+  .cat__thumb {
+    display: block;
+    width: 64px;
+    aspect-ratio: 3 / 4;
+    margin-left: 4.2rem;
+    margin-bottom: 0.8rem;
+    background: var(--cream);
+  }
+  .cat__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .stage {
+    width: min(86vw, 640px);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .stage__plate {
+    aspect-ratio: 16 / 10;
+  }
+  .stage__p {
+    -webkit-line-clamp: 4;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero {
+    height: 260vh;
+  }
+  /* вертикальный кадр светлее горизонтального: небо занимаетполовину экрана,
+     и без усиленной подложки слоган по нему не читается */
+  .hero__scrim {
+    background:
+      linear-gradient(180deg, rgba(14, 16, 18, 0.72) 0%, rgba(14, 16, 18, 0.12) 22%,
+        rgba(14, 16, 18, 0.45) 58%, rgba(14, 16, 18, 0.95) 100%),
+      linear-gradient(90deg, rgba(14, 16, 18, 0.7) 0%, rgba(14, 16, 18, 0.15) 70%,
+        rgba(14, 16, 18, 0.35) 100%);
+  }
+  /* знак остаётся наложением, как на десктопе: он гаснет ровно тогда,
+     когда приходит слоган, и незачем отдавать ему высоту, которой на
+     телефоне и так нет */
+  .hero__mark img {
+    width: clamp(150px, 46vw, 220px);
+  }
+  .hero__copy {
+    max-width: none;
+  }
+  .hero__top {
+    display: none;
+  }
+  .hero__telemetry {
+    grid-auto-flow: row;
+    gap: 0.9rem;
+  }
+  .hero__tel b {
+    font-size: 1.4rem;
+  }
+  .hero__hint {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero__hint-label {
+    display: none;
+  }
+  .company__figures,
+  .cta__grid,
+  .news__grid,
+  .why__cards,
+  .why__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .partners__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .geo {
+    height: 180vh;
+  }
+  .cat__head,
+  .news__head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cat__all,
+  .news__all {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  /* три логотипа в ряд на узком экране превращаются в нечитаемые марки */
+  .partners__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/*
+ * Телефон в альбомной ориентации: высоты экрана меньше, чем нужно слогану,
+ * подписи и цифрам разом. Цифры здесь дополнение — убираем их, а слоган и
+ * подзаголовок остаются целиком.
+ */
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero {
+    height: 220vh;
+  }
+  .hero__telemetry,
+  .hero__top {
+    display: none;
+  }
+  /* знак на телефоне встаёт над слоганом и здесь уже не помещается —
+     логотип в шапке всё равно на виду */
+  .hero__mark {
+    display: none;
+  }
+  .hero__title {
+    font-size: min(var(--t-xxl), 13vh);
+  }
+  .hero__sub {
+    font-size: var(--t-small);
+  }
+  .hero__ui {
+    padding-top: calc(var(--nav-h) + 0.4rem);
+  }
+}

@@ -1,0 +1,987 @@
+/* ──────────────────────────────────────────────────────────────
+   ELTO — рабочие страницы: каталог, раздел, изделие, статьи
+   Здесь движения меньше всего: это поверхность, на которой работают.
+   ────────────────────────────────────────────────────────────── */
+
+.page {
+  min-height: 70vh;
+  padding-top: calc(var(--nav-h) + clamp(1.6rem, 6vh, 4rem));
+  padding-bottom: var(--shelf);
+}
+
+.page__head {
+  margin-bottom: clamp(1.6rem, 5vh, 3rem);
+}
+.page__title {
+  font-size: var(--t-xl);
+  margin-top: 0.7rem;
+  max-width: 22ch;
+}
+.page__meta {
+  margin-top: 0.9rem;
+  font-size: var(--t-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ── возврат на уровень выше ─────────────────────────────────── */
+
+.back {
+  /* блочный flex, а не inline: иначе подпись раздела встаёт с кнопкой
+     в одну строку и читается как продолжение её текста */
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.7em;
+  margin-bottom: clamp(1rem, 2.4vh, 1.6rem);
+  padding: 0.6em 1.1em 0.6em 0.9em;
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--ink-12);
+  border-radius: 2px;
+  transition: border-color 0.35s var(--e-out), color 0.35s var(--e-out),
+    background-color 0.35s var(--e-out);
+}
+.back:hover {
+  border-color: var(--green-dim);
+  color: var(--green-dim);
+  background: var(--green-05);
+}
+.back__arrow {
+  display: inline-block;
+  font-size: 1.15em;
+  line-height: 1;
+  transition: transform 0.4s var(--e-out);
+}
+.back:hover .back__arrow {
+  transform: translateX(-0.25em);
+}
+.back__label {
+  /* длинные названия разделов не должны растягивать кнопку на пол-экрана */
+  max-width: 34ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* на графите кнопка живёт в светлых тонах */
+.page:not(.ground-paper) .back {
+  color: var(--zinc);
+  border-color: var(--zinc-25);
+}
+.page:not(.ground-paper) .back:hover {
+  color: var(--green);
+  border-color: var(--green);
+  background: var(--green-05);
+}
+
+@media (max-width: 700px) {
+  .back {
+    padding: 0.7em 1em;
+  }
+  .back__label {
+    max-width: 22ch;
+  }
+}
+
+/* ── крошки ──────────────────────────────────────────────────── */
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55em;
+  font-size: var(--t-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+  margin-bottom: 1rem;
+}
+.crumbs a {
+  display: inline-block;
+  padding-block: 0.35em;
+}
+.crumbs a:hover {
+  color: var(--green-dim);
+}
+
+/* ── поиск ───────────────────────────────────────────────────── */
+
+.search {
+  margin-top: clamp(1.4rem, 4vh, 2.4rem);
+  max-width: 640px;
+}
+.search__input {
+  width: 100%;
+  padding: 0.95em 1.1em;
+  font: inherit;
+  font-size: var(--t-md);
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink-12);
+  border-radius: 2px;
+  transition: border-color 0.3s var(--e-out);
+}
+.search__input::placeholder {
+  color: var(--ink-45);
+}
+.search__input:focus {
+  outline: none;
+  border-color: var(--green-dim);
+}
+
+/* ── сетки ───────────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+.grid--sections {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.grid--products {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.grid--logos {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.grid--gallery {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 2rem;
+}
+.grid--gallery li {
+  aspect-ratio: 4 / 3;
+  background: var(--cream-2);
+  overflow: hidden;
+}
+.grid--gallery picture,
+.grid--gallery img {
+  width: 100%;
+  height: 100%;
+}
+
+/* раздел каталога */
+.sect__shot {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--cream);
+  border: 1px solid var(--ink-12);
+  overflow: hidden;
+  margin-bottom: 0.9rem;
+}
+.sect__shot picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 12%;
+}
+.sect__shot img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.9s var(--e-out);
+}
+.sect a:hover .sect__shot img {
+  transform: translateY(-2.5%) scale(1.03);
+}
+/* кадр подраздела, у которого есть только текст */
+.sect__shot[data-text="true"] {
+  display: grid;
+  align-items: center;
+  padding: clamp(1rem, 2.2vw, 1.6rem);
+}
+.sect__excerpt {
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--ink-70);
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.sect__no {
+  position: absolute;
+  left: 0.7rem;
+  top: 0.6rem;
+  font-size: var(--t-label);
+  color: var(--ink-45);
+}
+.sect__h {
+  font-size: var(--t-md);
+  margin-bottom: 0.3rem;
+}
+.sect a:hover .sect__h {
+  color: var(--green-dim);
+}
+.sect__meta {
+  font-size: var(--t-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* карточка изделия */
+.card__shot {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  background: var(--cream);
+  border: 1px solid var(--ink-12);
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+.card__shot picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10%;
+}
+.card__shot img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.85s var(--e-out);
+}
+.card a:hover .card__shot img {
+  transform: translateY(-3%) scale(1.03);
+}
+.card__no {
+  position: absolute;
+  left: 0.6rem;
+  top: 0.5rem;
+  font-size: var(--t-label);
+  color: var(--ink-45);
+}
+.card__h {
+  font-size: var(--t-small);
+  font-weight: 500;
+  line-height: 1.35;
+  margin-bottom: 0.3rem;
+}
+.card a:hover .card__h {
+  color: var(--green-dim);
+}
+.card__spec {
+  color: var(--ink-45);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+
+.catalog__count {
+  margin-bottom: 1.2rem;
+}
+
+/* фишки подразделов */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.5em 0.9em;
+  font-size: var(--t-small);
+  border: 1px solid var(--ink-12);
+  border-radius: 2px;
+  transition: border-color 0.3s var(--e-out), color 0.3s var(--e-out);
+}
+.chip:hover {
+  border-color: var(--green-dim);
+  color: var(--green-dim);
+}
+.chip__n {
+  font-size: var(--t-label);
+  color: var(--ink-45);
+}
+
+.related-sections {
+  margin-top: clamp(2.4rem, 7vh, 4.4rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--ink-12);
+}
+
+/* ── карточка изделия ────────────────────────────────────────── */
+
+.product__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 4.5rem);
+  align-items: stretch;
+}
+
+/* колонка кадра должна быть высотой во весь текст — иначе прилипание
+   кончится там, где кончится сама картинка, и кадр уедет вверх */
+.product__media {
+  height: 100%;
+}
+
+.product__sticky {
+  position: sticky;
+  top: calc(var(--nav-h) + 1.6rem);
+}
+
+.shot {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--cream);
+  border: 1px solid var(--ink-12);
+  overflow: hidden;
+}
+.shot__layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 2.4rem);
+  background: var(--cream);
+}
+.shot__layer picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.shot__layer img {
+  width: 100%;
+  height: 100%;
+}
+.shot__hint {
+  margin-top: 0.8rem;
+}
+
+.product__title {
+  font-size: var(--t-lg);
+  margin-bottom: 1.2rem;
+}
+.product__prose {
+  max-width: 62ch;
+}
+.product__h {
+  display: block;
+  color: var(--green-dim);
+  margin-bottom: 1rem;
+}
+.product__specs,
+.product__docs {
+  margin-top: clamp(2rem, 5vh, 3rem);
+}
+.product__specs .spec-wrap + .spec-wrap {
+  margin-top: 1.6rem;
+}
+.product__specs tbody tr {
+  will-change: transform, opacity;
+}
+
+.docs li {
+  margin-bottom: 0.5em;
+}
+.docs a {
+  font-family: var(--f-mono);
+  font-size: var(--t-small);
+  color: var(--green-dim);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.docs a:hover {
+  border-bottom-color: currentColor;
+}
+
+.product__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: clamp(2rem, 5vh, 3rem);
+}
+
+.product__related {
+  margin-top: clamp(3rem, 9vh, 6rem);
+  padding-top: 2.2rem;
+  border-top: 1px solid var(--ink-12);
+}
+
+/* ── списки разделов ─────────────────────────────────────────── */
+
+/* сам материал раздела живёт в styles/article.css */
+
+.list__row {
+  border-top: 1px solid var(--ink-12);
+}
+.list__row:last-child {
+  border-bottom: 1px solid var(--ink-12);
+}
+.list__row > a,
+.list__row > div {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.4rem);
+  align-items: center;
+  padding-block: clamp(1rem, 2.4vh, 1.6rem);
+  transition: padding-left 0.5s var(--e-out);
+}
+.list__row > a:hover {
+  padding-left: clamp(0.4rem, 1.2vw, 1rem);
+}
+.list__shot {
+  aspect-ratio: 4 / 3;
+  background: var(--cream-2);
+  overflow: hidden;
+}
+.list__shot picture,
+.list__shot img {
+  width: 100%;
+  height: 100%;
+}
+.list__h {
+  font-size: var(--t-md);
+  margin-bottom: 0.4rem;
+}
+.list__row > a:hover .list__h {
+  color: var(--green-dim);
+}
+.list__p {
+  font-size: var(--t-small);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.logo-card {
+  display: grid;
+  /* без сжимаемой колонки неявный трек вырастает до ширины логотипа */
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  gap: 0.8rem;
+  aspect-ratio: 4 / 3;
+  padding: clamp(0.8rem, 2vw, 1.6rem);
+  border: 1px solid var(--ink-12);
+}
+.logo-card picture {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  width: 100%;
+  min-height: 0;
+}
+.logo-card img {
+  max-height: 72px;
+  width: auto;
+}
+.logo-card .label {
+  color: var(--ink-45);
+  text-align: center;
+}
+
+/* ── о компании ──────────────────────────────────────────────── */
+
+.about__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(1.6rem, 4vw, 4rem);
+  align-items: start;
+}
+.about__film {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  overflow: hidden;
+}
+.about__film iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.about__play {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+.about__play picture,
+.about__play img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.about__play-label {
+  position: relative;
+  padding: 0.85em 1.4em;
+  background: var(--green);
+  color: var(--graphite);
+  font-weight: 700;
+}
+.about__figures {
+  display: grid;
+  gap: 1.4rem;
+  margin-top: 1.8rem;
+}
+.about__subs {
+  margin-top: clamp(2.6rem, 8vh, 5rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--ink-12);
+}
+
+/* ── контакты ────────────────────────────────────────────────── */
+
+.contacts__top {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.4rem, 4vw, 3rem);
+  padding-bottom: clamp(2rem, 5vh, 3rem);
+  border-bottom: 1px solid var(--ink-12);
+}
+.contacts__block .label {
+  display: block;
+  color: var(--ink-45);
+  margin-bottom: 0.8em;
+}
+.contacts__address {
+  font-style: normal;
+  line-height: 1.7;
+}
+.contacts__big {
+  display: block;
+  font-size: var(--t-md);
+  margin-bottom: 0.25em;
+  transition: color 0.3s var(--e-out);
+}
+.contacts__big:hover {
+  color: var(--green-dim);
+}
+.contacts__people,
+.contacts__map {
+  margin-top: clamp(2rem, 6vh, 3.6rem);
+}
+.contacts__h {
+  display: block;
+  color: var(--green-dim);
+  margin-bottom: 1rem;
+}
+/* ── карта проезда ───────────────────────────────────────────── */
+
+/*
+ * Тёмная плита на светлой странице: карта нарисована тайлами CARTO dark,
+ * и любой другой грунт под ней выглядел бы как дырка в вёрстке. Карточка
+ * адреса лежит поверх карты на широком экране и уходит под неё на узком —
+ * перекрывать половину кадра на телефоне нечем.
+ */
+.omap {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--ink-12);
+  border-radius: 2px;
+  background: var(--graphite);
+  color: var(--zinc);
+  min-height: clamp(420px, 62vh, 660px);
+  isolation: isolate;
+}
+
+.omap__surface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* карту тянем только мышью, палец оставляем прокрутке страницы */
+  touch-action: pan-y;
+}
+.omap__surface[data-pan="true"] {
+  cursor: grab;
+}
+.omap[data-held="true"] .omap__surface {
+  cursor: grabbing;
+}
+
+.omap__world {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.omap__tiles {
+  position: absolute;
+  inset: 0;
+}
+/* снимок цветной и яркий: приглушаем его до грунта страницы */
+.omap[data-layer="sat"] .omap__tiles--base {
+  filter: saturate(0.5) brightness(0.72) contrast(1.12);
+}
+.omap[data-layer="plan"] .omap__tiles--base {
+  filter: brightness(1.04) contrast(1.14);
+}
+/* слой подписей — поверх подложки, без затемнения */
+.omap__tiles--ref {
+  opacity: 0.9;
+}
+.omap__tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 256px;
+  height: 256px;
+  max-width: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* виньетка: к краям кадр гаснет, карточка адреса читается на любом тайле */
+.omap__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 70% 40%, transparent 35%, rgba(14, 16, 18, 0.72) 100%),
+    linear-gradient(100deg, rgba(14, 16, 18, 0.9) 0%, rgba(14, 16, 18, 0.35) 36%, transparent 58%);
+}
+
+/* сетка координат — намёк на инженерный планшет, а не на карту из коробки */
+.omap__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: linear-gradient(var(--zinc-06) 1px, transparent 1px),
+    linear-gradient(90deg, var(--zinc-06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(90% 70% at 50% 50%, #000 40%, transparent 100%);
+}
+
+/* ── маркер ──────────────────────────────────────────────────── */
+
+.omap__pin {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.omap__dot {
+  position: absolute;
+  left: -7px;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(14, 16, 18, 0.85), 0 0 26px var(--green-45);
+}
+.omap__ping {
+  position: absolute;
+  left: -7px;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--green);
+  animation: omap-ping 2.6s var(--e-out) infinite;
+}
+@keyframes omap-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  70%,
+  100% {
+    transform: scale(5.5);
+    opacity: 0;
+  }
+}
+.omap__flag {
+  position: absolute;
+  left: 16px;
+  top: -0.85em;
+  padding: 0.35em 0.7em;
+  white-space: nowrap;
+  font-size: var(--t-label);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--graphite);
+  background: var(--green);
+  border-radius: 2px;
+}
+
+/* ── карточка адреса ─────────────────────────────────────────── */
+
+.omap__card {
+  position: absolute;
+  left: clamp(1rem, 2.2vw, 2rem);
+  bottom: clamp(1rem, 2.2vw, 2rem);
+  width: min(28rem, calc(100% - 2 * clamp(1rem, 2.2vw, 2rem)));
+  padding: clamp(1.2rem, 2vw, 1.7rem);
+  background: rgba(14, 16, 18, 0.82);
+  border: 1px solid var(--zinc-12);
+  border-radius: 2px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.omap__addr {
+  display: block;
+  margin-top: 0.7rem;
+  font-style: normal;
+  font-size: var(--t-md);
+  line-height: 1.5;
+  color: #fff;
+}
+
+.omap__coords {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8em;
+  margin-top: 0.9rem;
+  padding: 0;
+  font-size: var(--t-small);
+  color: var(--zinc-70);
+  transition: color 0.3s var(--e-out);
+}
+.omap__coords:hover {
+  color: var(--green);
+}
+.omap__coords-hint {
+  font-size: var(--t-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--green-dim);
+}
+.omap__coords:hover .omap__coords-hint {
+  color: var(--green);
+}
+
+.omap__acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+}
+/* страница светлая, плита — тёмная: возвращаем кнопкам тёмный вариант */
+.ground-paper .omap .btn {
+  border-color: var(--zinc-25);
+  color: var(--zinc);
+}
+.ground-paper .omap .btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+.ground-paper .omap .btn--solid,
+.ground-paper .omap .btn--solid:hover {
+  color: var(--graphite);
+}
+.ground-paper .omap a:hover {
+  color: inherit;
+}
+
+/* ── инструменты ─────────────────────────────────────────────── */
+
+/* переключатель подложки — две кнопки одной плиткой */
+.omap__layers {
+  position: absolute;
+  left: clamp(1rem, 2.2vw, 2rem);
+  top: clamp(1rem, 2.2vw, 2rem);
+  display: flex;
+  gap: 1px;
+  background: var(--zinc-12);
+  border: 1px solid var(--zinc-12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.omap__layer {
+  padding: 0.75em 1.1em;
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--zinc-70);
+  background: rgba(14, 16, 18, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: color 0.3s var(--e-out), background-color 0.3s var(--e-out);
+}
+.omap__layer:hover {
+  color: var(--green);
+}
+.omap__layer[data-on="true"] {
+  color: var(--graphite);
+  background: var(--green);
+}
+
+.omap__tools {
+  position: absolute;
+  right: clamp(1rem, 2.2vw, 2rem);
+  top: clamp(1rem, 2.2vw, 2rem);
+  display: grid;
+  gap: 1px;
+  background: var(--zinc-12);
+  border: 1px solid var(--zinc-12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.omap__tool {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  font-family: var(--f-mono);
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--zinc);
+  background: rgba(14, 16, 18, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: color 0.3s var(--e-out), background-color 0.3s var(--e-out);
+}
+.omap__tool:hover:not(:disabled) {
+  color: var(--graphite);
+  background: var(--green);
+}
+.omap__tool:disabled {
+  color: var(--zinc-25);
+  cursor: default;
+}
+
+.omap__hint,
+.omap__attr {
+  position: absolute;
+  bottom: clamp(1rem, 2.2vw, 2rem);
+  right: clamp(1rem, 2.2vw, 2rem);
+  font-size: var(--t-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--zinc-45);
+  /* подписи лежат и на снимке тоже — без тени они на нём теряются */
+  text-shadow: 0 1px 4px rgba(14, 16, 18, 0.9);
+  pointer-events: none;
+}
+.omap__hint {
+  bottom: calc(clamp(1rem, 2.2vw, 2rem) + 1.9em);
+  color: var(--zinc-25);
+}
+.omap__attr {
+  pointer-events: auto;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  transition: color 0.3s var(--e-out);
+}
+.ground-paper .omap__attr:hover {
+  color: var(--zinc);
+}
+
+@media (max-width: 860px) {
+  /* на телефоне карточка не поверх карты, а под ней: кадр остаётся кадром */
+  .omap {
+    min-height: 0;
+  }
+  .omap__surface {
+    position: relative;
+    height: clamp(280px, 46vh, 380px);
+  }
+  .omap__card {
+    position: static;
+    width: auto;
+    border: 0;
+    border-top: 1px solid var(--zinc-12);
+    background: var(--graphite);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .omap__scrim {
+    background: radial-gradient(120% 90% at 50% 40%, transparent 45%, rgba(14, 16, 18, 0.6) 100%);
+  }
+  .omap__acts .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  /* на узком экране переключатель и зум делят одну верхнюю полку */
+  .omap__layers,
+  .omap__tools {
+    top: 0.7rem;
+  }
+  .omap__layers {
+    left: 0.7rem;
+  }
+  .omap__tools {
+    right: 0.7rem;
+    grid-auto-flow: column;
+  }
+  .omap__tool {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .omap__ping {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ── 404 ─────────────────────────────────────────────────────── */
+
+.notfound {
+  display: grid;
+  place-items: center;
+  min-height: 80vh;
+  background: var(--graphite);
+}
+.notfound__inner {
+  text-align: center;
+}
+.notfound__title {
+  font-size: var(--t-xl);
+  color: #fff;
+  margin: 1rem 0 2rem;
+}
+.notfound__actions {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── адаптив ─────────────────────────────────────────────────── */
+
+@media (max-width: 1180px) {
+  .grid--sections,
+  .grid--products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grid--logos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .product__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .product__sticky {
+    position: static;
+  }
+  .shot {
+    aspect-ratio: 4 / 3;
+  }
+  .about__top,
+  .contacts__top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .grid--sections,
+  .grid--products,
+  .grid--gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grid--logos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .list__row > a,
+  .list__row > div {
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 1rem;
+  }
+}

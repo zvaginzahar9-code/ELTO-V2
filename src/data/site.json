@@ -1,0 +1,722 @@
+{
+ "menu": {
+  "ru": [
+   {
+    "text": "О нас",
+    "href": "/ru/content/o-nas",
+    "children": [
+     {
+      "text": "Сертификаты",
+      "href": "/ru/content/%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D1%8B",
+      "children": []
+     },
+     {
+      "text": "Награды",
+      "href": "/ru/content/%D0%BD%D0%B0%D0%B3%D1%80%D0%B0%D0%B4%D1%8B",
+      "children": []
+     },
+     {
+      "text": "Благодарственные письма",
+      "href": "/ru/content/blagodarstvennye-pisma",
+      "children": []
+     },
+     {
+      "text": "Презентация",
+      "href": "/ru/content/%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F",
+      "children": []
+     }
+    ]
+   },
+   {
+    "text": "Каталог",
+    "href": "/ru/catalog",
+    "children": [
+     {
+      "text": "Металлоконструкции",
+      "href": "/ru/content/metallokonstrukcii",
+      "children": []
+     },
+     {
+      "text": "Услуги горячего цинкования",
+      "href": "/ru/content/uslugi-goryachego-cinkovaniya",
+      "children": []
+     }
+    ]
+   },
+   {
+    "text": "Сертификаты",
+    "href": "/ru/content/sertifikaty",
+    "children": []
+   },
+   {
+    "text": "Партнеры",
+    "href": "/ru/partners",
+    "children": []
+   },
+   {
+    "text": "Вакансии",
+    "href": "/ru/vacancy",
+    "children": []
+   },
+   {
+    "text": "Отзывы",
+    "href": "/ru/gallery",
+    "children": []
+   },
+   {
+    "text": "Новости",
+    "href": "/ru/news",
+    "children": []
+   },
+   {
+    "text": "Полезная информация",
+    "href": "/ru/usefullinf",
+    "children": []
+   },
+   {
+    "text": "Контакты",
+    "href": "/ru/content/kontakty",
+    "children": []
+   }
+  ],
+  "kk": [
+   {
+    "text": "Біз туралы",
+    "href": "/kk/content/%D0%B1%D1%96%D0%B7-%D1%82%D1%83%D1%80%D0%B0%D0%BB%D1%8B",
+    "children": [
+     {
+      "text": "Сертификаттар",
+      "href": "/kk/content/%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D1%82%D0%B0%D1%80",
+      "children": []
+     },
+     {
+      "text": "Награды kz",
+      "href": "/kk/content/%D0%BD%D0%B0%D0%B3%D1%80%D0%B0%D0%B4%D1%8B-kz",
+      "children": []
+     },
+     {
+      "text": "Благодарственные письма kz",
+      "href": "/kk/content/%D0%B1%D0%BB%D0%B0%D0%B3%D0%BE%D0%B4%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BF%D0%B8%D1%81%D1%8C%D0%BC%D0%B0-kz",
+      "children": []
+     },
+     {
+      "text": "Презентация kz",
+      "href": "/kk/content/%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F-kz",
+      "children": []
+     }
+    ]
+   },
+   {
+    "text": "Каталог",
+    "href": "/kk/catalog",
+    "children": []
+   },
+   {
+    "text": "Жеткізу",
+    "href": "/kk/content/zhetkizy",
+    "children": []
+   },
+   {
+    "text": "Серіктестер",
+    "href": "/kk/partners",
+    "children": []
+   },
+   {
+    "text": "Вакансиялар",
+    "href": "/kk/vacancy",
+    "children": []
+   },
+   {
+    "text": "Фотогалерея",
+    "href": "/kk/gallery",
+    "children": []
+   },
+   {
+    "text": "Пайдалы ақпараттар",
+    "href": "/kk/usefullinf",
+    "children": []
+   },
+   {
+    "text": "Жаңалықтар",
+    "href": "/kk/news",
+    "children": []
+   },
+   {
+    "text": "Байланыстар",
+    "href": "/kk/content/bailanys",
+    "children": []
+   }
+  ],
+  "en": [
+   {
+    "text": "About us",
+    "href": "/en/content/about-us",
+    "children": [
+     {
+      "text": "Certificates",
+      "href": "/en/content/certificates",
+      "children": []
+     },
+     {
+      "text": "Rewards",
+      "href": "/en/content/rewards",
+      "children": []
+     },
+     {
+      "text": "Thanksgiving letters",
+      "href": "/en/content/thanksgiving-letters",
+      "children": []
+     },
+     {
+      "text": "Presentation",
+      "href": "/en/content/presentanion",
+      "children": []
+     }
+    ]
+   },
+   {
+    "text": "Catalogue",
+    "href": "/en/catalog",
+    "children": []
+   },
+   {
+    "text": "Delivery",
+    "href": "/en/content/delivery",
+    "children": []
+   },
+   {
+    "text": "Partners",
+    "href": "/en/partners",
+    "children": []
+   },
+   {
+    "text": "Vacancies",
+    "href": "/en/vacancy",
+    "children": []
+   },
+   {
+    "text": "Photogallery",
+    "href": "/en/gallery",
+    "children": []
+   },
+   {
+    "text": "Useful Information",
+    "href": "/en/usefullinf",
+    "children": []
+   },
+   {
+    "text": "News",
+    "href": "/en/news",
+    "children": []
+   },
+   {
+    "text": "Contacts",
+    "href": "/en/content/contacts",
+    "children": []
+   }
+  ]
+ },
+ "contacts": {
+  "ru": {
+   "text": "Наш адрес:\nг. Караганда, район Алихана Букейханова,\nучетный квартал 018, строение 20\nE-mail:\nsales@elto.kz\nКонтактный телефон\n+7 700 370 07 04",
+   "links": [
+    {
+     "text": "sales@elto.kz",
+     "href": "/"
+    },
+    {
+     "text": "",
+     "href": "tel:+7%20700%20370%200704"
+    },
+    {
+     "text": "+7 700 370 07 04",
+     "href": "tel:+77003700704"
+    }
+   ]
+  },
+  "kk": {
+   "text": "Қарағанды қ., Октябрь ауданы,\n018 есептік квартал, 20 құрылыс\nsales@elto.kz\nКонтактный телефон\n+7 700 370 07 04",
+   "links": [
+    {
+     "text": "sales@elto.kz",
+     "href": "/"
+    },
+    {
+     "text": "",
+     "href": "tel:+7%20700%20370%200704"
+    },
+    {
+     "text": "+7 700 370 07 04",
+     "href": "tel:+77003700704"
+    }
+   ]
+  },
+  "en": {
+   "text": "Karaganda city, Octyabrskyi region,\nUchetnyi Kvartal 018, building 20\nsales@elto.kz\nКонтактный телефон\n+7 700 370 07 04",
+   "links": [
+    {
+     "text": "sales@elto.kz",
+     "href": "/"
+    },
+    {
+     "text": "",
+     "href": "tel:+7%20700%20370%200704"
+    },
+    {
+     "text": "+7 700 370 07 04",
+     "href": "tel:+77003700704"
+    }
+   ]
+  }
+ },
+ "social": [
+  {
+   "text": "",
+   "href": "https://api.whatsapp.com/send?phone=77057590030"
+  },
+  {
+   "text": "",
+   "href": "https://www.instagram.com/energosistemy_elto/"
+  },
+  {
+   "text": "Мы в instagram",
+   "href": "https://www.instagram.com/energosistemy_elto/"
+  },
+  {
+   "text": "",
+   "href": "https://www.instagram.com/energosistemy_elto/"
+  },
+  {
+   "text": "Мы в TikTok!",
+   "href": "https://www.instagram.com/energosistemy_elto/"
+  },
+  {
+   "text": "",
+   "href": "https://www.anvar.kz/company/news/my-teper-v-tiktok/"
+  }
+ ],
+ "copyright": {
+  "ru": "ТОО «Энергосистемы ЭЛТО» © 2026",
+  "kk": "ТОО «Энергосистемы ЭЛТО» © 2026",
+  "en": "ТОО «Энергосистемы ЭЛТО» © 2026"
+ },
+ "home": {
+  "ru": {
+   "w-slider": {
+    "text": "Качество - основа доверия к нам\nТОО «Энергосистемы ЭЛТО» - лидер энергетического рынка Казахстана.\nО нас\nПодробнее о нас\n\nПосмотреть ролик",
+    "images": [
+     "elto_3v_1.jpg",
+     "107978646.jpg",
+     "uepdhfvotuc.jpg"
+    ],
+    "slides": [
+     {
+      "image": "elto_3v_1.jpg",
+      "text": ""
+     },
+     {
+      "image": "107978646.jpg",
+      "text": ""
+     },
+     {
+      "image": "uepdhfvotuc.jpg",
+      "text": ""
+     }
+    ]
+   },
+   "news": {
+    "text": "",
+    "images": [
+     "798687873_17905217655557290_3563019073236170782_n.jpg",
+     "smk.png",
+     "20255__0.jpg",
+     "2024__0.jpg",
+     "131123_0.jpg",
+     "2_5.jpg",
+     "4_1.jpg",
+     "2_2.jpg",
+     "1_6.jpg",
+     "11.11.2022.jpg",
+     "11.11.2022.jpg",
+     "whatsapp_image_2022-09-05_at_10.25.22.jpeg",
+     "7.jpg",
+     "11_1.jpg"
+    ],
+    "items": [
+     {
+      "title": "ПРИГЛАШАЕМ ВАС ПОСЕТИТЬ КазАвтоДор",
+      "href": "/ru/content/priglashaem-vas-posetit-kazavtodor",
+      "image": "",
+      "teaser": "ПРИГЛАШАЕМ ВАС ПОСЕТИТЬ КазАвтоДор / KazTraffic 20226- Международная выставка «Оборудование, строител"
+     },
+     {
+      "title": "Наурыз мерекесімен шын жүректен құттықтауымды қабыл алыңыздар!",
+      "href": "/ru/content/nauryz-merekesimen-shyn-zhurekten-kuttyktauymdy-kabyl-alynyzdar",
+      "image": "",
+      "teaser": "Наурыз мерекесімен шын жүректен құттықтауымды қабыл алыңыздар!"
+     },
+     {
+      "title": "Получение сертификата системы менеджмента качества: шаг к совершенству",
+      "href": "/ru/content/poluchenie-sertifikata-sistemy-menedzhmenta-kachestva-shag-k-sovershenstvu",
+      "image": "",
+      "teaser": "Получение сертификата системы менеджмента качества: шаг к совершенству"
+     },
+     {
+      "title": "Жаңа жылмен шын жүректен құттықтауымды қабыл алыңыздар!",
+      "href": "/ru/content/zhana-zhylmen-shyn-zhurekten-kuttyktauymdy-kabyl-alynyzdar",
+      "image": "",
+      "teaser": "Жаңа жылмен шын жүректен құттықтауымды қабыл алыңыздар!"
+     },
+     {
+      "title": "С наступающим новым годом 2024",
+      "href": "/ru/content/s-nastupayushchim-novym-godom-2024",
+      "image": "",
+      "teaser": "Уважаемые партнёры, поздравляю вас с Новым годом!"
+     },
+     {
+      "title": "О нас в СМИ",
+      "href": "/ru/content/o-nas-v-smi",
+      "image": "",
+      "teaser": "Мачты освещения, металлические конструкции любой сложности, в том числе для светосигнального оборудов"
+     },
+     {
+      "title": "Сіздерді келе жатқан мемлекеттік мереке – Қазақстан Республикасы!",
+      "href": "/ru/content/sizderdi-kele-zhatkan-memlekettik-mereke-kazakstan-respublikasy",
+      "image": "",
+      "teaser": "Сіздерді келе жатқан мемлекеттік мереке – Қазақстан Республикасы!"
+     },
+     {
+      "title": "Наурыз",
+      "href": "/ru/content/nauryz",
+      "image": "",
+      "teaser": "Наурыз амандық, қуаныш, жақсылық әкелсін!"
+     }
+    ]
+   },
+   "catalog": {
+    "text": "",
+    "images": [
+     "opora_stvpznak_0.jpg",
+     "img_20250818_155550_1.jpg",
+     "opora_granenaya_konicheskaya_skladyvayushchayasya_ogksznak.jpg",
+     "2.jpg",
+     "prozhektornaya_machta_s_mobilnoy_koronoy_pmoznak2.jpg",
+     "machta_so_stacionarnoy_koronoy_stpr_znak.jpg",
+     "molnieotvod_mogk_znak.jpg",
+     "lotok_lm.jpg",
+     "439_original.jpg",
+     "f31032f355a755437f4716df1bb8da6a.jpg",
+     "polka_kabelnaya_p100-900_.jpg",
+     "220903638_w640_h640_220903638.jpg",
+     "k1150.jpg",
+     "opora_svetosignalnogo_oborudovaniya_znak.jpg"
+    ]
+   },
+   "advantages": {
+    "text": "",
+    "images": [
+     "layer_19.png",
+     "layer_19_copy.png",
+     "layer_16.png",
+     "layer_16_copy.png",
+     "layer_23.png",
+     "layer_23_copy.png",
+     "layer_18.png",
+     "layer_18_copy_0.png",
+     "layer_21.png",
+     "layer_21_copy.png",
+     "layer_14.png",
+     "layer_14_copy.png"
+    ]
+   },
+   "partners": {
+    "text": "",
+    "images": [
+     "1438498.jpg",
+     "www-kgs_2.png",
+     "14145507_769536739816264_1983298967_a.png",
+     "tengizshevroyl.png",
+     "isker_2_0.png",
+     "mem_logo_1.png",
+     "logo_bazis.png",
+     "kaztransoil_main_logo_200215.png",
+     "file_1407747049_373186104.png",
+     "bi-logo.png",
+     "head_logo.png",
+     "eurasian_natural_resources_corporation_enrc.svg_.png",
+     "1200px-kazakhmys_logo.svg_.png",
+     "logo2.png"
+    ],
+    "logos": [
+     "1438498.jpg",
+     "www-kgs_2.png",
+     "14145507_769536739816264_1983298967_a.png",
+     "tengizshevroyl.png",
+     "isker_2_0.png",
+     "mem_logo_1.png",
+     "logo_bazis.png",
+     "kaztransoil_main_logo_200215.png",
+     "file_1407747049_373186104.png",
+     "bi-logo.png",
+     "head_logo.png",
+     "eurasian_natural_resources_corporation_enrc.svg_.png",
+     "1200px-kazakhmys_logo.svg_.png",
+     "logo2.png"
+    ]
+   }
+  },
+  "kk": {
+   "w-slider": {
+    "text": "Качество - основа доверия к нам kz\nТОО «Энергосистемы ЭЛТО» - лидер энергетического рынка Казахстана. kz\nО нас\nБіз туралы толығырақ\nБейнежазбаны қарау",
+    "images": [
+     "elto_3v_1.jpg",
+     "107978646.jpg",
+     "uepdhfvotuc.jpg"
+    ],
+    "slides": [
+     {
+      "image": "elto_3v_1.jpg",
+      "text": ""
+     },
+     {
+      "image": "107978646.jpg",
+      "text": ""
+     },
+     {
+      "image": "uepdhfvotuc.jpg",
+      "text": ""
+     }
+    ]
+   },
+   "news": {
+    "text": "",
+    "images": [
+     "6c246ff9dce5c5a30c2a6d01b815ffe2_xl_0.jpg",
+     "den-energetika.jpg",
+     "f6715c38805105dc933912648b6d7406.jpg",
+     "uepdhfvotuc_0.jpg",
+     "svetodiodnye-fonari-ulichnye-1024x590_0.jpeg"
+    ],
+    "items": [
+     {
+      "title": "Қазақстан Республикасының тәуелсіздік күнімен!",
+      "href": "/kk/content/kazakstan-respublikasynyn-tuelsizdik-kunimen",
+      "image": "",
+      "teaser": "Қазақстан Республикасының тәуелсіздік күнімен!"
+     },
+     {
+      "title": "Новость пять kz",
+      "href": "/kk/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D0%BF%D1%8F%D1%82%D1%8C-kz",
+      "image": "",
+      "teaser": "Новость пять kz\nАры-қарай оқу"
+     },
+     {
+      "title": "Новость четыре kz",
+      "href": "/kk/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5-kz",
+      "image": "",
+      "teaser": "Ideo imputo letalis ludus quidne scisco tum. Accumsan iustum ludus persto ut. Refero rusticus sino venio."
+     },
+     {
+      "title": "Новость три kz",
+      "href": "/kk/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D1%82%D1%80%D0%B8-kz",
+      "image": "",
+      "teaser": "Bene dignissim enim eros ludus ratis rusticus similis. Bene cui euismod ludus magna olim vulputate."
+     },
+     {
+      "title": "Новость два kz",
+      "href": "/kk/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D0%B4%D0%B2%D0%B0-kz",
+      "image": "",
+      "teaser": "Dignissim facilisi rusticus sagaciter. Eros eum sit. Autem ea enim pertineo praemitto."
+     },
+     {
+      "title": "",
+      "href": "/kk/content/kazakstan-respublikasynyn-tuelsizdik-kunimen",
+      "image": "6c246ff9dce5c5a30c2a6d01b815ffe2_xl_0.jpg",
+      "teaser": ""
+     },
+     {
+      "title": "",
+      "href": "/kk/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D0%BF%D1%8F%D1%82%D1%8C-kz",
+      "image": "den-energetika.jpg",
+      "teaser": ""
+     },
+     {
+      "title": "",
+      "href": "/kk/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5-kz",
+      "image": "f6715c38805105dc933912648b6d7406.jpg",
+      "teaser": ""
+     }
+    ]
+   },
+   "catalog": {
+    "text": "",
+    "images": []
+   },
+   "advantages": {
+    "text": "",
+    "images": [
+     "layer_19.png",
+     "layer_19_copy.png",
+     "layer_16.png",
+     "layer_16_copy.png",
+     "layer_23.png",
+     "layer_23_copy.png",
+     "layer_18.png",
+     "layer_18_copy_0.png",
+     "layer_21.png",
+     "layer_21_copy.png",
+     "layer_14.png",
+     "layer_14_copy.png"
+    ]
+   },
+   "partners": {
+    "text": "",
+    "images": [
+     "kaztransoil_main_logo_200215_1.png",
+     "file_1407747049_373186104_1.png",
+     "bi-logo_1.png",
+     "head_logo.png",
+     "logo2.png",
+     "eurasian_natural_resources_corporation_enrc.svg_.png",
+     "1200px-kazakhmys_logo.svg__1.png"
+    ],
+    "logos": [
+     "kaztransoil_main_logo_200215_1.png",
+     "file_1407747049_373186104_1.png",
+     "bi-logo_1.png",
+     "head_logo.png",
+     "logo2.png",
+     "eurasian_natural_resources_corporation_enrc.svg_.png",
+     "1200px-kazakhmys_logo.svg__1.png"
+    ]
+   }
+  },
+  "en": {
+   "w-slider": {
+    "text": "Quality is the basis of trust in us\n«ELTO Energy Sestems» LLP - one of the leading companies in the energy market of Kazakhstan.\nО нас\nMore about us\nWatch video",
+    "images": [
+     "elto_3v_1.jpg",
+     "107978646.jpg",
+     "uepdhfvotuc.jpg"
+    ],
+    "slides": [
+     {
+      "image": "elto_3v_1.jpg",
+      "text": ""
+     },
+     {
+      "image": "107978646.jpg",
+      "text": ""
+     },
+     {
+      "image": "uepdhfvotuc.jpg",
+      "text": ""
+     }
+    ]
+   },
+   "news": {
+    "text": "",
+    "images": [
+     "novyy_god.jpg",
+     "6c246ff9dce5c5a30c2a6d01b815ffe2_xl_1.jpg",
+     "den-energetika_1.jpg",
+     "f6715c38805105dc933912648b6d7406.jpg",
+     "uepdhfvotuc_1.jpg",
+     "svetodiodnye-fonari-ulichnye-1024x590_1.jpeg"
+    ],
+    "items": [
+     {
+      "title": "Happy New Year!",
+      "href": "/en/content/happy-new-year",
+      "image": "",
+      "teaser": "29.12.2017\nHappy New Year!\nDear colleagues and site visitors!\nRead more"
+     },
+     {
+      "title": "Independence Day of the Republic of Kazakhstan!",
+      "href": "/en/content/independence-day-republic-kazakhstan",
+      "image": "",
+      "teaser": "Independence Day of the Republic of Kazakhstan!"
+     },
+     {
+      "title": "Новость пять eng",
+      "href": "/en/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D0%BF%D1%8F%D1%82%D1%8C-eng",
+      "image": "",
+      "teaser": "Новость пять eng\nRead more"
+     },
+     {
+      "title": "Новость четыре eng",
+      "href": "/en/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5-eng",
+      "image": "",
+      "teaser": "Ideo imputo letalis ludus quidne scisco tum. Accumsan iustum ludus persto ut. Refero rusticus sino venio."
+     },
+     {
+      "title": "Новость три eng",
+      "href": "/en/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D1%82%D1%80%D0%B8-eng",
+      "image": "",
+      "teaser": "Bene dignissim enim eros ludus ratis rusticus similis. Bene cui euismod ludus magna olim vulputate."
+     },
+     {
+      "title": "Новость два eng",
+      "href": "/en/content/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%8C-%D0%B4%D0%B2%D0%B0-eng",
+      "image": "",
+      "teaser": "Dignissim facilisi rusticus sagaciter. Eros eum sit. Autem ea enim pertineo praemitto."
+     },
+     {
+      "title": "",
+      "href": "/en/content/happy-new-year",
+      "image": "novyy_god.jpg",
+      "teaser": ""
+     },
+     {
+      "title": "",
+      "href": "/en/content/independence-day-republic-kazakhstan",
+      "image": "6c246ff9dce5c5a30c2a6d01b815ffe2_xl_1.jpg",
+      "teaser": ""
+     }
+    ]
+   },
+   "catalog": {
+    "text": "",
+    "images": []
+   },
+   "advantages": {
+    "text": "",
+    "images": [
+     "layer_19.png",
+     "layer_19_copy.png",
+     "layer_16.png",
+     "layer_16_copy.png",
+     "layer_23.png",
+     "layer_23_copy.png",
+     "layer_18.png",
+     "layer_18_copy_0.png",
+     "layer_21.png",
+     "layer_21_copy.png",
+     "layer_14.png",
+     "layer_14_copy.png"
+    ]
+   },
+   "partners": {
+    "text": "",
+    "images": [
+     "kaztransoil_main_logo_200215_0.png",
+     "file_1407747049_373186104_0.png",
+     "bi-logo_0.png",
+     "head_logo.png",
+     "logo2.png",
+     "eurasian_natural_resources_corporation_enrc.svg_.png",
+     "1200px-kazakhmys_logo.svg__0.png"
+    ],
+    "logos": [
+     "kaztransoil_main_logo_200215_0.png",
+     "file_1407747049_373186104_0.png",
+     "bi-logo_0.png",
+     "head_logo.png",
+     "logo2.png",
+     "eurasian_natural_resources_corporation_enrc.svg_.png",
+     "1200px-kazakhmys_logo.svg__0.png"
+    ]
+   }
+  }
+ }
+}

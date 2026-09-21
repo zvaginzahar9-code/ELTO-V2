@@ -1,0 +1,375 @@
+/* ──────────────────────────────────────────────────────────────
+   ELTO — обвязка: шапка, меню, подвал
+   ────────────────────────────────────────────────────────────── */
+
+/* ── шапка ───────────────────────────────────────────────────── */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-nav);
+  height: var(--nav-h);
+  color: var(--zinc);
+  transition: transform 0.55s var(--e-out), background-color 0.45s var(--e-out),
+    color 0.45s var(--e-out), border-color 0.45s var(--e-out);
+  border-bottom: 1px solid transparent;
+}
+
+/* Шапка закреплена, и содержимое уезжает под неё. Полупрозрачный фон
+   означал, что сквозь шапку читается текст страницы — поэтому, как только
+   она перестаёт стоять на кадре героя, фон становится плотным. */
+.nav[data-solid="true"] {
+  background: var(--graphite);
+  border-bottom-color: var(--zinc-12);
+}
+
+/* над светлой секцией шапка становится тёмной по буквам — иначе
+   на самом верху рабочей страницы она читается белым по белому */
+.nav[data-paper="true"] {
+  color: var(--ink);
+}
+.nav[data-paper="true"][data-solid="true"] {
+  background: var(--paper);
+  border-bottom-color: var(--ink-12);
+}
+
+.nav[data-hidden="true"] {
+  transform: translate3d(0, -102%, 0);
+}
+.nav[data-open="true"] {
+  /* шапка обязана остаться поверх панели: в ней живёт кнопка закрытия */
+  z-index: calc(var(--z-menu) + 1);
+  transform: none;
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  color: var(--zinc);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2.6rem);
+  height: 100%;
+}
+
+.nav__logo img {
+  height: clamp(26px, 2.4vw, 34px);
+  width: auto;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 1.7vw, 1.9rem);
+  margin-left: auto;
+  font-size: var(--t-small);
+}
+
+.nav__link {
+  position: relative;
+  padding: 0.35em 0;
+  white-space: nowrap;
+  color: inherit;
+  opacity: 0.74;
+  transition: opacity 0.35s var(--e-out), color 0.35s var(--e-out);
+}
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--e-out);
+}
+.nav__link:hover,
+.nav__link.is-active {
+  opacity: 1;
+}
+.nav__link:hover::after,
+.nav__link.is-active::after {
+  transform: scaleX(1);
+}
+
+.nav__side {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 1.6vw, 1.5rem);
+}
+
+.nav__phone {
+  font-size: var(--t-small);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.35s var(--e-out);
+}
+.nav__phone:hover {
+  color: var(--green);
+}
+
+.nav__langs {
+  display: flex;
+  gap: 0.15rem;
+  padding: 0.18rem;
+  border: 1px solid currentColor;
+  border-color: var(--zinc-25);
+  border-radius: 2px;
+}
+.nav[data-paper="true"] .nav__langs {
+  border-color: var(--ink-12);
+}
+.nav__lang {
+  display: inline-grid;
+  place-items: center;
+  /* пальцем нужно попадать: минимальная цель, а не строчка текста */
+  min-width: 34px;
+  min-height: 30px;
+  padding: 0.28em 0.55em;
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.1em;
+  opacity: 0.55;
+  border-radius: 1px;
+  transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+}
+.nav__lang:hover {
+  opacity: 1;
+}
+.nav__lang.is-active {
+  opacity: 1;
+  background: var(--green);
+  color: var(--graphite);
+  font-weight: 700;
+}
+
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+}
+.nav__burger i {
+  display: block;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.45s var(--e-out), opacity 0.3s;
+}
+.nav[data-open="true"] .nav__burger i:first-child {
+  transform: translateY(3.75px) rotate(45deg);
+}
+.nav[data-open="true"] .nav__burger i:last-child {
+  transform: translateY(-3.75px) rotate(-45deg);
+}
+
+.nav__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1.5px;
+  overflow: hidden;
+}
+.nav__progress > span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ── полноэкранное меню ──────────────────────────────────────── */
+
+.menu[hidden] {
+  display: none !important;
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu);
+  background: var(--graphite);
+  display: grid;
+  place-items: center;
+  animation: menu-in 0.5s var(--e-out);
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.menu__inner {
+  width: 100%;
+  padding-top: var(--nav-h);
+}
+
+.menu__item {
+  overflow: hidden;
+  border-bottom: 1px solid var(--zinc-12);
+}
+
+.menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.8rem, 2vw, 1.8rem);
+  padding: clamp(0.5rem, 1.6vh, 1rem) 0;
+  font-size: clamp(1.6rem, 5.2vw, 3.6rem);
+  color: var(--zinc);
+  transition: color 0.35s var(--e-out), padding-left 0.45s var(--e-out);
+}
+.menu__link:hover {
+  color: var(--green);
+  padding-left: clamp(0.5rem, 1.5vw, 1.4rem);
+}
+.menu__no {
+  font-size: var(--t-label);
+  color: var(--green);
+  letter-spacing: 0.2em;
+}
+
+.menu__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 2.4rem;
+  margin-top: clamp(1.6rem, 5vh, 3rem);
+  font-size: var(--t-md);
+}
+.menu__foot a:hover {
+  color: var(--green);
+}
+
+/* ── подвал ──────────────────────────────────────────────────── */
+
+.foot {
+  background: var(--graphite-2);
+  color: var(--zinc-70);
+  padding-top: var(--shelf);
+  border-top: 1px solid var(--zinc-12);
+}
+
+.foot__inner {
+  display: grid;
+  grid-template-columns: 1.4fr minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-bottom: clamp(2.5rem, 6vh, 4.5rem);
+}
+
+.foot__logo {
+  height: 42px;
+  width: auto;
+  margin-bottom: 1.4rem;
+}
+
+.foot__claim {
+  max-width: 34ch;
+  color: var(--zinc-45);
+  font-size: var(--t-small);
+}
+
+.foot__h {
+  color: var(--green);
+  margin-bottom: 1.1rem;
+}
+.foot__h--gap {
+  margin-top: 1.8rem;
+}
+
+.foot__list li {
+  font-size: var(--t-small);
+}
+.foot__list a {
+  display: block;
+  padding-block: 0.42em;
+  transition: color 0.3s var(--e-out);
+}
+.foot__list a:hover {
+  color: var(--green);
+}
+
+.foot__address {
+  font-style: normal;
+  font-size: var(--t-small);
+  line-height: 1.7;
+}
+
+.foot__big {
+  display: block;
+  font-size: var(--t-md);
+  color: var(--zinc);
+  margin-bottom: 0.3em;
+  transition: color 0.3s var(--e-out);
+}
+.foot__big:hover {
+  color: var(--green);
+}
+
+.foot__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.4rem;
+  margin-top: 1.4rem;
+}
+.foot__social a {
+  display: inline-block;
+  padding-block: 0.4em;
+  color: var(--zinc-45);
+  transition: color 0.3s var(--e-out);
+}
+.foot__social a:hover {
+  color: var(--green);
+}
+
+.foot__bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--zinc-12);
+  font-size: var(--t-label);
+  letter-spacing: 0.06em;
+  color: var(--zinc-45);
+}
+
+.route-wait {
+  min-height: 70vh;
+}
+
+/* ── адаптив ─────────────────────────────────────────────────── */
+
+@media (max-width: 1180px) {
+  .nav__links {
+    display: none;
+  }
+  .nav__burger {
+    display: flex;
+  }
+}
+
+@media (max-width: 860px) {
+  .nav__phone {
+    display: none;
+  }
+  .foot__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+  .foot__bar {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .menu__link {
+    font-size: clamp(1.4rem, 8vw, 2.4rem);
+  }
+}
