@@ -2,9 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "_rewrites": "Сайт одностраничный: любой адрес, которому не соответствует файл, отдаётся индексом. Статику Vercel находит раньше — файловая система проверяется до правил переадресации, поэтому исключать /assets, /img и прочее вручную не нужно.",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
-  "_note": "style-src допускает 'unsafe-inline' вынужденно: React ставит стили атрибутом (object-fit у картинок, transform у тайлов карты), а хэши для вычисляемых значений не работают. Отдельный style-src-attr закрыл бы дыру точнее, но его не понимают Safari и часть Firefox — там сайт просто рассыплется. script-src при этом строгий, а именно он держит XSS.",
   "headers": [
     {
       "source": "/(.*)",
