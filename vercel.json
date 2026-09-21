@@ -1,0 +1,56 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "rewrites": [{ "source": "/((?!assets/|img/|seq/|media/|docs/|fonts/|data/).*)", "destination": "/index.html" }],
+  "_note": "style-src допускает 'unsafe-inline' вынужденно: React ставит стили атрибутом (object-fit у картинок, transform у тайлов карты), а хэши для вычисляемых значений не работают. Отдельный style-src-attr закрыл бы дыру точнее, но его не понимают Safari и часть Firefox — там сайт просто рассыплется. script-src при этом строгий, а именно он держит XSS.",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://server.arcgisonline.com; font-src 'self'; media-src 'self'; connect-src 'self'; frame-src https://www.youtube-nocookie.com; upgrade-insecure-requests"
+        },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+        {
+          "key": "Permissions-Policy",
+          "value": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/img/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/seq/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/media/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/docs/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+    },
+    {
+      "source": "/data/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }]
+    }
+  ]
+}

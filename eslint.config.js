@@ -32,7 +32,7 @@ export default tseslint.config(
 
   // сборочные скрипты: это node, и печатать в консоль им положено
   {
-    files: ["scripts/**/*.mjs", "*.config.{js,ts}"],
+    files: ["scripts/**/*.mjs", "*.config.js"],
     extends: [js.configs.recommended],
     languageOptions: {
       ecmaVersion: 2023,
@@ -41,6 +41,21 @@ export default tseslint.config(
     },
     rules: {
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    },
+  },
+
+  // конфиг сборки — тоже node, но на TypeScript: свой парсер
+  {
+    files: ["*.config.ts"],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    languageOptions: {
+      ecmaVersion: 2023,
+      sourceType: "module",
+      globals: globals.node,
+    },
+    rules: {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     },
   }
 );

@@ -7,7 +7,14 @@ import { measureScenes } from "./motion/scene";
 import { scrollToTop } from "./motion/clock";
 import { recordPath } from "./lib/nav-history";
 
-const Home = lazy(() => import("./pages/Home"));
+/*
+ * Главная не ленивая намеренно. Её чанк нужен сразу при любом заходе на
+ * корень, а лишний шаг «бандл → чанк → рендер» на телефоне стоит целого
+ * круга по сети: до него страница успевает отрисоваться одним подвалом,
+ * и когда сцены наконец приходят, подвал уезжает вниз на пол-экрана.
+ */
+import Home from "./pages/Home";
+
 const Catalog = lazy(() => import("./pages/Catalog"));
 const Category = lazy(() => import("./pages/Category"));
 const Product = lazy(() => import("./pages/Product"));

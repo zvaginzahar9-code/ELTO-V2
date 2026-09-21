@@ -10,6 +10,7 @@
     "data": "node scripts/build-data.mjs",
     "images": "node scripts/build-images.mjs",
     "media": "node scripts/process-media.mjs",
+    "fonts": "node scripts/build-fonts.mjs",
     "shoot": "node scripts/shoot.mjs",
     "lint": "eslint .",
     "typecheck": "tsc -b",
@@ -19,7 +20,10 @@
     "qa:a11y": "node scripts/a11y.mjs && node scripts/a11y-structure.mjs",
     "qa:perf": "node scripts/perf.mjs",
     "qa": "npm run qa:responsive && npm run qa:overlap && npm run qa:a11y && npm run qa:scroll",
-    "qa:scroll": "node scripts/scroll-perf.mjs"
+    "qa:scroll": "node scripts/scroll-perf.mjs",
+    "qa:vitals": "node scripts/vitals.mjs",
+    "qa:lighthouse": "node scripts/lighthouse.mjs",
+    "qa:headers": "node scripts/headers-check.mjs"
   },
   "dependencies": {
     "animejs": "^4.5.0",
@@ -38,6 +42,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.12.0",
+    "lighthouse": "^13.5.0",
     "playwright-core": "^1.63.0",
     "sharp": "^0.35.4",
     "typescript": "^5.9.3",

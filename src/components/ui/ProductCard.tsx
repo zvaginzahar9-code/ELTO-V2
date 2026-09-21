@@ -33,6 +33,8 @@ export default function ProductCard({ product, lang, index }: Props) {
             alt={pick(product.t, lang)}
             sizes="(max-width: 700px) 46vw, (max-width: 1100px) 30vw, 22vw"
             fit="contain"
+            /* верхний ряд карточек попадает в первый экран: он и есть LCP */
+            priority={index !== undefined && index < 4}
           />
           {index !== undefined && (
             <span className="card__no mono">{String(index + 1).padStart(3, "0")}</span>

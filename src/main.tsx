@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { startClock } from "./motion/clock";
 
+import "./styles/fonts.css";
 import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/chrome.css";

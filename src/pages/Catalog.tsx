@@ -85,6 +85,8 @@ export default function Catalog({ lang }: { lang: Lang }) {
                         alt=""
                         sizes="(max-width: 860px) 46vw, 24vw"
                         fit="contain"
+                        /* первый ряд виден сразу и даёт LCP — его не откладываем */
+                        priority={i < 4}
                       />
                       <span className="sect__no mono">{String(i + 1).padStart(2, "0")}</span>
                     </div>

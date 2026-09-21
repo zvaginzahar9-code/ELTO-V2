@@ -113,7 +113,10 @@
   flex-direction: column;
   gap: 0.9rem;
 }
-.hero__mark img {
+/* тот же размер держит стартовый кадр в index.html: знак не должен
+   менять величину в момент, когда его перерисовывает React */
+.hero__mark img,
+.boot__mark {
   width: clamp(180px, 20vw, 290px);
   height: auto;
 }
@@ -850,7 +853,8 @@
   /* знак остаётся наложением, как на десктопе: он гаснет ровно тогда,
      когда приходит слоган, и незачем отдавать ему высоту, которой на
      телефоне и так нет */
-  .hero__mark img {
+  .hero__mark img,
+  .boot__mark {
     width: clamp(150px, 46vw, 220px);
   }
   .hero__copy {
