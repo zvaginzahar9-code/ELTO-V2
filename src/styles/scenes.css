@@ -136,8 +136,17 @@
 .hero__h1 {
   font-size: min(clamp(2.3rem, 5.6vw, 6.4rem), 9.6vh);
   color: #fff;
-  max-width: 17ch;
+  /* строки разбиты заранее; пока шрифт не пришёл, запасной шире — слово не
+     должно рваться посередине, иначе после подмены раскладка прыгает */
+  overflow-wrap: normal;
   margin-bottom: clamp(1.4rem, 4vh, 2.6rem);
+}
+/* на широком экране строка заголовка не переносится вовсе: одинаковое
+   число строк и со своим шрифтом, и с запасным */
+@media (min-width: 861px) {
+  .hero__h1 .mask {
+    white-space: nowrap;
+  }
 }
 .hero__h1-where {
   margin-top: 0.35em;
