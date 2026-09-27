@@ -7,6 +7,7 @@
  */
 
 import { Link } from "react-router-dom";
+import Seo from "@/components/Seo";
 import Reveal from "@/components/motion/Reveal";
 import BackLink from "@/components/ui/BackLink";
 import Img from "@/components/ui/Img";
@@ -43,6 +44,15 @@ export default function InfoList({ lang, kind }: { lang: Lang; kind: Kind }) {
 
   return (
     <div className="page ground-paper" data-ground="paper">
+      <Seo
+        lang={lang}
+        path={`/${kind}`}
+        title={heading}
+        description={items
+          .slice(0, 5)
+          .map((it) => it.title)
+          .join(" · ")}
+      />
       <header className="page__head shell">
         <BackLink to={`/${lang}`} label={t("back.home", lang)} />
         <span className="index">{heading}</span>
@@ -59,7 +69,12 @@ export default function InfoList({ lang, kind }: { lang: Lang; kind: Kind }) {
           <ul className="grid grid--logos">
             {items.map((it) => (
               <li className="logo-card" key={it.slug}>
-                <Img file={it.image} alt={it.title} sizes="(max-width: 860px) 40vw, 18vw" fit="contain" />
+                <Img
+                  file={it.image}
+                  alt={it.title}
+                  sizes="(max-width: 860px) 40vw, 18vw"
+                  fit="contain"
+                />
                 <span className="label">{it.title}</span>
               </li>
             ))}
@@ -72,7 +87,12 @@ export default function InfoList({ lang, kind }: { lang: Lang; kind: Kind }) {
                 <>
                   {it.image && (
                     <div className="list__shot">
-                      <Img file={it.image} alt="" sizes="(max-width: 860px) 92vw, 22vw" fit="cover" />
+                      <Img
+                        file={it.image}
+                        alt=""
+                        sizes="(max-width: 860px) 92vw, 22vw"
+                        fit="cover"
+                      />
                     </div>
                   )}
                   <div className="list__text">

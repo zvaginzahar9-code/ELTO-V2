@@ -64,7 +64,7 @@ const PROBE = () => {
 
   // Шапка и полноэкранное меню намеренно лежат поверх страницы и имеют
   // собственный плотный фон — они не «налезают», а перекрывают.
-  const overlay = (el) => el.closest(".nav, .menu, .foot");
+  const overlay = (el) => el.closest(".nav, .menu, .foot, .dock, .sheet");
 
   const nodes = [];
   for (const el of document.querySelectorAll(

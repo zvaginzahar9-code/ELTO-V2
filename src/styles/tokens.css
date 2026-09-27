@@ -1,64 +1,70 @@
 /* ──────────────────────────────────────────────────────────────
-   ELTO — DESIGN TOKENS
-   Арт-дирекция: графит · оцинкованная сталь · фирменный зелёный как сигнал
-   Зелёный, красный и кремовые взяты с оригинала elto.kz и не меняются.
+   ELTO — DESIGN TOKENS · система «Натрий»
+   Натриевый свет уличного фонаря над оцинкованной сталью.
+   Цинк — рабочий грунт, ночь — грунт кино, натрий — действие и свет.
+   Обоснование и контрасты — DESIGN-DIRECTION.md, раздел 2.
    ────────────────────────────────────────────────────────────── */
 :root {
-  /* фирменные — из логотипа и темы оригинала */
-  --green: #85c227;
-  --green-hi: #a5e33f;
-  --green-dim: #66862c;
-  --green-05: rgba(133, 194, 39, 0.05);
-  --green-12: rgba(133, 194, 39, 0.12);
-  --green-25: rgba(133, 194, 39, 0.25);
-  --green-45: rgba(133, 194, 39, 0.45);
+  /* натрий — единственный акцент */
+  --accent: #ff6b1a;
+  --accent-hi: #ff9a4d;
+  --accent-ink: #a63d00;
+  --accent-05: rgba(255, 107, 26, 0.05);
+  --accent-12: rgba(255, 107, 26, 0.12);
+  --accent-25: rgba(255, 107, 26, 0.25);
+  --accent-45: rgba(255, 107, 26, 0.45);
+
+  /* состояния */
+  --success: #2f8f5b;
   --signal: #d43d29;
 
-  /* тёмный грунт */
-  --graphite: #0e1012;
-  --graphite-2: #15181b;
-  --steel: #1f242a;
-  --steel-2: #2b3138;
+  /* ночь — грунт кинематографичных сцен */
+  --night: #0f1317;
+  --night-2: #151a1f;
+  --steel: #232b32;
+  --steel-2: #2f3841;
+  --steel-line: #7c8a96;
 
-  /* светлый грунт */
-  --paper: #f4f5f0;
-  --cream: #f2f4df;
-  --cream-2: #e2e4d0;
-  --ink: #1b1b1b;
-  --ink-2: #2b2a29;
+  /* цинк — рабочий грунт */
+  --paper: #eceeeb;
+  --paper-2: #e1e4e0;
+  --surface: #f7f8f6;
+  --ink: #14181c;
+  --ink-muted: #5a636b;
 
-  /* нейтраль — цвет горячего цинкования */
-  --zinc: #c8cdd2;
-  --zinc-70: rgba(200, 205, 210, 0.7);
-  --zinc-45: rgba(200, 205, 210, 0.45);
-  --zinc-25: rgba(200, 205, 210, 0.25);
-  --zinc-12: rgba(200, 205, 210, 0.12);
-  --zinc-06: rgba(200, 205, 210, 0.06);
+  /* светлое на ночи */
+  --zinc: #d5dadf;
+  --zinc-muted: #9aa4ad;
+  --zinc-70: rgba(213, 218, 223, 0.72);
+  --zinc-25: rgba(213, 218, 223, 0.25);
+  --zinc-12: rgba(213, 218, 223, 0.12);
+  --zinc-06: rgba(213, 218, 223, 0.06);
 
-  --ink-70: rgba(27, 27, 27, 0.7);
-  --ink-45: rgba(27, 27, 27, 0.45);
-  --ink-12: rgba(27, 27, 27, 0.12);
-  --ink-06: rgba(27, 27, 27, 0.06);
+  --ink-70: rgba(20, 24, 28, 0.72);
+  --ink-25: rgba(20, 24, 28, 0.25);
+  --ink-12: rgba(20, 24, 28, 0.12);
+  --ink-06: rgba(20, 24, 28, 0.05);
 
-  /* гарнитуры — две, больше не нужно */
-  --f-sans: "Rubik", "Helvetica Neue", Arial, sans-serif;
+  /* гарнитуры — две */
+  --f-sans: "Onest", "Helvetica Neue", Arial, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* шкала — крупные заголовки, но текст ELTO остаётся читаемым */
-  --t-mega: clamp(3.4rem, 13vw, 14rem);
-  --t-xxl: clamp(2.6rem, 8.5vw, 8rem);
-  --t-xl: clamp(2rem, 5vw, 4.6rem);
-  --t-lg: clamp(1.5rem, 2.9vw, 2.6rem);
-  --t-md: clamp(1.08rem, 1.5vw, 1.32rem);
-  --t-body: clamp(0.98rem, 1.05vw, 1.06rem);
-  --t-small: clamp(0.86rem, 0.95vw, 0.92rem);
-  --t-label: clamp(0.66rem, 0.76vw, 0.78rem);
+  /* шкала */
+  --t-mega: clamp(2.9rem, 9vw, 9.5rem);
+  --t-xxl: clamp(2.4rem, 7vw, 7rem);
+  --t-xl: clamp(2.2rem, 5.4vw, 5.2rem);
+  --t-lg: clamp(1.7rem, 3.4vw, 3.2rem);
+  --t-md: clamp(1.1rem, 1.5vw, 1.36rem);
+  --t-body: clamp(1rem, 1.05vw, 1.08rem);
+  --t-small: clamp(0.88rem, 0.95vw, 0.94rem);
+  --t-label: clamp(0.68rem, 0.76vw, 0.76rem);
 
   /* ритм */
   --gutter: clamp(1rem, 4vw, 4rem);
-  --shelf: clamp(4.5rem, 11vh, 9rem);
+  --shelf: clamp(4.5rem, 12vh, 9.5rem);
   --maxw: 1720px;
-  --nav-h: 76px;
+  --nav-h: 72px;
+  --radius: 3px;
 
   /* движение — три кривые на весь сайт */
   --e-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -66,20 +72,21 @@
   --e-soft: cubic-bezier(0.33, 1, 0.68, 1);
 
   --z-nav: 70;
+  --z-dock: 75;
   --z-menu: 80;
+  --z-sheet: 90;
   --z-load: 100;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @media (max-width: 860px) {
   :root {
-    --nav-h: 62px;
-    /* на телефоне крупный кегль упирается в края экрана: заголовки ELTO
-       длинные, и вёрстку рвёт именно на них */
-    --t-mega: clamp(2.6rem, 13vw, 4.4rem);
-    --t-xxl: clamp(1.9rem, 7.6vw, 3rem);
-    --t-xl: clamp(1.6rem, 6.4vw, 2.4rem);
-    --t-lg: clamp(1.3rem, 5vw, 1.8rem);
+    --nav-h: 60px;
+    /* названия ELTO длинные — на телефоне кегль упирается в края экрана */
+    --t-mega: clamp(2.5rem, 12vw, 4.2rem);
+    --t-xxl: clamp(2rem, 9vw, 3.2rem);
+    --t-xl: clamp(1.8rem, 8vw, 2.7rem);
+    --t-lg: clamp(1.45rem, 6vw, 2rem);
   }
 }

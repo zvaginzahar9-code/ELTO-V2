@@ -1,4 +1,8 @@
 # зависимости и сборка
+# (search.json, sitemap.xml и robots.txt собираются из данных при каждом запуске)
+public/data/search.json
+public/sitemap.xml
+public/robots.txt
 node_modules/
 dist/
 *.tsbuildinfo

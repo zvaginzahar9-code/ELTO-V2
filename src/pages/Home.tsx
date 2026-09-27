@@ -14,11 +14,19 @@ import Advantages from "@/scenes/Advantages";
 import Geography from "@/scenes/Geography";
 import News from "@/scenes/News";
 import ContactCta from "@/scenes/ContactCta";
-import type { Lang } from "@/lib/i18n";
+import Seo from "@/components/Seo";
+import { HOME_DESCRIPTION } from "@/scenes/hero-copy";
+import { t, type Lang } from "@/lib/i18n";
 
 export default function Home({ lang }: { lang: Lang }) {
   return (
     <>
+      <Seo
+        lang={lang}
+        path="/"
+        title={t("hero.h1", lang)}
+        description={HOME_DESCRIPTION[lang]}
+      />
       <Hero lang={lang} />
       <Company lang={lang} />
       <Production lang={lang} />

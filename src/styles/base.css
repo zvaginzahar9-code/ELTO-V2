@@ -25,12 +25,12 @@ html.lenis body {
 
 body {
   margin: 0;
-  background: var(--graphite);
-  color: var(--zinc);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--f-sans);
   font-size: var(--t-body);
-  line-height: 1.62;
-  font-weight: 350;
+  line-height: 1.6;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
@@ -78,19 +78,19 @@ ol {
 }
 
 ::selection {
-  background: var(--green);
-  color: var(--graphite);
+  background: var(--accent);
+  color: var(--ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 /* ── грунты ──────────────────────────────────────────────────── */
 
-.ground-dark {
-  background: var(--graphite);
+[data-ground="dark"] {
+  background-color: var(--night);
   color: var(--zinc);
 }
 
@@ -100,7 +100,11 @@ ol {
 }
 
 .ground-paper a:hover {
-  color: var(--green-dim);
+  color: var(--accent-ink);
+}
+
+.ground-paper :focus-visible {
+  outline-color: var(--accent-ink);
 }
 
 /* ── раскладка ───────────────────────────────────────────────── */
@@ -129,21 +133,21 @@ ol {
 /* ── типографика ─────────────────────────────────────────────── */
 
 .display {
-  font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.028em;
-  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.042em;
   text-wrap: balance;
 }
 
 .display--tight {
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
 }
 
 .title {
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
   text-wrap: balance;
 }
 
@@ -165,25 +169,40 @@ ol {
 .lead {
   font-size: var(--t-md);
   line-height: 1.55;
-  font-weight: 350;
+  font-weight: 400;
   text-wrap: pretty;
 }
 
 .muted {
-  color: var(--zinc-45);
+  color: var(--zinc-muted);
 }
 
 .ground-paper .muted {
-  color: var(--ink-45);
+  color: var(--ink-muted);
 }
 
-/* номер раздела — навигационный якорь */
+/* номер раздела — навигационный якорь: засечка натрия и подпись */
 .index {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75em;
   font-family: var(--f-mono);
   font-size: var(--t-label);
   font-weight: 500;
-  letter-spacing: 0.22em;
-  color: var(--green);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--zinc-muted);
+}
+.index::before {
+  content: "";
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0.3em var(--accent-12);
+}
+.ground-paper .index {
+  color: var(--ink-muted);
 }
 
 /* ── маска строки: буква не проявляется, она приходит ─────────── */
@@ -209,44 +228,121 @@ ol {
 
 /* ── кнопки ──────────────────────────────────────────────────── */
 
+/*
+ * Три кнопки на весь сайт. Основная залита натрием и при наведении
+ * «разгорается»: свет проходит по ней слева направо, как по нити лампы.
+ * Вторичная — контур. Третичная — ссылка со стрелкой.
+ */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.7em;
-  padding: 0.95em 1.6em;
+  justify-content: center;
+  gap: 0.75em;
+  min-height: 48px;
+  padding: 0.85em 1.5em;
   font-family: var(--f-mono);
   font-size: var(--t-label);
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  line-height: 1.2;
   border: 1px solid var(--zinc-25);
-  border-radius: 2px;
+  border-radius: var(--radius);
   color: var(--zinc);
+  overflow: hidden;
+  isolation: isolate;
   transition: border-color 0.4s var(--e-out), color 0.4s var(--e-out),
     background-color 0.4s var(--e-out);
 }
 .btn:hover {
-  border-color: var(--green);
-  color: var(--green);
+  border-color: var(--zinc);
+  color: #fff;
 }
+.btn__arrow {
+  display: inline-block;
+  transition: transform 0.5s var(--e-out);
+}
+.btn:hover .btn__arrow {
+  transform: translateX(0.3em);
+}
+
 .btn--solid {
-  background: var(--green);
-  border-color: var(--green);
-  color: var(--graphite);
-  font-weight: 700;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.btn--solid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 236, 214, 0.75) 50%, transparent 80%);
+  transform: translateX(-110%);
+  transition: transform 0.9s var(--e-out);
 }
 .btn--solid:hover {
-  background: var(--green-hi);
-  border-color: var(--green-hi);
-  color: var(--graphite);
+  background: var(--accent-hi);
+  border-color: var(--accent-hi);
+  color: var(--ink);
 }
+.btn--solid:hover::before {
+  transform: translateX(110%);
+}
+
+.btn--ink {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
 .ground-paper .btn {
-  border-color: var(--ink-12);
+  border-color: var(--ink-25);
   color: var(--ink);
 }
 .ground-paper .btn:hover {
-  border-color: var(--green-dim);
-  color: var(--green-dim);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.ground-paper .btn--solid,
+.ground-paper .btn--solid:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.ground-paper .btn--solid:hover {
+  border-color: var(--accent-hi);
+}
+.ground-paper .btn--ink,
+.ground-paper .btn--ink:hover {
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.ground-paper .btn--ink:hover {
+  background: #000;
+}
+
+/* третичное действие — ссылка со стрелкой, без рамки */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 44px;
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.link-arrow span:last-child {
+  transition: transform 0.5s var(--e-out);
+}
+.link-arrow:hover span:last-child {
+  transform: translateX(0.3em);
 }
 
 /* ── линейка-разделитель ─────────────────────────────────────── */
@@ -289,9 +385,28 @@ ol {
 .spec tbody tr:nth-child(even) {
   background: var(--ink-06);
 }
+.spec tbody tr:hover {
+  background: var(--accent-12);
+}
+/* первая колонка — маркировка: при горизонтальной прокрутке она остаётся на месте */
+.spec td:first-child,
+.spec th:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--surface);
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 1px 0 0 var(--ink-12);
+}
+.spec tbody tr:nth-child(even) td:first-child {
+  background: #eff1ee;
+}
 .spec-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--ink-12);
+  border-radius: var(--radius);
+  background: var(--surface);
 }
 
 /* ── тело статьи: контент оригинала как есть ─────────────────── */
@@ -323,7 +438,7 @@ ol {
   margin-bottom: 0.35em;
 }
 .prose a {
-  color: var(--green-dim);
+  color: var(--accent-ink);
   border-bottom: 1px solid currentColor;
 }
 .prose img {

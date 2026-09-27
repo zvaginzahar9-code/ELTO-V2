@@ -10,15 +10,20 @@ import { Link } from "react-router-dom";
 import { site, topCategories } from "@/lib/data";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { categoryPath } from "@/lib/routes";
+import {
+  ADDRESS_LINES,
+  CATALOG_DOCS,
+  EMAIL,
+  INSTAGRAM,
+  PHONE,
+  PHONE_HREF,
+  whatsappHref,
+} from "@/lib/contacts";
+import Logo from "@/components/ui/Logo";
 
 const SOCIAL = [
-  { label: "WhatsApp", href: "https://api.whatsapp.com/send?phone=77003700704" },
-  { label: "Instagram", href: "https://www.instagram.com/energosistemy_elto/" },
-];
-
-const DOCS = [
-  { label: "Каталог опор освещения", href: "/docs/katalog_opor_elto.pdf" },
-  { label: "Каталог опор ЛЭП", href: "/docs/katalog_novyy_do_330kvpdf.pdf" },
+  { label: "WhatsApp", href: whatsappHref() },
+  { label: "Instagram", href: INSTAGRAM },
 ];
 
 export default function Footer({ lang }: { lang: Lang }) {
@@ -28,10 +33,10 @@ export default function Footer({ lang }: { lang: Lang }) {
     <footer className="foot" data-ground="dark">
       <div className="foot__inner shell">
         <div className="foot__brand">
-          <img className="foot__logo" src="/logo_elto-1.svg" alt="ELTO" width={299} height={111} />
+          <Logo className="foot__logo" title="ELTO" />
           <p className="foot__claim lead">
-            ТОО «Энергосистемы ЭЛТО» — завод-производитель опор освещения, мачт
-            и металлоконструкций различного назначения.
+            ТОО «Энергосистемы ЭЛТО» — завод-производитель опор освещения, мачт и
+            металлоконструкций различного назначения.
           </p>
         </div>
 
@@ -49,23 +54,28 @@ export default function Footer({ lang }: { lang: Lang }) {
         <div className="foot__col">
           <h2 className="label foot__h">{t("contacts.address", lang)}</h2>
           <address className="foot__address">
-            г. Караганда, район Алихана Букейханова,
+            {ADDRESS_LINES[0]}
             <br />
-            учетный квартал 018, строение 20
+            {ADDRESS_LINES[1]}
           </address>
 
           <h2 className="label foot__h foot__h--gap">{t("contacts.phone", lang)}</h2>
-          <a className="foot__big mono" href="tel:+77003700704">
-            +7 700 370 07 04
+          <a className="foot__big mono" href={PHONE_HREF}>
+            {PHONE}
           </a>
-          <a className="foot__big mono" href="mailto:sales@elto.kz">
-            sales@elto.kz
+          <a className="foot__big mono" href={`mailto:${EMAIL}`}>
+            {EMAIL}
           </a>
 
           <ul className="foot__social">
             {SOCIAL.map((s) => (
               <li key={s.href}>
-                <a href={s.href} target="_blank" rel="noreferrer noopener" className="label">
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="label"
+                >
                   {s.label}
                 </a>
               </li>
@@ -73,7 +83,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           </ul>
 
           <ul className="foot__social">
-            {DOCS.map((d) => (
+            {CATALOG_DOCS.map((d) => (
               <li key={d.href}>
                 <a href={d.href} target="_blank" rel="noreferrer" className="label">
                   ↓ {d.label}

@@ -30,8 +30,16 @@ const T: Dict = {
   "nav.home": { ru: "Главная", kk: "Басты бет", en: "Home" },
 
   "hero.scroll": { ru: "Листайте", kk: "Төмен жылжытыңыз", en: "Scroll" },
-  "hero.since": { ru: "Караганда · с 2014 года", kk: "Қарағанды · 2014 жылдан", en: "Karaganda · since 2014" },
-  "hero.place": { ru: "Караганда · Казахстан", kk: "Қарағанды · Қазақстан", en: "Karaganda · Kazakhstan" },
+  "hero.since": {
+    ru: "Караганда · с 2014 года",
+    kk: "Қарағанды · 2014 жылдан",
+    en: "Karaganda · since 2014",
+  },
+  "hero.place": {
+    ru: "Караганда · Казахстан",
+    kk: "Қарағанды · Қазақстан",
+    en: "Karaganda · Kazakhstan",
+  },
   "hero.mark": { ru: "Энергосистемы", kk: "Энергожүйелер", en: "Energy Systems" },
 
   "common.all": { ru: "Все", kk: "Барлығы", en: "All" },
@@ -41,25 +49,53 @@ const T: Dict = {
   "back.catalog": { ru: "В каталог", kk: "Каталогқа", en: "To the catalogue" },
   "back.to": { ru: "В раздел", kk: "Бөлімге", en: "To section" },
   "common.loading": { ru: "Загрузка", kk: "Жүктелуде", en: "Loading" },
-  "common.notfound": { ru: "Страница не найдена", kk: "Бет табылмады", en: "Page not found" },
-  "common.search": { ru: "Поиск по каталогу", kk: "Каталогтан іздеу", en: "Search the catalogue" },
-  "common.nothing": { ru: "Ничего не найдено", kk: "Ештеңе табылмады", en: "Nothing found" },
+  "common.notfound": {
+    ru: "Страница не найдена",
+    kk: "Бет табылмады",
+    en: "Page not found",
+  },
+  "common.search": {
+    ru: "Поиск по каталогу",
+    kk: "Каталогтан іздеу",
+    en: "Search the catalogue",
+  },
+  "common.nothing": {
+    ru: "Ничего не найдено",
+    kk: "Ештеңе табылмады",
+    en: "Nothing found",
+  },
   "common.items": { ru: "позиций", kk: "позиция", en: "items" },
   "common.sections": { ru: "разделов", kk: "бөлім", en: "sections" },
 
-  "catalog.title": { ru: "Каталог продукции", kk: "Өнім каталогы", en: "Product catalogue" },
+  "catalog.title": {
+    ru: "Каталог продукции",
+    kk: "Өнім каталогы",
+    en: "Product catalogue",
+  },
   "catalog.all": { ru: "Весь каталог", kk: "Толық каталог", en: "Full catalogue" },
   "catalog.sections": { ru: "Разделы", kk: "Бөлімдер", en: "Sections" },
   "catalog.open": { ru: "Открыть раздел", kk: "Бөлімді ашу", en: "Open section" },
   "catalog.subsections": { ru: "Подразделы", kk: "Ішкі бөлімдер", en: "Subsections" },
-  "catalog.download": { ru: "Скачать каталог", kk: "Каталогты жүктеу", en: "Download catalogue" },
+  "catalog.download": {
+    ru: "Скачать каталог",
+    kk: "Каталогты жүктеу",
+    en: "Download catalogue",
+  },
 
-  "product.specs": { ru: "Технические характеристики", kk: "Техникалық сипаттамалар", en: "Technical specifications" },
+  "product.specs": {
+    ru: "Технические характеристики",
+    kk: "Техникалық сипаттамалар",
+    en: "Technical specifications",
+  },
   "product.description": { ru: "Описание", kk: "Сипаттама", en: "Description" },
   "product.drawing": { ru: "Чертёж", kk: "Сызба", en: "Drawing" },
   "product.photo": { ru: "Фото", kk: "Фото", en: "Photo" },
   "product.docs": { ru: "Документы", kk: "Құжаттар", en: "Documents" },
-  "product.related": { ru: "Сопутствующая продукция", kk: "Қосымша өнім", en: "Related products" },
+  "product.related": {
+    ru: "Сопутствующая продукция",
+    kk: "Қосымша өнім",
+    en: "Related products",
+  },
   "product.section": { ru: "Раздел", kk: "Бөлім", en: "Section" },
   "product.request": { ru: "Запросить цену", kk: "Бағаны сұрау", en: "Request a price" },
   "product.gallery": { ru: "Изображения", kk: "Суреттер", en: "Images" },
@@ -73,7 +109,11 @@ const T: Dict = {
   "article.prev": { ru: "Предыдущий материал", kk: "Алдыңғы материал", en: "Previous" },
   "article.next": { ru: "Следующий материал", kk: "Келесі материал", en: "Next" },
 
-  "map.office": { ru: "Производство и офис", kk: "Өндіріс және кеңсе", en: "Plant and office" },
+  "map.office": {
+    ru: "Производство и офис",
+    kk: "Өндіріс және кеңсе",
+    en: "Plant and office",
+  },
   "map.route": { ru: "Маршрут", kk: "Бағыт", en: "Directions" },
   "map.copy": { ru: "Скопировать", kk: "Көшіру", en: "Copy" },
   "map.copied": { ru: "Скопировано", kk: "Көшірілді", en: "Copied" },
@@ -99,8 +139,232 @@ const T: Dict = {
   "home.contacts": { ru: "Контакты", kk: "Байланыс", en: "Contacts" },
   "home.watch": { ru: "Посмотреть ролик", kk: "Роликті көру", en: "Watch the film" },
 
+  "cta.quote": { ru: "Запросить расчёт", kk: "Есептеуді сұрау", en: "Request a quote" },
+  "cta.tz": { ru: "Отправить ТЗ", kk: "ТТ жіберу", en: "Send specifications" },
+  "cta.consult": { ru: "Получить консультацию", kk: "Кеңес алу", en: "Get advice" },
+  "cta.call": { ru: "Позвонить", kk: "Қоңырау шалу", en: "Call" },
+  "cta.whatsapp": { ru: "WhatsApp", kk: "WhatsApp", en: "WhatsApp" },
+  "cta.catalog": { ru: "Каталог", kk: "Каталог", en: "Catalogue" },
+  "cta.pdf": { ru: "PDF-каталог", kk: "PDF-каталог", en: "PDF catalogue" },
+
+  "lead.title.quote": {
+    ru: "Расчёт стоимости",
+    kk: "Құнын есептеу",
+    en: "Price calculation",
+  },
+  "lead.title.tz": {
+    ru: "Техническое задание",
+    kk: "Техникалық тапсырма",
+    en: "Technical specifications",
+  },
+  "lead.title.consult": {
+    ru: "Консультация инженера",
+    kk: "Инженер кеңесі",
+    en: "Engineering advice",
+  },
+  "lead.intro.quote": {
+    ru: "Опишите, что нужно и в каком количестве — отдел продаж подготовит расчёт.",
+    kk: "Не және қанша қажет екенін жазыңыз — сату бөлімі есеп дайындайды.",
+    en: "Tell us what you need and how many — the sales team will prepare a quote.",
+  },
+  "lead.intro.tz": {
+    ru: "Приложите чертёж, спецификацию или проект — ответим по существу.",
+    kk: "Сызбаны, спецификацияны немесе жобаны тіркеңіз.",
+    en: "Attach a drawing, specification or project and we will reply in detail.",
+  },
+  "lead.intro.consult": {
+    ru: "Не знаете точную маркировку? Опишите задачу — поможем подобрать изделие.",
+    kk: "Нақты таңбалауды білмейсіз бе? Міндетті сипаттаңыз — таңдауға көмектесеміз.",
+    en: "Not sure of the exact type? Describe the task and we will help you choose.",
+  },
+  "lead.topic": { ru: "Заявка по", kk: "Өтінім тақырыбы", en: "Request about" },
+  "lead.name": { ru: "Имя", kk: "Аты", en: "Name" },
+  "lead.company": { ru: "Компания", kk: "Компания", en: "Company" },
+  "lead.contact": {
+    ru: "Телефон или e-mail",
+    kk: "Телефон немесе e-mail",
+    en: "Phone or e-mail",
+  },
+  "lead.message": { ru: "Что нужно", kk: "Не қажет", en: "What you need" },
+  "lead.message.ph": {
+    ru: "Изделие, маркировка, количество, объект, сроки",
+    kk: "Өнім, таңбалау, саны, нысан, мерзімі",
+    en: "Product, type, quantity, site, timing",
+  },
+  "lead.file": {
+    ru: "Прикрепить ТЗ или чертёж",
+    kk: "ТТ немесе сызбаны тіркеу",
+    en: "Attach specs or a drawing",
+  },
+  "lead.file.hint": {
+    ru: "PDF, DOC, XLS, DWG, DXF, JPG, PNG, ZIP · до 4 МБ",
+    kk: "PDF, DOC, XLS, DWG, DXF, JPG, PNG, ZIP · 4 МБ дейін",
+    en: "PDF, DOC, XLS, DWG, DXF, JPG, PNG, ZIP · up to 4 MB",
+  },
+  "lead.file.remove": { ru: "Убрать файл", kk: "Файлды алып тастау", en: "Remove file" },
+  "lead.optional": { ru: "необязательно", kk: "міндетті емес", en: "optional" },
+  "lead.send": { ru: "Отправить заявку", kk: "Өтінімді жіберу", en: "Send request" },
+  "lead.sending": { ru: "Отправляем…", kk: "Жіберілуде…", en: "Sending…" },
+  "lead.consent": {
+    ru: "Отправляя заявку, вы соглашаетесь на обработку контактных данных для ответа на неё.",
+    kk: "Өтінімді жібере отырып, жауап беру үшін байланыс деректерін өңдеуге келісесіз.",
+    en: "By sending, you agree to the processing of your contact details to answer the request.",
+  },
+  "lead.err.name": { ru: "Укажите имя", kk: "Атыңызды жазыңыз", en: "Enter your name" },
+  "lead.err.contact": {
+    ru: "Нужен телефон или e-mail, чтобы ответить",
+    kk: "Жауап беру үшін телефон немесе e-mail қажет",
+    en: "We need a phone or e-mail to reply",
+  },
+  "lead.err.file.size": {
+    ru: "Файл больше 4 МБ",
+    kk: "Файл 4 МБ-тан үлкен",
+    en: "The file exceeds 4 MB",
+  },
+  "lead.err.file.type": {
+    ru: "Этот формат не принимается",
+    kk: "Бұл формат қабылданбайды",
+    en: "This format is not accepted",
+  },
+  "lead.err.rate": {
+    ru: "Слишком много заявок подряд. Попробуйте через несколько минут или позвоните.",
+    kk: "Өтінім тым көп. Бірнеше минуттан кейін қайталаңыз немесе қоңырау шалыңыз.",
+    en: "Too many requests. Try again in a few minutes or call us.",
+  },
+  "lead.done.title": {
+    ru: "Заявка отправлена",
+    kk: "Өтінім жіберілді",
+    en: "Request sent",
+  },
+  "lead.done.text": {
+    ru: "Отдел продаж свяжется с вами по указанному контакту.",
+    kk: "Сату бөлімі көрсетілген байланыс арқылы хабарласады.",
+    en: "The sales team will contact you shortly.",
+  },
+  "lead.fallback.title": {
+    ru: "Отправьте заявку напрямую",
+    kk: "Өтінімді тікелей жіберіңіз",
+    en: "Send the request directly",
+  },
+  "lead.fallback.text": {
+    ru: "Онлайн-отправка сейчас недоступна. Текст заявки уже собран — выберите, куда его отправить. Файл ТЗ приложите к письму.",
+    kk: "Онлайн жіберу қазір қолжетімсіз. Өтінім мәтіні дайын — қайда жіберетініңізді таңдаңыз. ТТ файлын хатқа тіркеңіз.",
+    en: "Online sending is unavailable right now. Your request text is ready — choose where to send it and attach the file to the e-mail.",
+  },
+  "lead.fallback.mail": { ru: "Письмом", kk: "Хатпен", en: "By e-mail" },
+  "lead.close": { ru: "Закрыть", kk: "Жабу", en: "Close" },
+  "lead.again": { ru: "Новая заявка", kk: "Жаңа өтінім", en: "New request" },
+  "lead.direct": { ru: "Или напрямую", kk: "Немесе тікелей", en: "Or directly" },
+
+  "hero.h1": {
+    ru: "Опоры освещения, мачты и металлоконструкции — от завода в Караганде",
+    kk: "Жарық тіректері, мачталар және металл конструкциялар — Қарағандыдағы зауыттан",
+    en: "Lighting poles, masts and steel structures — made at our plant in Karaganda",
+  },
+  "hero.quick": { ru: "Быстрый вход", kk: "Жылдам кіру", en: "Quick access" },
+
+  "task.title": {
+    ru: "Подбор по задаче",
+    kk: "Міндет бойынша таңдау",
+    en: "Choose by task",
+  },
+  "task.lead": {
+    ru: "Не знаете маркировку — начните с объекта. Каждая задача ведёт в разделы каталога с подходящими изделиями.",
+    kk: "Таңбалауды білмесеңіз — нысаннан бастаңыз. Әр міндет каталогтың тиісті бөлімдеріне апарады.",
+    en: "Not sure of the type? Start from the site: each task leads to the matching catalogue sections.",
+  },
+  "task.streets": {
+    ru: "Улицы и дороги",
+    kk: "Көшелер мен жолдар",
+    en: "Streets and roads",
+  },
+  "task.parks": {
+    ru: "Парки, площади, дворы",
+    kk: "Саябақтар, алаңдар, аулалар",
+    en: "Parks, squares, yards",
+  },
+  "task.areas": {
+    ru: "Большие площадки и развязки",
+    kk: "Үлкен алаңдар мен айрықтар",
+    en: "Large areas and interchanges",
+  },
+  "task.power": {
+    ru: "Линии электропередачи",
+    kk: "Электр беру желілері",
+    en: "Power lines",
+  },
+  "task.telecom": {
+    ru: "Связь и радиорелейные линии",
+    kk: "Байланыс және радиорелелік желілер",
+    en: "Telecom and radio relay",
+  },
+  "task.cable": {
+    ru: "Кабельные трассы и электромонтаж",
+    kk: "Кабель трассалары және электр монтаж",
+    en: "Cable routes and wiring",
+  },
+  "task.traffic": {
+    ru: "Дорожная инфраструктура",
+    kk: "Жол инфрақұрылымы",
+    en: "Road infrastructure",
+  },
+  "task.steel": {
+    ru: "Металлоконструкции и услуги",
+    kk: "Металл конструкциялар және қызметтер",
+    en: "Steel structures and services",
+  },
+
+  "search.mark": {
+    ru: "Маркировка или название: СТВ 9, ЗФ-220, лоток…",
+    kk: "Таңбалау немесе атауы: СТВ 9, ЗФ-220…",
+    en: "Type or name: STV 9, ZF-220, tray…",
+  },
+  "search.byMark": { ru: "по маркировке", kk: "таңбалау бойынша", en: "by type" },
+  "search.know": {
+    ru: "Я знаю, что нужно",
+    kk: "Не қажет екенін білемін",
+    en: "I know what I need",
+  },
+  "search.help": {
+    ru: "Помогите подобрать",
+    kk: "Таңдауға көмектесіңіз",
+    en: "Help me choose",
+  },
+
+  "card.specs": { ru: "ТТХ", kk: "Сипаттама", en: "Specs" },
+  "product.actions": {
+    ru: "Заказ и документы",
+    kk: "Тапсырыс және құжаттар",
+    en: "Order and documents",
+  },
+  "product.priceNote": {
+    ru: "Цена зависит от исполнения, количества и доставки — рассчитаем под ваш объект.",
+    kk: "Баға орындалуына, санына және жеткізуге байланысты — нысаныңызға есептейміз.",
+    en: "Price depends on design, quantity and delivery — we will calculate it for your site.",
+  },
+  "product.variants": {
+    ru: "исполнений в таблицах",
+    kk: "кестедегі орындау",
+    en: "variants in tables",
+  },
+
+  "home.final": {
+    ru: "Расчёт под ваш объект",
+    kk: "Нысаныңызға есеп",
+    en: "A quote for your site",
+  },
+  "home.final.lead": {
+    ru: "Пришлите спецификацию, чертёж или просто список изделий — отдел продаж ответит расчётом.",
+    kk: "Спецификацияны, сызбаны немесе өнімдер тізімін жіберіңіз — сату бөлімі есеппен жауап береді.",
+    en: "Send a specification, a drawing or just a list of products — the sales team will reply with a quote.",
+  },
+
   "a11y.langs": { ru: "Выбор языка", kk: "Тілді таңдау", en: "Language" },
-  "a11y.mainnav": { ru: "Основная навигация", kk: "Негізгі навигация", en: "Main navigation" },
+  "a11y.mainnav": {
+    ru: "Основная навигация",
+    kk: "Негізгі навигация",
+    en: "Main navigation",
+  },
 };
 
 export function t(key: string, lang: Lang): string {

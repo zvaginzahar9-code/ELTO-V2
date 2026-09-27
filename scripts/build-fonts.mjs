@@ -26,9 +26,9 @@ const CSS_OUT = path.join(HERE, "src/styles/fonts.css");
 /** Подмножества, которые сайту нужны. Казахские ә, ғ, қ, ң, ө, ұ, ү, һ живут в cyrillic-ext. */
 const SUBSETS = new Set(["latin", "latin-ext", "cyrillic", "cyrillic-ext"]);
 
-/** Запрос тот же, что стоял в index.html. */
+/** Гарнитура интерфейса и моноширинная для данных. */
 const QUERY =
-  "family=Rubik:wght@300..900&family=JetBrains+Mono:wght@400;500;700&display=swap";
+  "family=Onest:wght@300..800&family=JetBrains+Mono:wght@400;500;600&display=swap";
 
 /* без современного user-agent Google отдаёт ttf вместо woff2 */
 const UA =
@@ -58,7 +58,10 @@ for (const f of await readdir(OUT_DIR).catch(() => [])) {
 /** Переменный шрифт отдаётся одним файлом на подмножество — качаем по разу. */
 const files = new Map();
 const nameOf = (rule, subset) => {
-  const family = /font-family:\s*'([^']+)'/.exec(rule)[1].toLowerCase().replace(/\s+/g, "-");
+  const family = /font-family:\s*'([^']+)'/
+    .exec(rule)[1]
+    .toLowerCase()
+    .replace(/\s+/g, "-");
   return `${family}-${subset}.woff2`;
 };
 
@@ -83,12 +86,20 @@ for (const { subset, rule } of wanted) {
     files.set(url, { file, size: buf.length });
   }
 
-  out.push(rule.replace(/url\(https:\/\/[^)]+\.woff2\)/, `url(/fonts/${files.get(url).file})`).trim(), "");
+  out.push(
+    rule
+      .replace(/url\(https:\/\/[^)]+\.woff2\)/, `url(/fonts/${files.get(url).file})`)
+      .trim(),
+    ""
+  );
 }
 
 await writeFile(CSS_OUT, out.join("\n"), "utf8");
 
 console.log(`подмножеств: ${SUBSETS.size}, правил @font-face: ${wanted.length}`);
-for (const { file, size } of files.values()) console.log(`  ${(size / 1024).toFixed(1).padStart(6)} КБ  ${file}`);
-console.log(`\nвсего ${(([...files.values()].reduce((s, f) => s + f.size, 0)) / 1024).toFixed(1)} КБ в public/fonts`);
+for (const { file, size } of files.values())
+  console.log(`  ${(size / 1024).toFixed(1).padStart(6)} КБ  ${file}`);
+console.log(
+  `\nвсего ${([...files.values()].reduce((s, f) => s + f.size, 0) / 1024).toFixed(1)} КБ в public/fonts`
+);
 console.log(`правила записаны в src/styles/fonts.css`);

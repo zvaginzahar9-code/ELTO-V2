@@ -2,6 +2,8 @@ import { lazy, Suspense, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import Nav from "./components/layout/Nav";
 import Footer from "./components/layout/Footer";
+import Dock from "./components/layout/Dock";
+import LeadProvider from "./components/lead/LeadProvider";
 import { DEFAULT_LANG, isLang, type Lang } from "./lib/i18n";
 import { measureScenes } from "./motion/scene";
 import { scrollToTop } from "./motion/clock";
@@ -45,7 +47,7 @@ function LangLayout() {
 
   const l = lang as Lang;
   return (
-    <>
+    <LeadProvider lang={l}>
       <Nav lang={l} />
       <main id="main">
         <Suspense fallback={<div className="route-wait" aria-hidden="true" />}>
@@ -67,7 +69,8 @@ function LangLayout() {
         </Suspense>
       </main>
       <Footer lang={l} />
-    </>
+      <Dock lang={l} />
+    </LeadProvider>
   );
 }
 

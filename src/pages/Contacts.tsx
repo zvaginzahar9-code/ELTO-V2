@@ -6,12 +6,23 @@
  * внизу страницы — живая карта с маркером производства (см. OfficeMap).
  */
 
+import Seo from "@/components/Seo";
 import Reveal from "@/components/motion/Reveal";
 import BackLink from "@/components/ui/BackLink";
 import OfficeMap from "@/components/ui/OfficeMap";
+import LeadForm from "@/components/lead/LeadForm";
 import { loadPage, type PageFull } from "@/lib/data";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { useRecord } from "@/lib/use-record";
+import {
+  ADDRESS_LINES,
+  EMAIL,
+  PHONE,
+  PHONE_2,
+  PHONE_2_HREF,
+  PHONE_HREF,
+  whatsappHref,
+} from "@/lib/contacts";
 
 /** Страница «Контакты» оригинала. */
 const CONTACTS_SLUG = "kontakty";
@@ -23,6 +34,12 @@ export default function Contacts({ lang }: { lang: Lang }) {
 
   return (
     <div className="page contacts ground-paper" data-ground="paper">
+      <Seo
+        lang={lang}
+        path="/contacts"
+        title={pick(data?.title, lang) || t("nav.contacts", lang)}
+        description={`${ADDRESS_LINES.join(" ")} · ${PHONE} · ${EMAIL}`}
+      />
       <header className="page__head shell">
         <BackLink to={`/${lang}`} label={t("back.home", lang)} />
         <span className="index">{t("nav.contacts", lang)}</span>
@@ -35,34 +52,42 @@ export default function Contacts({ lang }: { lang: Lang }) {
         <div className="contacts__block">
           <h2 className="label">{t("contacts.address", lang)}</h2>
           <address className="contacts__address">
-            г. Караганда, район Алихана Букейханова,
+            {ADDRESS_LINES[0]}
             <br />
-            учетный квартал 018, строение 20
+            {ADDRESS_LINES[1]}
           </address>
         </div>
         <div className="contacts__block">
           <h2 className="label">{t("contacts.phone", lang)}</h2>
-          <a className="contacts__big mono" href="tel:+77003700704">
-            +7 700 370 07 04
+          <a className="contacts__big mono" href={PHONE_HREF}>
+            {PHONE}
           </a>
-          <a className="contacts__big mono" href="tel:+77057590030">
-            +7 705 759 00 30
+          <a className="contacts__big mono" href={PHONE_2_HREF}>
+            {PHONE_2}
           </a>
         </div>
         <div className="contacts__block">
           <h2 className="label">{t("contacts.email", lang)}</h2>
-          <a className="contacts__big mono" href="mailto:sales@elto.kz">
-            sales@elto.kz
+          <a className="contacts__big mono" href={`mailto:${EMAIL}`}>
+            {EMAIL}
           </a>
           <a
             className="contacts__big mono"
-            href="https://api.whatsapp.com/send?phone=77003700704"
+            href={whatsappHref()}
             target="_blank"
             rel="noreferrer noopener"
           >
             WhatsApp
           </a>
         </div>
+      </section>
+
+      <section className="shell contacts__lead">
+        <div className="contacts__lead-text">
+          <h2 className="title contacts__lead-h">{t("home.final", lang)}</h2>
+          <p className="contacts__lead-p">{t("home.final.lead", lang)}</p>
+        </div>
+        <LeadForm lang={lang} mode="quote" direct={false} />
       </section>
 
       {table && (

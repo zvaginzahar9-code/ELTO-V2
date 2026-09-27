@@ -8,6 +8,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Seo from "@/components/Seo";
 import Reveal from "@/components/motion/Reveal";
 import BackLink from "@/components/ui/BackLink";
 import Counter from "@/components/motion/Counter";
@@ -45,6 +46,12 @@ export default function About({ lang }: { lang: Lang }) {
 
   return (
     <div className="page about ground-paper" data-ground="paper">
+      <Seo
+        lang={lang}
+        path="/about"
+        title={pick(data?.title, lang) || t("nav.company", lang)}
+        description={data?.description || data?.lead}
+      />
       <header className="page__head shell">
         <BackLink to={`/${lang}`} label={t("back.home", lang)} />
         <span className="index">{t("home.company", lang)}</span>

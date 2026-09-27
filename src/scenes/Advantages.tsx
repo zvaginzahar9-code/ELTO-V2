@@ -41,7 +41,7 @@ export default function Advantages({ lang }: { lang: Lang }) {
   const cards = ADVANTAGE_SLUGS.map((s) => byslug.get(s)).filter(Boolean);
 
   return (
-    <section id="why" className="scene why" data-ground="dark">
+    <section id="why" className="scene why ground-paper" data-ground="paper">
       <div className="shell why__inner">
         <header className="why__head">
           <span className="index">05 — {t("home.why", lang)}</span>

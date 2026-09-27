@@ -6,6 +6,8 @@
  * маской от основания к вершине. Отсюда и вертикальный формат кадра —
  * пропорции изделий ELTO, а не квадрат карточки.
  *
+ * Ниже — второй вход для тех, кто не знает маркировку: подбор по задаче.
+ *
  * Названия, порядок и счётчики позиций — из выгрузки каталога оригинала.
  */
 
@@ -13,6 +15,7 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Reveal from "@/components/motion/Reveal";
 import Img from "@/components/ui/Img";
+import TaskPicker from "@/components/ui/TaskPicker";
 import { topCategories } from "@/lib/data";
 import { categoryPath } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
@@ -29,10 +32,15 @@ export default function CatalogScene({ lang }: { lang: Lang }) {
           <Reveal as="h2" className="cat__title display" kind="lines">
             {t("catalog.title", lang)}
           </Reveal>
-          <Link className="btn cat__all" to={`/${lang}/catalog`}>
+          <Link className="btn btn--ink cat__all" to={`/${lang}/catalog`}>
             {t("catalog.all", lang)}
+            <span className="btn__arrow" aria-hidden="true">
+              →
+            </span>
           </Link>
         </header>
+
+        <h3 className="cat__mode label">{t("search.know", lang)}</h3>
 
         <div className="cat__body">
           <ul className="cat__list" ref={listRef}>
@@ -73,6 +81,17 @@ export default function CatalogScene({ lang }: { lang: Lang }) {
               </figure>
             ))}
           </div>
+        </div>
+
+        <div className="cat__tasks">
+          <header className="cat__tasks-head">
+            <h3 className="cat__mode label">{t("search.help", lang)}</h3>
+            <Reveal as="p" className="cat__tasks-title title">
+              {t("task.title", lang)}
+            </Reveal>
+            <p className="cat__tasks-lead">{t("task.lead", lang)}</p>
+          </header>
+          <TaskPicker lang={lang} />
         </div>
       </div>
     </section>

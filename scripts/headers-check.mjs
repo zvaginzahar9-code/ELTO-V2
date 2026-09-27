@@ -9,9 +9,11 @@
  * заблокированные запросы.
  *
  *   node scripts/headers-check.mjs
+ *   node scripts/headers-check.mjs --serve   только поднять dist, для Lighthouse
  */
 
 import { createServer } from "node:http";
+import { gzipSync } from "node:zlib";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { chromium } from "playwright-core";
@@ -50,6 +52,23 @@ const TYPES = {
 
 const STATIC = /^\/(assets|img|seq|media|docs|fonts|data)\//;
 
+/** rewrites из vercel.json: «/:lang(ru|kk|en)» → регулярное выражение с группой */
+const rewrites = (config.rewrites || []).map((r) => {
+  const names = [];
+  const src = r.source
+    .replace(/:(\w+)\(([^)]+)\)/g, (_, name, alt) => (names.push(name), `(${alt})`))
+    .replace("(.*)", ".*");
+  return { re: new RegExp(`^${src}/?$`), names, destination: r.destination };
+});
+const rewrite = (url) => {
+  for (const r of rewrites) {
+    const m = r.re.exec(url);
+    if (!m) continue;
+    return r.names.reduce((d, name, i) => d.replace(`:${name}`, m[i + 1]), r.destination);
+  }
+  return null;
+};
+
 const server = createServer(async (req, res) => {
   const url = decodeURIComponent(req.url.split("?")[0]);
   let file = path.join(DIST, url);
@@ -58,12 +77,12 @@ const server = createServer(async (req, res) => {
     const s = await stat(file);
     if (s.isDirectory()) throw new Error("dir");
   } catch {
-    // SPA: всё, что не статика и не файл, отдаётся индексом
+    // SPA: всё, что не статика и не файл, идёт по rewrites из vercel.json
     if (STATIC.test(url)) {
       res.writeHead(404).end("not found");
       return;
     }
-    file = path.join(DIST, "index.html");
+    file = path.join(DIST, rewrite(url) || "index.html");
   }
 
   const body = await readFile(file).catch(() => null);
@@ -72,15 +91,24 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  // текст сжимается, как на Vercel: без этого замеры скорости врут
+  const type = TYPES[path.extname(file)] || "application/octet-stream";
+  const gzip = /text|json|svg/.test(type) && /gzip/.test(req.headers["accept-encoding"] || "");
   res.writeHead(200, {
-    "Content-Type": TYPES[path.extname(file)] || "application/octet-stream",
+    "Content-Type": type,
+    ...(gzip ? { "Content-Encoding": "gzip", Vary: "Accept-Encoding" } : {}),
     ...headersFor(url),
   });
-  res.end(body);
+  res.end(gzip ? gzipSync(body) : body);
 });
 
 await new Promise((r) => server.listen(PORT, r));
 const base = `http://localhost:${PORT}`;
+
+if (process.argv.includes("--serve")) {
+  console.log(`dist с заголовками и rewrites vercel.json: ${base}`);
+  await new Promise(() => {});
+}
 
 const PATHS = [
   "/ru",

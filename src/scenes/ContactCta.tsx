@@ -1,54 +1,74 @@
 /**
- * СЦЕНА 08 — КОНТАКТ
+ * СЦЕНА 08 — ЗАЯВКА
  *
- * Последний кадр отдаётся тому, ради чего человек листал: как связаться.
- * Адрес, телефон и почта — дословно с оригинала.
+ * Последний кадр отдаётся тому, ради чего человек листал: форма расчёта
+ * прямо на странице, без перехода и без поиска кнопки. Рядом — телефон,
+ * почта, WhatsApp и адрес с оригинала. Над формой горит тот же натриевый
+ * свет, что встречал в герое: страница заканчивается там, где началась.
  */
 
-import { Link } from "react-router-dom";
 import Reveal from "@/components/motion/Reveal";
+import LeadForm from "@/components/lead/LeadForm";
 import { t, type Lang } from "@/lib/i18n";
+import { ADDRESS_LINES, EMAIL, PHONE, PHONE_HREF, whatsappHref } from "@/lib/contacts";
 
 export default function ContactCta({ lang }: { lang: Lang }) {
   return (
     <section id="contact" className="scene cta" data-ground="dark">
+      <div className="cta__glow" aria-hidden="true" />
       <div className="shell cta__inner">
-        <span className="index">08 — {t("home.contacts", lang)}</span>
-        {/* заголовок формы обратной связи с оригинала */}
-        <Reveal as="h2" className="cta__title display display--tight" kind="lines">
-          Остались вопросы?
-        </Reveal>
+        <div className="cta__intro">
+          <span className="index">08 — {t("cta.quote", lang)}</span>
+          <Reveal as="h2" className="cta__title display display--tight" kind="lines">
+            {t("home.final", lang)}
+          </Reveal>
+          <p className="cta__lead lead">{t("home.final.lead", lang)}</p>
 
-        <div className="cta__grid">
-          <div className="cta__col">
-            <span className="label">{t("contacts.phone", lang)}</span>
-            <a className="cta__big mono" href="tel:+77003700704">
-              +7 700 370 07 04
-            </a>
-          </div>
-          <div className="cta__col">
-            <span className="label">{t("contacts.email", lang)}</span>
-            <a className="cta__big mono" href="mailto:sales@elto.kz">
-              sales@elto.kz
-            </a>
-          </div>
-          <div className="cta__col">
-            <span className="label">{t("contacts.address", lang)}</span>
-            <address className="cta__address">
-              г. Караганда, район Алихана Букейханова,
-              <br />
-              учетный квартал 018, строение 20
-            </address>
-          </div>
+          <dl className="cta__contacts">
+            <div>
+              <dt className="label">{t("contacts.phone", lang)}</dt>
+              <dd>
+                <a className="cta__big mono" href={PHONE_HREF}>
+                  {PHONE}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="label">{t("contacts.email", lang)}</dt>
+              <dd>
+                <a className="cta__big mono" href={`mailto:${EMAIL}`}>
+                  {EMAIL}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="label">WhatsApp</dt>
+              <dd>
+                <a
+                  className="cta__big mono"
+                  href={whatsappHref()}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {PHONE}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="label">{t("contacts.address", lang)}</dt>
+              <dd>
+                <address className="cta__address">
+                  {ADDRESS_LINES[0]}
+                  <br />
+                  {ADDRESS_LINES[1]}
+                </address>
+              </dd>
+            </div>
+          </dl>
         </div>
 
-        <div className="cta__actions">
-          <Link className="btn btn--solid" to={`/${lang}/contacts`}>
-            {t("nav.contacts", lang)}
-          </Link>
-          <Link className="btn" to={`/${lang}/catalog`}>
-            {t("catalog.all", lang)}
-          </Link>
+        <div className="cta__form">
+          <LeadForm lang={lang} mode="quote" tone="night" direct={false} />
         </div>
       </div>
     </section>

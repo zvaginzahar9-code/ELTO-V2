@@ -36,10 +36,10 @@
 }
 .back--art:hover {
   background: none;
-  border-color: var(--green-dim);
+  border-color: var(--accent-ink);
 }
 .back--art .back__arrow {
-  color: var(--green-dim);
+  color: var(--accent-ink);
   font-size: 1em;
 }
 .back--art:hover .back__arrow {
@@ -61,7 +61,7 @@
   font-size: var(--t-label);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-45);
+  color: var(--ink-muted);
   white-space: nowrap;
 }
 .art__eyebrow-rule {
@@ -116,10 +116,10 @@
   max-width: 54ch;
   font-size: clamp(1.1rem, 1.5vw, 1.44rem);
   line-height: 1.5;
-  color: var(--ink-2);
+  color: var(--ink);
 }
 .art__lead a {
-  color: var(--green-dim);
+  color: var(--accent-ink);
   border-bottom: 1px solid currentColor;
 }
 
@@ -143,7 +143,7 @@
   height: min(78vh, 56.25vw, calc(var(--shot-h, 100vh) + 2 * var(--stage-pad)));
   min-height: 38vh;
   overflow: hidden;
-  background: var(--graphite);
+  background: var(--night);
   isolation: isolate;
 }
 /* полоса остаётся графитовой, даже если снимок светлый во весь кадр */
@@ -152,7 +152,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(90% 75% at 50% 50%, transparent 30%, rgba(14, 16, 18, 0.55) 100%);
+  background: radial-gradient(90% 75% at 50% 50%, transparent 30%, rgba(15, 19, 23, 0.55) 100%);
 }
 .art__amb {
   position: absolute;
@@ -247,7 +247,7 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--green-dim);
+  color: var(--accent-ink);
 }
 .prose__sub + ul {
   margin-top: 0;
@@ -273,7 +273,7 @@
   top: 1.34em;
   width: 1.1em;
   height: 1px;
-  background: var(--green-dim);
+  background: var(--accent-ink);
 }
 
 .art__col .prose iframe {
@@ -286,7 +286,7 @@
 
 .art__h {
   display: block;
-  color: var(--green-dim);
+  color: var(--accent-ink);
   margin-bottom: 1rem;
 }
 
@@ -304,7 +304,7 @@
 .art__grid li {
   aspect-ratio: 4 / 3;
   padding: 0.8rem;
-  background: var(--cream);
+  background: var(--surface);
   border: 1px solid var(--ink-12);
   border-radius: 2px;
   overflow: hidden;
@@ -337,7 +337,7 @@
   align-items: flex-end;
 }
 .art__more-card:hover {
-  background: var(--cream);
+  background: var(--surface);
 }
 .art__more-h {
   font-size: var(--t-md);
@@ -345,18 +345,18 @@
   transition: color 0.35s var(--e-out);
 }
 .art__more-card:hover .art__more-h {
-  color: var(--green-dim);
+  color: var(--accent-ink);
 }
 .art__more-label::before {
   content: "← ";
-  color: var(--green-dim);
+  color: var(--accent-ink);
 }
 .art__more-card[data-dir="next"] .art__more-label::before {
   content: none;
 }
 .art__more-card[data-dir="next"] .art__more-label::after {
   content: " →";
-  color: var(--green-dim);
+  color: var(--accent-ink);
 }
 .art__more[data-pair="next"],
 .art__more[data-pair="prev"] {

@@ -14,12 +14,14 @@
 import { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import Reveal from "@/components/motion/Reveal";
+import Seo from "@/components/Seo";
 import ArticleShot from "@/components/ui/ArticleShot";
 import BackLink from "@/components/ui/BackLink";
 import Img from "@/components/ui/Img";
 import { loadPage, pages, type PageFull } from "@/lib/data";
 import { article } from "@/lib/prose";
 import { rewriteLinks } from "@/lib/routes";
+import { imgSrc } from "@/lib/image-url";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { useRecord } from "@/lib/use-record";
 import views from "@/data/views.json";
@@ -56,7 +58,11 @@ const LISTS: { view: string; path: string; title: Loc; all: Loc }[] = [
   {
     view: "usefullinf",
     path: "info",
-    title: { ru: "Полезная информация", kk: "Пайдалы ақпараттар", en: "Useful Information" },
+    title: {
+      ru: "Полезная информация",
+      kk: "Пайдалы ақпараттар",
+      en: "Useful Information",
+    },
     all: {
       ru: "Вся полезная информация",
       kk: "Барлық пайдалы ақпарат",
@@ -87,9 +93,10 @@ type Place = {
  */
 function placeOf(slug: string, lang: Lang): Place | null {
   for (const list of LISTS) {
-    const rows = (viewTable[lang]?.[list.view]?.length
-      ? viewTable[lang][list.view]
-      : viewTable.ru?.[list.view]) || [];
+    const rows =
+      (viewTable[lang]?.[list.view]?.length
+        ? viewTable[lang][list.view]
+        : viewTable.ru?.[list.view]) || [];
     const i = rows.findIndex((r) => r.slug === slug);
     if (i === -1) continue;
     return {
@@ -149,6 +156,14 @@ export default function Info({ lang }: { lang: Lang }) {
     /* грунт на корне держит шапку светлой, тёмная полоса кадра и тело
        переключают её сами — наблюдатель в шапке слушает именно их */
     <article className="page art ground-paper" data-ground="paper">
+      <Seo
+        lang={lang}
+        path={`/info/${slug}`}
+        title={title}
+        description={data?.description || lead || brief.d}
+        image={hero ? imgSrc(hero, 1600) : undefined}
+        type="article"
+      />
       <header className="art__head shell" data-ground="paper">
         <div className="art__nav art__in">
           <BackLink
@@ -259,7 +274,12 @@ export default function Info({ lang }: { lang: Lang }) {
               <ul className="art__grid">
                 {rest.map((f) => (
                   <li key={f}>
-                    <Img file={f} alt="" sizes="(max-width: 860px) 46vw, 30vw" fit="contain" />
+                    <Img
+                      file={f}
+                      alt=""
+                      sizes="(max-width: 860px) 46vw, 30vw"
+                      fit="contain"
+                    />
                   </li>
                 ))}
               </ul>

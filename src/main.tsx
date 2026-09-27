@@ -14,6 +14,9 @@ import "./styles/article.css";
 
 startClock();
 
+// главная пришла с первым экраном в HTML — сцена героя подхватит его без повтора
+if (document.querySelector("#root .hero--boot")) document.documentElement.dataset.boot = "hero";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>

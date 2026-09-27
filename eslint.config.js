@@ -44,9 +44,9 @@ export default tseslint.config(
     },
   },
 
-  // конфиг сборки — тоже node, но на TypeScript: свой парсер
+  // серверные функции и конфиг сборки — node на TypeScript
   {
-    files: ["*.config.ts"],
+    files: ["api/**/*.ts", "*.config.ts"],
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     languageOptions: {
       ecmaVersion: 2023,

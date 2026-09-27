@@ -1,14 +1,15 @@
 /**
- * СЦЕНА 04 (в карточке изделия) — РАЗРЕЗ
+ * Карточка изделия — технический лист.
  *
- * У многих позиций ELTO на сайте лежат и заводская фотография, и чертёж.
- * Это и есть самая содержательная анимация, какую здесь можно сделать: пока
- * читаешь описание, кадр сам переходит от изделия к его чертежу — движение
- * объясняет продукт, а не украшает страницу.
+ * Слева кадр: пока читаешь, он сам переходит от изделия к заводскому
+ * чертежу — движение объясняет продукт, а не украшает страницу. Если чертежа
+ * нет, кадр перебирает остальные фотографии позиции.
  *
- * Если чертежа нет, кадр просто перебирает остальные фотографии позиции.
- * Характеристики проявляются построчно, но остаются обычной таблицей: их
- * можно выделить, скопировать и прочитать с клавиатуры.
+ * Справа — то, что ищет инженер и снабженец, в порядке важности: название,
+ * сводка (раздел, таблицы, число исполнений, документы), действия — цена,
+ * ТЗ, звонок, WhatsApp, PDF-каталог, — затем описание, таблицы и документы.
+ * Таблицы остаются таблицами: их можно выделить, скопировать и прочитать
+ * с клавиатуры; первая колонка с маркировкой не уезжает при прокрутке.
  *
  * Весь текст, все названия и все цифры — дословно с elto.kz.
  */
@@ -19,6 +20,7 @@ import { animate, onScroll, stagger } from "animejs";
 import Reveal from "@/components/motion/Reveal";
 import BackLink from "@/components/ui/BackLink";
 import Img from "@/components/ui/Img";
+import Seo from "@/components/Seo";
 import {
   categoryOf,
   leafCategoryOf,
@@ -29,8 +31,10 @@ import {
 import { categoryPath, productPath, rewriteLinks } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { useRecord } from "@/lib/use-record";
+import { catalogDocFor, PHONE, PHONE_HREF, whatsappHref } from "@/lib/contacts";
 import { registerScene, span } from "@/motion/scene";
 import { reducedMotion } from "@/motion/clock";
+import { useLead, useLeadTopic } from "@/components/lead/LeadProvider";
 import NotFound from "./NotFound";
 
 export default function Product({ lang }: { lang: Lang }) {
@@ -39,12 +43,16 @@ export default function Product({ lang }: { lang: Lang }) {
   const { data, failed } = useRecord<ProductFull>(slug, loadProduct);
   const mediaRef = useRef<HTMLDivElement>(null);
   const specRef = useRef<HTMLDivElement>(null);
+  const openLead = useLead();
+  const title = brief ? pick(brief.t, lang) : "";
+  useLeadTopic(title);
 
   /* кадр переходит от изделия к чертежу по мере чтения */
   useEffect(() => {
     const el = mediaRef.current;
     if (!el || !data || reducedMotion()) return;
     const layers = Array.from(el.querySelectorAll<HTMLElement>(".shot__layer"));
+    const ticks = Array.from(el.querySelectorAll<HTMLElement>(".shot__tick"));
     if (layers.length < 2) return;
 
     return registerScene(el.closest(".product") as HTMLElement, {
@@ -53,11 +61,11 @@ export default function Product({ lang }: { lang: Lang }) {
         const steps = layers.length - 1;
         layers.forEach((layer, i) => {
           if (i === 0) return;
-          const from = (i - 1) / steps;
-          const to = i / steps;
-          const v = span(p, from + 0.04, to - 0.04);
+          const v = span(p, (i - 1) / steps + 0.04, i / steps - 0.04);
           layer.style.clipPath = `inset(${((1 - v) * 100).toFixed(2)}% 0 0 0)`;
         });
+        const at = Math.min(steps, Math.round(p * steps));
+        ticks.forEach((tk, i) => tk.setAttribute("data-on", String(i === at)));
       },
     });
   }, [data]);
@@ -73,7 +81,7 @@ export default function Product({ lang }: { lang: Lang }) {
       opacity: [0, 1],
       y: ["0.7em", "0em"],
       duration: 620,
-      delay: stagger(28),
+      delay: stagger(22, { start: 0 }),
       ease: "out(3)",
       autoplay: observer,
     });
@@ -85,21 +93,32 @@ export default function Product({ lang }: { lang: Lang }) {
 
   if (!brief || failed) return <NotFound lang={lang} />;
 
-  const title = pick(brief.t, lang);
   const leaf = leafCategoryOf(brief);
   const root = leaf?.parent ? categoryOf(leaf.parent) : null;
+  const doc = catalogDocFor(brief.c, (s) => categoryOf(s)?.parent);
 
   /* порядок кадров: сначала фотографии, чертёж — последним */
-  const shots = data ? [...data.photos, ...data.drawings].slice(0, 4) : [brief.i];
+  const shots = (
+    data ? [...data.photos, ...data.drawings].slice(0, 4) : [brief.i]
+  ).filter(Boolean);
   const html = data ? rewriteLinks(data.html[lang] || data.html.ru || "", lang) : "";
+  const variants = data?.tables.reduce((n, tb) => n + Math.max(0, tb.length - 1), 0) ?? 0;
 
   return (
     <article className="page product ground-paper" data-ground="paper">
+      <Seo
+        lang={lang}
+        path={`/product/${slug}`}
+        title={title}
+        description={data?.description || brief.d}
+        type="product"
+      />
+
       <div className="shell product__inner">
         <div className="product__media" ref={mediaRef}>
           <div className="product__sticky">
             <div className="shot">
-              {shots.filter(Boolean).map((file, i) => (
+              {shots.map((file, i) => (
                 <div
                   className="shot__layer"
                   key={file}
@@ -114,13 +133,27 @@ export default function Product({ lang }: { lang: Lang }) {
                   />
                 </div>
               ))}
+              {/* визирные засечки по углам кадра — как на листе чертежа */}
+              <span className="shot__corner shot__corner--tl" aria-hidden="true" />
+              <span className="shot__corner shot__corner--br" aria-hidden="true" />
             </div>
             {shots.length > 1 && (
-              <p className="shot__hint label muted">
-                {data?.drawings.length
-                  ? `${t("product.photo", lang)} → ${t("product.drawing", lang)}`
-                  : t("product.gallery", lang)}
-              </p>
+              <div className="shot__rail" aria-hidden="true">
+                <span className="label muted">
+                  {data?.drawings.length
+                    ? `${t("product.photo", lang)} → ${t("product.drawing", lang)}`
+                    : t("product.gallery", lang)}
+                </span>
+                <span className="shot__ticks">
+                  {shots.map((f, i) => (
+                    <i
+                      className="shot__tick"
+                      key={f}
+                      data-on={i === 0 ? "true" : "false"}
+                    />
+                  ))}
+                </span>
+              </div>
             )}
           </div>
         </div>
@@ -147,9 +180,76 @@ export default function Product({ lang }: { lang: Lang }) {
             )}
           </nav>
 
-          <Reveal as="h1" className="product__title title" kind="lines">
+          <Reveal as="h1" className="product__title title" kind="lines" immediate>
             {title}
           </Reveal>
+
+          {data && (data.tables.length > 0 || data.docs.length > 0) && (
+            <dl className="facts">
+              {leaf && (
+                <div>
+                  <dt className="label">{t("product.section", lang)}</dt>
+                  <dd>{pick(leaf.title, lang)}</dd>
+                </div>
+              )}
+              {data.tables.length > 0 && (
+                <div>
+                  <dt className="label">{t("product.specs", lang)}</dt>
+                  <dd className="mono">
+                    {variants} {t("product.variants", lang)}
+                  </dd>
+                </div>
+              )}
+              {data.docs.length > 0 && (
+                <div>
+                  <dt className="label">{t("product.docs", lang)}</dt>
+                  <dd className="mono">{data.docs.length}</dd>
+                </div>
+              )}
+            </dl>
+          )}
+
+          <section className="order" aria-label={t("product.actions", lang)}>
+            <div className="order__main">
+              <button
+                type="button"
+                className="btn btn--solid order__price"
+                onClick={() => openLead({ mode: "quote", topic: title })}
+              >
+                {t("product.request", lang)}
+                <span className="btn__arrow" aria-hidden="true">
+                  →
+                </span>
+              </button>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => openLead({ mode: "tz", topic: title })}
+              >
+                {t("cta.tz", lang)}
+              </button>
+            </div>
+            <p className="order__note">{t("product.priceNote", lang)}</p>
+            <div className="order__links">
+              <a href={PHONE_HREF} className="mono">
+                {PHONE}
+              </a>
+              <a
+                href={whatsappHref(
+                  `${title} — ${t("product.request", lang).toLowerCase()}`
+                )}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                WhatsApp
+              </a>
+              {doc && (
+                <a href={doc.href} target="_blank" rel="noreferrer">
+                  ↓ {doc.label}
+                </a>
+              )}
+            </div>
+          </section>
 
           {html ? (
             <div
@@ -162,9 +262,15 @@ export default function Product({ lang }: { lang: Lang }) {
 
           {!!data?.tables.length && (
             <section className="product__specs" ref={specRef}>
-              <h2 className="label product__h">{t("product.specs", lang)}</h2>
+              <h2 className="product__h label">{t("product.specs", lang)}</h2>
               {data.tables.map((table, ti) => (
-                <div className="spec-wrap" key={ti}>
+                <div
+                  className="spec-wrap"
+                  key={ti}
+                  tabIndex={0}
+                  role="region"
+                  aria-label={`${t("product.specs", lang)} ${ti + 1}`}
+                >
                   <table className="spec">
                     <thead>
                       <tr>
@@ -190,7 +296,7 @@ export default function Product({ lang }: { lang: Lang }) {
 
           {!!data?.docs.length && (
             <section className="product__docs">
-              <h2 className="label product__h">{t("product.docs", lang)}</h2>
+              <h2 className="product__h label">{t("product.docs", lang)}</h2>
               <ul className="docs">
                 {data.docs.map((d) => (
                   <li key={d.href}>
@@ -202,21 +308,12 @@ export default function Product({ lang }: { lang: Lang }) {
               </ul>
             </section>
           )}
-
-          <div className="product__actions">
-            <a className="btn btn--solid" href="mailto:sales@elto.kz?subject=Запрос: ">
-              {t("product.request", lang)}
-            </a>
-            <a className="btn" href="tel:+77003700704">
-              +7 700 370 07 04
-            </a>
-          </div>
         </div>
       </div>
 
       {!!data?.related.length && (
         <section className="shell product__related">
-          <h2 className="label product__h">{t("product.related", lang)}</h2>
+          <h2 className="product__h label">{t("product.related", lang)}</h2>
           <ul className="grid grid--products">
             {data.related.map((r) => {
               const rb = productBySlug.get(r.slug);

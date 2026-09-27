@@ -10,8 +10,9 @@
 /* ── 01 ПОДЪЁМ ───────────────────────────────────────────────── */
 
 .hero {
-  height: 320vh;
-  background: var(--graphite);
+  height: 300vh;
+  background: var(--night);
+  color: var(--zinc);
 }
 
 .hero__stage {
@@ -33,20 +34,59 @@
   object-position: 50% 68%;
 }
 
+/*
+ * Натриевый свет. Пятно лампы над кадром: при загрузке разгорается, как
+ * натриевая лампа — с тусклого, с коротким мерцанием, — а при подъёме
+ * камеры становится ближе и ярче (--climb выставляет сцена).
+ */
+.hero__glow {
+  --climb: 0;
+  position: absolute;
+  inset: -20% -10% auto;
+  height: 90%;
+  background:
+    radial-gradient(40% 46% at 62% 0%, rgba(255, 150, 70, 0.55), transparent 70%),
+    radial-gradient(70% 60% at 62% 0%, rgba(255, 107, 26, 0.3), transparent 72%);
+  mix-blend-mode: screen;
+  opacity: calc(0.55 + var(--climb) * 0.45);
+  transform: translate3d(0, calc(var(--climb) * 8%), 0) scale(calc(1 + var(--climb) * 0.25));
+  transform-origin: 62% 0%;
+  pointer-events: none;
+  animation: sodium-ignite 2.6s var(--e-soft) 0.2s backwards;
+}
+@keyframes sodium-ignite {
+  0% {
+    opacity: 0;
+    filter: hue-rotate(-40deg) saturate(0.4);
+  }
+  18% {
+    opacity: 0.25;
+  }
+  22% {
+    opacity: 0.08;
+  }
+  30% {
+    opacity: 0.32;
+  }
+  100% {
+    filter: none;
+  }
+}
+
 .hero__scrim {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(14, 16, 18, 0.8) 0%, rgba(14, 16, 18, 0.42) 32%,
-      rgba(14, 16, 18, 0.04) 58%, rgba(14, 16, 18, 0.62) 100%),
-    linear-gradient(180deg, rgba(14, 16, 18, 0.62) 0%, rgba(14, 16, 18, 0.06) 28%,
-      rgba(14, 16, 18, 0.2) 62%, rgba(14, 16, 18, 0.9) 100%);
+    linear-gradient(90deg, rgba(15, 19, 23, 0.86) 0%, rgba(15, 19, 23, 0.5) 34%,
+      rgba(15, 19, 23, 0.06) 62%, rgba(15, 19, 23, 0.5) 100%),
+    linear-gradient(180deg, rgba(15, 19, 23, 0.55) 0%, rgba(15, 19, 23, 0.04) 26%,
+      rgba(15, 19, 23, 0.2) 60%, rgba(15, 19, 23, 0.92) 100%);
 }
 
 .hero__fade {
   position: absolute;
   inset: 0;
-  background: var(--graphite);
+  background: var(--night);
   opacity: 0;
   pointer-events: none;
 }
@@ -55,12 +95,10 @@
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   row-gap: clamp(0.8rem, 2.5vh, 2rem);
-  align-items: start;
-  padding-top: calc(var(--nav-h) + 1.1rem);
-  padding-bottom: clamp(1.2rem, 4vh, 2.6rem);
-  color: var(--zinc);
+  padding-top: calc(var(--nav-h) + 1rem);
+  padding-bottom: clamp(1.1rem, 3.5vh, 2.2rem);
   pointer-events: none;
 }
 .hero__ui a,
@@ -68,12 +106,6 @@
   pointer-events: auto;
 }
 
-/*
- * Строки закреплены явно: подписи в шапке кадра прячутся на телефоне через
- * display:none, а это выкидывает элемент из сетки и поднимает всё остальное
- * на строку вверх — слоган уезжал на место подписей, а кнопка на место
- * слогана.
- */
 .hero__top {
   grid-row: 1;
   display: flex;
@@ -81,98 +113,177 @@
   gap: 1rem;
 }
 .hero__corner {
-  color: var(--zinc-45);
+  color: var(--zinc-muted);
 }
-.hero__corner--green {
-  color: var(--green);
+.hero__corner--lit {
+  color: var(--accent);
 }
 
+/* середина кадра: три слоя в одной клетке сетки, сменяют друг друга */
 .hero__middle {
   grid-row: 2;
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  align-content: center;
-  gap: clamp(1.5rem, 5vw, 5rem);
-  /* строка должна уметь сжиматься, иначе содержимое выдавливает её
-     вверх — прямо на подписи в шапке кадра */
   min-height: 0;
-  /* и не выходить за свою строку сетки: на низком экране содержимое иначе
-     наползает на кнопку под ним */
-  overflow: hidden;
+}
+.hero__lead,
+.hero__statement,
+.hero__telemetry {
+  grid-area: 1 / 1;
+  align-self: center;
 }
 
-/* знак стоит на месте будущего заголовка и уступает ему кадр */
-.hero__mark {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.hero__h1 {
+  font-size: min(clamp(2.3rem, 5.6vw, 6.4rem), 9.6vh);
+  color: #fff;
+  max-width: 17ch;
+  margin-bottom: clamp(1.4rem, 4vh, 2.6rem);
+}
+.hero__h1-where {
+  margin-top: 0.35em;
+  font-size: 0.46em;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--accent);
+}
+/* строки поднимаются из масок при первом кадре — лесенкой */
+.hero__h1 .mask > span {
+  animation: rise 1.25s var(--e-out) backwards;
+  animation-delay: calc(0.25s + var(--i, 0) * 0.09s);
+}
+@keyframes rise {
+  from {
+    transform: translate3d(0, 110%, 0);
+  }
+}
+/* первый экран из HTML стоит сразу; сцена, подхватившая его, не повторяет въезд */
+.hero--boot .hero__h1 .mask > span,
+.hero--boot .hero__actions,
+.hero--boot .hero__quick,
+.hero--booted .hero__h1 .mask > span,
+.hero--booted .hero__actions,
+.hero--booted .hero__quick {
+  animation: none;
+}
+/* стартовая разметка — один экран, без высоты под прокрутку сцены */
+.hero--boot {
+  height: 100svh;
+}
+
+.hero__actions {
   display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  animation: fade-up 1s var(--e-out) 0.7s backwards;
 }
-/* тот же размер держит стартовый кадр в index.html: знак не должен
-   менять величину в момент, когда его перерисовывает React */
-.hero__mark img,
-.boot__mark {
-  width: clamp(180px, 20vw, 290px);
-  height: auto;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
 }
-.hero__tagline {
-  color: var(--zinc-45);
-  letter-spacing: 0.42em;
+.hero__consult {
+  margin-left: 0.4rem;
+  color: var(--zinc);
 }
 
-.hero__copy {
-  /* строки заголовка разбиты вручную — ширину ограничивать нельзя,
-     иначе маска обрежет их по середине слова */
-  max-width: min(100%, 62rem);
+.hero__statement {
+  max-width: min(100%, 60rem);
+  pointer-events: none;
 }
-.hero__title {
-  /* кегль ограничен и высотой экрана: на ноутбуке три строки заголовка
-     иначе перестают помещаться между подписями и цифрами */
-  font-size: min(var(--t-xxl), 10.5vh);
+.hero__slogan {
+  font-size: min(var(--t-xxl), 11vh);
   color: #fff;
   margin-bottom: clamp(0.7rem, 1.8vh, 1.2rem);
 }
+.hero__slogan .mask > span {
+  transform: translate3d(0, 115%, 0);
+}
 .hero__sub {
-  max-width: 34ch;
+  max-width: 36ch;
   color: var(--zinc-70);
   opacity: 0;
 }
 
 .hero__telemetry {
+  justify-self: end;
   display: grid;
-  gap: clamp(1.1rem, 2.6vh, 1.8rem);
+  gap: clamp(1rem, 2.6vh, 1.8rem);
+  margin: 0;
   text-align: right;
-  justify-items: end;
 }
 .hero__tel {
   opacity: 0;
 }
-.hero__tel .label {
-  display: block;
-  color: var(--zinc-45);
+.hero__tel dt {
+  color: var(--zinc-muted);
   margin-bottom: 0.3em;
 }
-.hero__tel b {
-  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+.hero__tel dd {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
   font-weight: 500;
-  color: var(--green);
+  color: var(--accent);
   line-height: 1;
+  text-shadow: 0 0 30px rgba(255, 107, 26, 0.45);
 }
 
-.hero__hint {
+/* быстрые входы в разделы — внизу кадра, всё время под рукой */
+.hero__quick {
   grid-row: 3;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  gap: 1rem 1.4rem;
+  min-width: 0;
+  animation: fade-up 1s var(--e-out) 0.95s backwards;
 }
-.hero__hint-label {
-  color: var(--zinc-45);
+.hero__quick-label {
+  flex: 0 0 auto;
+  color: var(--zinc-muted);
+}
+.hero__quick ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.hero__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  min-height: 40px;
+  padding: 0.45em 0.9em;
+  font-size: 0.9rem;
+  color: var(--zinc);
+  background: rgba(15, 19, 23, 0.42);
+  border: 1px solid var(--zinc-25);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+  transition: border-color 0.35s var(--e-out), color 0.35s var(--e-out),
+    background-color 0.35s var(--e-out);
+}
+.hero__chip .mono {
+  font-size: 0.7rem;
+  color: var(--zinc-muted);
+}
+.hero__chip:hover {
+  border-color: var(--accent);
+  background: rgba(255, 107, 26, 0.14);
+  color: #fff;
+}
+
+/* без движения герой — обычный первый экран: заголовок, действия, входы */
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    height: auto;
+  }
+  .hero__statement,
+  .hero__telemetry {
+    display: none;
+  }
 }
 
 /* ── 02 КОМПАНИЯ ─────────────────────────────────────────────── */
@@ -212,7 +323,7 @@
 .company__figure picture {
   display: block;
   aspect-ratio: 16 / 9;
-  background: var(--cream-2);
+  background: var(--paper-2);
   overflow: hidden;
 }
 .company__figure img {
@@ -232,7 +343,7 @@
   border-top: 1px solid var(--ink-12);
 }
 .fig dt {
-  color: var(--ink-45);
+  color: var(--ink-muted);
   margin-bottom: 0.5em;
 }
 .fig__v {
@@ -246,7 +357,7 @@
 /* ── 03 ИЗ ЛИСТА В ОПОРУ ─────────────────────────────────────── */
 
 .production {
-  background: var(--graphite);
+  background: var(--night);
 }
 
 .production__stage {
@@ -319,10 +430,10 @@
   font-size: clamp(2.2rem, 5vw, 4rem);
   font-weight: 700;
   line-height: 1;
-  color: var(--green);
+  color: var(--accent);
   /* смешивание давало фиолетовый на светлых кадрах — номер этапа должен
      оставаться фирменно-зелёным на любом кадре */
-  text-shadow: 0 2px 14px rgba(14, 16, 18, 0.85);
+  text-shadow: 0 2px 14px rgba(15, 19, 23, 0.85);
 }
 
 .stage__h {
@@ -350,7 +461,7 @@
 .production__rail > span {
   display: block;
   height: 100%;
-  background: var(--green);
+  background: var(--accent);
   transform-origin: left;
   transform: scaleX(0);
 }
@@ -437,21 +548,21 @@
 }
 .cat__row.is-active .cat__link {
   padding-left: clamp(0.4rem, 1.2vw, 1.1rem);
-  color: var(--green-dim);
+  color: var(--accent-ink);
 }
 .cat__no {
   font-size: var(--t-label);
-  color: var(--ink-45);
+  color: var(--ink-muted);
 }
 .cat__row.is-active .cat__no {
-  color: var(--green-dim);
+  color: var(--accent-ink);
 }
 .cat__name {
   font-size: clamp(1.05rem, 1.9vw, 1.7rem);
 }
 .cat__count {
   font-size: var(--t-label);
-  color: var(--ink-45);
+  color: var(--ink-muted);
 }
 
 .cat__thumb {
@@ -463,7 +574,7 @@
   position: sticky;
   top: calc(var(--nav-h) + 2rem);
   aspect-ratio: 3 / 4;
-  background: var(--cream);
+  background: var(--surface);
   border: 1px solid var(--ink-12);
 }
 .cat__shot {
@@ -495,14 +606,15 @@
   position: absolute;
   left: clamp(1rem, 2.5vw, 2.2rem);
   bottom: clamp(0.8rem, 2vw, 1.4rem);
-  color: var(--ink-45);
+  color: var(--ink-muted);
 }
 
 /* ── 05 ПОЧЕМУ МЫ ────────────────────────────────────────────── */
 
+/* светлая плита: преимущества читают, а не смотрят */
 .why {
   padding-block: var(--shelf);
-  background: var(--graphite-2);
+  background: var(--paper-2);
 }
 
 .why__head {
@@ -510,33 +622,35 @@
 }
 .why__title {
   font-size: var(--t-xl);
-  color: #fff;
-  margin-top: 0.7rem;
+  margin-top: 0.8rem;
 }
 
 .why__cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
-  background: var(--zinc-12);
-  border: 1px solid var(--zinc-12);
+  background: var(--ink-12);
+  border: 1px solid var(--ink-12);
 }
 /* карточка не ссылка: ни курсора, ни отклика на наведение */
 .why__card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: clamp(1.2rem, 2.6vw, 2.2rem);
-  background: var(--graphite-2);
+  justify-content: space-between;
+  min-height: clamp(8.5rem, 18vh, 12rem);
+  padding: clamp(1.2rem, 2.4vw, 2rem);
+  background: var(--surface);
 }
 .why__no {
   display: block;
   font-size: var(--t-label);
-  color: var(--green);
+  color: var(--ink-muted);
   margin-bottom: 1.1rem;
 }
 .why__h {
-  font-size: var(--t-md);
-  color: #fff;
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  max-width: 18ch;
 }
 
 .why__list {
@@ -549,14 +663,15 @@
   display: flex;
   gap: 0.9rem;
   align-items: baseline;
-  font-size: var(--t-small);
-  color: var(--zinc-70);
+  font-size: var(--t-body);
+  color: var(--ink-70);
 }
 .why__bullet {
   flex: 0 0 auto;
-  width: 6px;
-  height: 6px;
-  background: var(--green);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
   transform: translateY(-2px);
 }
 
@@ -564,7 +679,7 @@
 
 .geo {
   height: 220vh;
-  background: var(--graphite);
+  background: var(--night);
 }
 .geo__stage {
   position: sticky;
@@ -587,8 +702,8 @@
 .geo__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(14, 16, 18, 0.92) 0%, rgba(14, 16, 18, 0.45) 46%,
-    rgba(14, 16, 18, 0.1) 70%, rgba(14, 16, 18, 0.55) 100%);
+  background: linear-gradient(90deg, rgba(15, 19, 23, 0.92) 0%, rgba(15, 19, 23, 0.45) 46%,
+    rgba(15, 19, 23, 0.1) 70%, rgba(15, 19, 23, 0.55) 100%);
 }
 .geo__inner {
   position: relative;
@@ -621,7 +736,7 @@
   margin-bottom: clamp(1.4rem, 3vh, 2.2rem);
 }
 .partners__h {
-  color: var(--green-dim);
+  color: var(--accent-ink);
 }
 .partners__grid {
   display: grid;
@@ -663,7 +778,7 @@
   opacity: 1;
 }
 .partners__name {
-  color: var(--ink-45);
+  color: var(--ink-muted);
   text-align: center;
   font-size: 0.6rem;
   letter-spacing: 0.1em;
@@ -697,7 +812,7 @@
 }
 .news__shot {
   aspect-ratio: 4 / 3;
-  background: var(--cream-2);
+  background: var(--paper-2);
   overflow: hidden;
   margin-bottom: 1rem;
 }
@@ -716,14 +831,14 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: repeating-linear-gradient(135deg, var(--cream) 0 10px, var(--cream-2) 10px 20px);
+  background: repeating-linear-gradient(135deg, var(--surface) 0 10px, var(--paper-2) 10px 20px);
 }
 .news__h {
   font-size: var(--t-md);
   margin-bottom: 0.45rem;
 }
 .news__card a:hover .news__h {
-  color: var(--green-dim);
+  color: var(--accent-ink);
 }
 .news__p {
   font-size: var(--t-small);
@@ -733,62 +848,220 @@
   overflow: hidden;
 }
 
-/* ── 08 КОНТАКТ ──────────────────────────────────────────────── */
+/* ── 08 ЗАЯВКА ───────────────────────────────────────────────── */
 
 .cta {
+  position: relative;
   padding-block: var(--shelf);
-  background: var(--graphite);
+  background: var(--night);
+  overflow: hidden;
+  isolation: isolate;
+}
+/* тот же натриевый свет, что в герое: страница замыкается */
+.cta__glow {
+  position: absolute;
+  inset: -30% -10% auto 30%;
+  height: 90%;
+  z-index: -1;
+  background: radial-gradient(45% 50% at 60% 0%, rgba(255, 107, 26, 0.24), transparent 72%);
+  pointer-events: none;
+}
+.cta__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
 }
 .cta__title {
-  font-size: var(--t-xxl);
+  font-size: var(--t-xl);
   color: #fff;
-  margin-top: 0.8rem;
-  margin-bottom: clamp(2rem, 6vh, 3.6rem);
+  margin: 0.8rem 0 1.2rem;
+  max-width: 14ch;
 }
-.cta__grid {
+.cta__lead {
+  color: var(--zinc-70);
+  max-width: 40ch;
+}
+.cta__contacts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.4rem, 4vw, 3rem);
-  padding-top: 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.4rem 2rem;
+  margin: clamp(2rem, 5vh, 3rem) 0 0;
+  padding-top: 1.6rem;
   border-top: 1px solid var(--zinc-12);
 }
-.cta__col .label {
-  display: block;
-  color: var(--zinc-45);
-  margin-bottom: 0.7em;
+.cta__contacts dt {
+  color: var(--zinc-muted);
+  margin-bottom: 0.5em;
+}
+.cta__contacts dd {
+  margin: 0;
 }
 .cta__big {
-  font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
   color: #fff;
   transition: color 0.3s var(--e-out);
 }
 .cta__big:hover {
-  color: var(--green);
+  color: var(--accent);
 }
 .cta__address {
   font-style: normal;
+  font-size: var(--t-small);
   color: var(--zinc-70);
 }
-.cta__actions {
+.cta__form {
+  padding: clamp(1.2rem, 3vw, 2.4rem);
+  border: 1px solid var(--zinc-12);
+  border-radius: var(--radius);
+  background: rgba(21, 26, 31, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+/* ── подбор по задаче ────────────────────────────────────────── */
+
+.cat__mode {
+  display: block;
+  color: var(--ink-muted);
+  margin-bottom: 1rem;
+}
+.cat__tasks {
+  margin-top: clamp(3.5rem, 10vh, 6.5rem);
+  padding-top: clamp(2rem, 5vh, 3rem);
+  border-top: 1px solid var(--ink-12);
+}
+.cat__tasks-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.4rem clamp(2rem, 5vw, 5rem);
+  align-items: end;
+  margin-bottom: clamp(1.4rem, 4vh, 2.4rem);
+}
+.cat__tasks-head .cat__mode {
+  grid-column: 1 / -1;
+  margin-bottom: 0.4rem;
+}
+.cat__tasks-title {
+  font-size: var(--t-lg);
+}
+.cat__tasks-lead {
+  color: var(--ink-muted);
+  max-width: 46ch;
+}
+
+.tasks {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+}
+.tasks__list li + li {
+  border-top: 1px solid var(--ink-12);
+}
+.tasks__tab {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.8rem;
+  width: 100%;
+  min-height: 52px;
+  padding: 0.85rem 0.9rem 0.85rem 0;
+  text-align: left;
+  transition: padding-left 0.5s var(--e-out), color 0.3s var(--e-out);
+}
+.tasks__tab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 0;
+  background: var(--accent);
+  transform: translateY(-50%);
+  transition: height 0.45s var(--e-out);
+}
+.tasks__tab[aria-pressed="true"] {
+  padding-left: 1rem;
+}
+.tasks__tab[aria-pressed="true"]::before {
+  height: 70%;
+}
+.tasks__tab:hover .tasks__name {
+  color: var(--accent-ink);
+}
+.tasks__no,
+.tasks__n {
+  font-size: var(--t-label);
+  color: var(--ink-muted);
+}
+.tasks__name {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-weight: 500;
+  transition: color 0.3s var(--e-out);
+}
+.tasks__tab[aria-pressed="true"] .tasks__name {
+  font-weight: 600;
+}
+
+.tasks__sections {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.8rem, 1.6vw, 1.4rem);
+}
+.tasks__sect {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-  margin-top: clamp(1.8rem, 5vh, 3rem);
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+}
+.tasks__shot {
+  display: block;
+  aspect-ratio: 4 / 5;
+  padding: 12%;
+  background: var(--surface);
+  border: 1px solid var(--ink-12);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.35s var(--e-out);
+}
+.tasks__shot picture,
+.tasks__shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.tasks__shot img {
+  transition: transform 0.9s var(--e-out);
+}
+.tasks__sect:hover .tasks__shot {
+  border-color: var(--accent);
+}
+.tasks__sect:hover .tasks__shot img {
+  transform: translateY(-3%) scale(1.04);
+}
+.tasks__sect-h {
+  font-weight: 600;
+  line-height: 1.25;
+}
+.tasks__sect-n {
+  font-size: var(--t-label);
+  color: var(--ink-muted);
+}
+.tasks__help {
+  margin-top: 1.4rem;
+  color: var(--accent-ink);
 }
 
 /* ── адаптив ─────────────────────────────────────────────────── */
 
 @media (max-width: 1180px) {
-  .hero__middle {
-    grid-template-columns: minmax(0, 1fr);
-    align-content: center;
-    gap: clamp(1.4rem, 4vh, 2.4rem);
-  }
   .hero__telemetry {
+    justify-self: start;
+    align-self: end;
     grid-auto-flow: column;
     text-align: left;
-    justify-items: start;
-    gap: 1.6rem;
+    gap: 2rem;
   }
   .partners__grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -802,8 +1075,43 @@
 }
 
 @media (max-width: 980px) {
-  .company__body {
+  .company__body,
+  .cta__inner,
+  .tasks,
+  .cat__tasks-head {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .tasks__list {
+    display: flex;
+    gap: 0.5rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tasks__list li + li {
+    border-top: 0;
+  }
+  .tasks__tab {
+    grid-template-columns: auto auto;
+    min-height: 44px;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--ink-12);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .tasks__tab[aria-pressed="true"] {
+    padding-left: 0.9rem;
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+  .tasks__tab[aria-pressed="true"] .tasks__n {
+    color: var(--zinc-muted);
+  }
+  .tasks__tab::before,
+  .tasks__no {
+    display: none;
   }
   .cat__body {
     grid-template-columns: minmax(0, 1fr);
@@ -817,7 +1125,7 @@
     aspect-ratio: 3 / 4;
     margin-left: 4.2rem;
     margin-bottom: 0.8rem;
-    background: var(--cream);
+    background: var(--surface);
   }
   .cat__thumb img {
     width: 100%;
@@ -839,46 +1147,70 @@
 
 @media (max-width: 860px) {
   .hero {
-    height: 260vh;
+    height: 250vh;
   }
-  /* вертикальный кадр светлее горизонтального: небо занимаетполовину экрана,
-     и без усиленной подложки слоган по нему не читается */
+  /* вертикальный кадр светлее горизонтального: небо занимает половину
+     экрана, и без усиленной подложки заголовок по нему не читается */
   .hero__scrim {
     background:
-      linear-gradient(180deg, rgba(14, 16, 18, 0.72) 0%, rgba(14, 16, 18, 0.12) 22%,
-        rgba(14, 16, 18, 0.45) 58%, rgba(14, 16, 18, 0.95) 100%),
-      linear-gradient(90deg, rgba(14, 16, 18, 0.7) 0%, rgba(14, 16, 18, 0.15) 70%,
-        rgba(14, 16, 18, 0.35) 100%);
-  }
-  /* знак остаётся наложением, как на десктопе: он гаснет ровно тогда,
-     когда приходит слоган, и незачем отдавать ему высоту, которой на
-     телефоне и так нет */
-  .hero__mark img,
-  .boot__mark {
-    width: clamp(150px, 46vw, 220px);
-  }
-  .hero__copy {
-    max-width: none;
+      linear-gradient(180deg, rgba(15, 19, 23, 0.7) 0%, rgba(15, 19, 23, 0.1) 22%,
+        rgba(15, 19, 23, 0.5) 52%, rgba(15, 19, 23, 0.96) 100%),
+      linear-gradient(90deg, rgba(15, 19, 23, 0.6) 0%, rgba(15, 19, 23, 0.1) 80%);
   }
   .hero__top {
     display: none;
   }
+  /* нижняя панель телефона лежит поверх кадра — ряд входов стоит над ней */
+  .hero__ui {
+    padding-bottom: calc(58px + env(safe-area-inset-bottom) + 0.9rem);
+  }
+  /* на телефоне заголовок и действия стоят в нижней части кадра, под
+     большим пальцем; мачта остаётся видна сверху */
+  .hero__lead {
+    align-self: end;
+  }
+  .hero__h1 {
+    font-size: min(clamp(2rem, 8.6vw, 3.2rem), 7.4vh);
+    margin-bottom: 1.2rem;
+  }
+  .hero__actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+  .hero__actions .btn {
+    padding-inline: 0.8em;
+  }
+  .hero__consult {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-left: 0;
+  }
   .hero__telemetry {
+    align-self: center;
     grid-auto-flow: row;
-    gap: 0.9rem;
+    gap: 1rem;
   }
-  .hero__tel b {
-    font-size: 1.4rem;
+  .hero__tel dd {
+    font-size: 1.6rem;
   }
-  .hero__hint {
-    flex-direction: column;
-    align-items: stretch;
+  /* входы в разделы — одной лентой, которую листают пальцем */
+  .hero__quick {
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
   }
-  .hero__hint-label {
+  .hero__quick::-webkit-scrollbar {
     display: none;
   }
+  .hero__quick-label {
+    display: none;
+  }
+  .hero__quick ul {
+    flex-wrap: nowrap;
+  }
   .company__figures,
-  .cta__grid,
   .news__grid,
   .why__cards,
   .why__list {
@@ -903,6 +1235,15 @@
   }
 }
 
+@media (max-width: 560px) {
+  .tasks__sections {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cta__contacts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 520px) {
   /* три логотипа в ряд на узком экране превращаются в нечитаемые марки */
   .partners__grid {
@@ -920,19 +1261,16 @@
     height: 220vh;
   }
   .hero__telemetry,
-  .hero__top {
+  .hero__top,
+  .hero__quick {
     display: none;
   }
-  /* знак на телефоне встаёт над слоганом и здесь уже не помещается —
-     логотип в шапке всё равно на виду */
-  .hero__mark {
-    display: none;
+  .hero__h1 {
+    font-size: min(var(--t-xl), 12vh);
+    margin-bottom: 0.8rem;
   }
-  .hero__title {
+  .hero__slogan {
     font-size: min(var(--t-xxl), 13vh);
-  }
-  .hero__sub {
-    font-size: var(--t-small);
   }
   .hero__ui {
     padding-top: calc(var(--nav-h) + 0.4rem);

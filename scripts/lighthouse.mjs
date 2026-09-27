@@ -86,5 +86,17 @@ if (opps.length) {
   console.log("\nчто осталось:");
   for (const o of opps) console.log(`  ${String(Math.round(o.numericValue)).padStart(5)} мс  ${o.title}`);
 }
-const lcpEl = worst["largest-contentful-paint-element"]?.details?.items?.[0]?.items?.[0]?.node?.snippet;
+/* в Lighthouse 13 элемент LCP переехал в lcp-breakdown-insight — ищем узел в обоих */
+const findNode = (d) => {
+  if (!d || typeof d !== "object") return null;
+  if (d.type === "node" && d.snippet) return d.snippet;
+  for (const v of Object.values(d)) {
+    const hit = findNode(v);
+    if (hit) return hit;
+  }
+  return null;
+};
+const lcpEl =
+  findNode(worst["largest-contentful-paint-element"]?.details) ||
+  findNode(worst["lcp-breakdown-insight"]?.details);
 if (lcpEl) console.log(`\nLCP-элемент: ${lcpEl.slice(0, 120)}`);

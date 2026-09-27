@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "npm run prepare:data && vite",
+    "build": "npm run prepare:data && tsc -b && vite build",
+    "prepare:data": "node scripts/build-search.mjs && node scripts/build-sitemap.mjs",
     "preview": "vite preview",
     "data": "node scripts/build-data.mjs",
     "images": "node scripts/build-images.mjs",
