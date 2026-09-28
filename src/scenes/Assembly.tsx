@@ -90,7 +90,8 @@ export default function Assembly({ lang }: { lang: Lang }) {
             </dl>
             <div className="asm__actions">
               <Link className="btn btn--solid" to={`/${lang}/catalog`}>
-                {t("catalog.title", lang)}
+                <span className="btn__full">{t("catalog.title", lang)}</span>
+                <span className="btn__short">{t("cta.catalog", lang)}</span>
                 <span className="btn__arrow" aria-hidden="true">
                   →
                 </span>

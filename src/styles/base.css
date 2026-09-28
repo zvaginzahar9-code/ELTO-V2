@@ -155,7 +155,7 @@ ol {
   font-family: var(--f-mono);
   font-size: var(--t-label);
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   line-height: 1.4;
 }
@@ -189,7 +189,7 @@ ol {
   font-family: var(--f-mono);
   font-size: var(--t-label);
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--zinc-muted);
 }
@@ -229,23 +229,25 @@ ol {
 /* ── кнопки ──────────────────────────────────────────────────── */
 
 /*
- * Три кнопки на весь сайт. Основная залита натрием и при наведении
- * «разгорается»: свет проходит по ней слева направо, как по нити лампы.
- * Вторичная — контур. Третичная — ссылка со стрелкой.
+ * Три кнопки на весь сайт. Основная залита аргоном и при наведении
+ * «разгорается»: свет проходит по ней слева направо. Вторичная — контур.
+ * Третичная — ссылка со стрелкой.
+ *
+ * Подпись кнопки — обычный полужирный текст нормального кегля, а не мелкий
+ * моноширинный капс: действие должно читаться с первого взгляда.
  */
 .btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75em;
-  min-height: 48px;
-  padding: 0.85em 1.5em;
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
+  gap: 0.6em;
+  min-height: 54px;
+  padding: 0.8em 1.6em;
+  font-family: var(--f-sans);
+  font-size: clamp(1rem, 1.05vw, 1.08rem);
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: -0.005em;
   line-height: 1.2;
   border: 1px solid var(--zinc-25);
   border-radius: var(--radius);
@@ -258,6 +260,18 @@ ol {
 .btn:hover {
   border-color: var(--zinc);
   color: #fff;
+}
+/* длинная подпись на широком экране, короткая — в полуширинной кнопке телефона */
+.btn__short {
+  display: none;
+}
+@media (max-width: 560px) {
+  .btn__full {
+    display: none;
+  }
+  .btn__short {
+    display: inline;
+  }
 }
 .btn__arrow {
   display: inline-block;
@@ -325,13 +339,14 @@ ol {
 .link-arrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.6em;
+  gap: 0.5em;
   min-height: 44px;
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
+  font-family: var(--f-sans);
+  font-size: clamp(1rem, 1.05vw, 1.08rem);
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
   color: inherit;
   background: none;
   border: 0;

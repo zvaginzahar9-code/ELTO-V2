@@ -2,13 +2,13 @@
  "gib-loop": 1,
  "gorod": 64,
  "gorod-m": 32,
- "iskra": 96,
- "iskra-m": 48,
+ "iskra": 80,
+ "iskra-m": 40,
  "sborka-portrait": 96,
  "sborka-portrait-m": 48,
  "zinc-loop": 1,
- "iskra-portrait": 80,
- "iskra-portrait-m": 40,
+ "iskra-portrait": 72,
+ "iskra-portrait-m": 36,
  "rez-loop": 1,
  "gorod-portrait": 56,
  "gorod-portrait-m": 28,
@@ -16,5 +16,9 @@
  "vzlet-portrait": 56,
  "vzlet-portrait-m": 28,
  "vzlet": 64,
- "vzlet-m": 32
+ "vzlet-m": 32,
+ "iskra:webp": 1,
+ "iskra-m:webp": 1,
+ "iskra-portrait:webp": 1,
+ "iskra-portrait-m:webp": 1
 }

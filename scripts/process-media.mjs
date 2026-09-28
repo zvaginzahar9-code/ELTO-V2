@@ -37,8 +37,20 @@ const COUNTS = path.join(ROOT, "src", "data", "media.json");
 /** ключ → как сцена используется на сайте */
 const PLAN = {
   // 01 — искра: капля плазмы → осколки → колонна; кадр адресуется скроллом
-  iskra: { seq: true, frames: 96, posterAt: 0 },
-  "iskra-portrait": { seq: true, frames: 80, posterAt: 0, portrait: true },
+  // первый экран: исходник 1920×1080 (повышенное разрешение Flow), кадры
+  // в родной ширине и в webp — без растяжки, чёткость на больших экранах
+  iskra: { seq: true, frames: 80, posterAt: 0, fmt: "webp", w: 1920, q: 76, wm: 1100 },
+  // вертикальный первый экран: 1080×1920 (повышенное разрешение Flow), webp
+  "iskra-portrait": {
+    seq: true,
+    frames: 72,
+    posterAt: 0,
+    portrait: true,
+    fmt: "webp",
+    w: 1080,
+    q: 74,
+    wm: 900,
+  },
   // 04 — сборка опоры: вертикальный кадр и на десктопе
   "sborka-portrait": { seq: true, frames: 96, posterAt: 0.02, portrait: true },
   // 07 — подъём над лесом колонн, затем город-схема
@@ -128,11 +140,19 @@ async function poster(src, dest, duration, at) {
   ]);
 }
 
-/** Ровный шаг по всему клипу — скраб не должен повторять кадры. */
-async function sequence(src, dir, duration, frames, width, quality) {
+/**
+ * Ровный шаг по всему клипу — скраб не должен повторять кадры.
+ * webp — для сцен первого экрана: та же чёткость при заметно меньшем весе;
+ * quality тогда — качество webp 0…100, иначе — шкала jpeg ffmpeg (2…31).
+ */
+async function sequence(src, dir, duration, frames, width, quality, fmt = "jpg") {
   await rm(dir, { recursive: true, force: true });
   await mkdir(dir, { recursive: true });
   const fps = frames / duration;
+  const codec =
+    fmt === "webp"
+      ? ["-c:v", "libwebp", "-quality", String(quality), "-compression_level", "6"]
+      : ["-q:v", String(quality)];
   await ffmpeg([
     "-i",
     src,
@@ -140,11 +160,10 @@ async function sequence(src, dir, duration, frames, width, quality) {
     `fps=${fps.toFixed(6)},scale=${width}:-2:flags=lanczos`,
     "-frames:v",
     String(frames),
-    "-q:v",
-    String(quality),
-    path.join(dir, "%04d.jpg"),
+    ...codec,
+    path.join(dir, `%04d.${fmt}`),
   ]);
-  return (await readdir(dir)).filter((f) => f.endsWith(".jpg")).length;
+  return (await readdir(dir)).filter((f) => f.endsWith(`.${fmt}`)).length;
 }
 
 const mb = (b) => (b / 1024 / 1024).toFixed(2);
@@ -202,24 +221,33 @@ async function main() {
     if (plan.seq) {
       const wide = plan.w ?? (plan.portrait ? SEQ_W_PORTRAIT : SEQ_W);
       const narrow = plan.portrait ? SEQ_W_PORTRAIT_M : SEQ_W_M;
+      const fmt = plan.fmt ?? "jpg";
+      const q = plan.q ?? (fmt === "webp" ? 80 : 7);
       const n = await sequence(
         src,
         path.join(OUT_SEQ, key),
         duration,
         plan.frames,
         wide,
-        plan.q ?? 7
+        q,
+        fmt
       );
       const nm = await sequence(
         src,
         path.join(OUT_SEQ, `${key}-m`),
         duration,
         Math.round(plan.frames / MOBILE_FRAME_DIVISOR),
-        narrow,
-        (plan.q ?? 7) + 2
+        plan.wm ?? narrow,
+        fmt === "webp" ? q - 6 : q + 2,
+        fmt
       );
       counts[key] = n;
       counts[`${key}-m`] = nm;
+      // формат кадров читает src/motion/media.ts
+      for (const k of [key, `${key}-m`]) {
+        if (fmt === "webp") counts[`${k}:webp`] = 1;
+        else delete counts[`${k}:webp`];
+      }
 
       let seqBytes = 0;
       for (const d of [key, `${key}-m`]) {

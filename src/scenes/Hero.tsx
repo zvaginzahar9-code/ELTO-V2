@@ -1,19 +1,20 @@
 /**
- * СЦЕНА 01 — ПОДЪЁМ
+ * СЦЕНА 01 — ИСКРА
  *
  * Первый экран обязан ответить за пять секунд: что это за компания, что она
  * делает и где каталог. Поэтому заголовок, «Каталог», «Запросить расчёт» и
  * входы в главные разделы стоят в кадре сразу, до всякой прокрутки.
  *
- * Дальше скролл управляет самой сценой: в жемчужной пустоте капля плазмы
- * падает на стальной диск, разбивается в хромовую корону, осколки спиралью
- * поднимаются и собираются в гранёную колонну. Искра становится
- * конструкцией — это и есть ELTO одним кадром.
+ * Кадр скомпонован под этот экран ещё при генерации: левая часть — пустота
+ * под заголовок, справа огромная капля плазмы падает на стальной диск,
+ * осколки спиралью собираются в гранёную колонну с живой плазмой внутри.
+ * Скролл ведёт саму сцену, а в конце камера въезжает в колонну — первый
+ * экран не «кончается», а переходит в следующий блок.
  *
  *   0.00–0.30  заголовок уходит вверх, капля падает и разбивается
  *   0.26–0.60  строка оригинала — «Качество — основа доверия к нам»
  *   0.52–0.86  кадр отдаётся цифрам каталога
- *   0.86–1.00  кадр темнеет и передаёт сцену следующей
+ *   0.80–1.00  камера въезжает в колонну и растворяется в следующем блоке
  *
  * Слоган и подпись — дословно с elto.kz.
  */
@@ -85,6 +86,14 @@ export default function Hero({ lang }: { lang: Lang }) {
 
     if (reducedMotion()) return;
 
+    // сдвиг плана на первом кадре — там, где заголовок стоит слева от сцены;
+    // на планшете текст занимает больше ширины, и сдвиг больше
+    const drift = window.matchMedia("(min-width: 1181px)").matches
+      ? 9
+      : window.matchMedia("(min-width: 861px)").matches
+        ? 16
+        : 0;
+
     const set = (node: HTMLElement | null, o: number, y = 0) => {
       if (!node) return;
       node.style.opacity = o.toFixed(3);
@@ -94,14 +103,21 @@ export default function Hero({ lang }: { lang: Lang }) {
     return registerScene(el, {
       mode: "cover",
       onUpdate(p) {
-        seq.current?.draw(p);
+        // ролик доигрывает к 0.8, дальше камера сама въезжает в колонну
+        seq.current?.draw(span(p, 0, 0.8));
 
         if (plate) {
-          const s =
-            p < 0.62
-              ? lerp(1.08, 1.0, span(p, 0, 0.62))
-              : lerp(1.0, 1.06, span(p, 0.62, 1));
-          plate.style.transform = `scale(${s.toFixed(4)})`;
+          // медленный наезд всю сцену, в конце — рывок в колонну с уходом
+          // в перспективу: кадр не «кончается», а переходит в следующий блок
+          const push = lerp(1.0, 1.08, span(p, 0, 0.8));
+          const dive = span(p, 0.8, 1);
+          const s = push + dive * dive * 0.55;
+          // пока стоит заголовок, план сдвинут вправо и диск не лезет под
+          // кнопки; с уходом заголовка камера доезжает на место
+          const settle =
+            drift * (1 - 0.45 * span(p, 0.04, 0.34)) * (1 - span(p, 0.62, 0.8));
+          const x = settle - dive * 6;
+          plate.style.transform = `translate3d(${x.toFixed(2)}%, 0, 0) scale(${s.toFixed(4)})`;
         }
 
         // чем выше камера, тем ближе лампа
@@ -135,8 +151,8 @@ export default function Hero({ lang }: { lang: Lang }) {
         cornerEls.forEach(
           (c) => (c.style.opacity = lerp(1, 0.3, span(p, 0.3, 0.6)).toFixed(3))
         );
-        // кадр не гаснет до пустоты: колонна остаётся призраком, пока наезжает следующий блок
-        if (fadeEl) fadeEl.style.opacity = (span(p, 0.86, 1) * 0.5).toFixed(3);
+        // въезд в колонну растворяется в фон следующего блока
+        if (fadeEl) fadeEl.style.opacity = (span(p, 0.88, 1) * 0.85).toFixed(3);
       },
     });
   }, []);
@@ -202,7 +218,8 @@ export default function Hero({ lang }: { lang: Lang }) {
 
               <div className="hero__actions">
                 <Link to={`/${lang}/catalog`} className="btn btn--solid">
-                  {t("catalog.title", lang)}
+                  <span className="btn__full">{t("catalog.title", lang)}</span>
+                  <span className="btn__short">{t("cta.catalog", lang)}</span>
                   <span className="btn__arrow" aria-hidden="true">
                     →
                   </span>
@@ -223,7 +240,7 @@ export default function Hero({ lang }: { lang: Lang }) {
 
             <div className="hero__statement">
               <p className="hero__slogan display display--tight">
-                {breakLines(slogan, 16).map((line, i) => (
+                {breakLines(slogan, 12).map((line, i) => (
                   <span className="mask" key={i}>
                     <span>{line}</span>
                   </span>

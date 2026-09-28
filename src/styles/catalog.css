@@ -1213,7 +1213,7 @@
   right: 0.55rem;
   top: 0.5rem;
   padding: 0.15em 0.45em;
-  font-size: 0.62rem;
+  font-size: 0.76rem;
   letter-spacing: 0.08em;
   color: var(--ink-muted);
   border: 1px solid var(--ink-12);
@@ -1228,12 +1228,12 @@
 }
 .card__marks .label {
   width: 100%;
-  font-size: 0.6rem;
+  font-size: 0.74rem;
   color: var(--ink-muted);
 }
 .card__mark {
   padding: 0.12em 0.45em;
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   background: var(--accent-12);
   color: var(--accent-ink);
   border-radius: 2px;

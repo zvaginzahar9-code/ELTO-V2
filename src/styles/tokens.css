@@ -60,10 +60,10 @@
   --t-xxl: clamp(2.4rem, 7vw, 7rem);
   --t-xl: clamp(2.2rem, 5.4vw, 5.2rem);
   --t-lg: clamp(1.7rem, 3.4vw, 3.2rem);
-  --t-md: clamp(1.1rem, 1.5vw, 1.36rem);
-  --t-body: clamp(1rem, 1.05vw, 1.08rem);
-  --t-small: clamp(0.88rem, 0.95vw, 0.94rem);
-  --t-label: clamp(0.68rem, 0.76vw, 0.76rem);
+  --t-md: clamp(1.18rem, 1.5vw, 1.42rem);
+  --t-body: clamp(1.06rem, 1.1vw, 1.16rem);
+  --t-small: clamp(0.98rem, 1vw, 1.04rem);
+  --t-label: clamp(0.8rem, 0.82vw, 0.88rem);
 
   /* ритм */
   --gutter: clamp(1rem, 4vw, 4rem);

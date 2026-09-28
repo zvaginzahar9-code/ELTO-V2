@@ -15,6 +15,8 @@ const table = counts as Record<string, number | undefined>;
 const seq = (key: string): SequenceSpec => ({
   dir: `/seq/${key}`,
   count: table[key] ?? 0,
+  // сцены первого экрана нарезаны в webp — конвейер отмечает это в media.json
+  ext: table[`${key}:webp`] ? "webp" : "jpg",
 });
 
 const shot = (key: string) => ({
