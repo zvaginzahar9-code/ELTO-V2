@@ -5,7 +5,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default tseslint.config(
-  { ignores: ["dist", "node_modules", "_source", "public", "media-src", ".shots"] },
+  { ignores: ["dist", "node_modules", "_source", "public", "media-src", ".shots", ".flow", "scripts/flow"] },
 
   // приложение
   {

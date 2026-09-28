@@ -9,6 +9,7 @@
 import Hero from "@/scenes/Hero";
 import Company from "@/scenes/Company";
 import Production from "@/scenes/Production";
+import Assembly from "@/scenes/Assembly";
 import CatalogScene from "@/scenes/CatalogScene";
 import Advantages from "@/scenes/Advantages";
 import Geography from "@/scenes/Geography";
@@ -30,6 +31,7 @@ export default function Home({ lang }: { lang: Lang }) {
       <Hero lang={lang} />
       <Company lang={lang} />
       <Production lang={lang} />
+      <Assembly lang={lang} />
       <CatalogScene lang={lang} />
       <Advantages lang={lang} />
       <Geography lang={lang} />

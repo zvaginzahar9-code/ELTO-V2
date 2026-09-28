@@ -44,7 +44,7 @@ export default function News({ lang }: { lang: Lang }) {
     <section id="news" className="scene news ground-paper" data-ground="paper">
       <div className="shell news__inner">
         <header className="news__head">
-          <span className="index">07 — {t("home.news", lang)}</span>
+          <span className="index">08 — {t("home.news", lang)}</span>
           <Reveal as="h2" className="news__title display" kind="lines">
             {t("home.news", lang)}
           </Reveal>

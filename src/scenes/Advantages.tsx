@@ -44,7 +44,7 @@ export default function Advantages({ lang }: { lang: Lang }) {
     <section id="why" className="scene why ground-paper" data-ground="paper">
       <div className="shell why__inner">
         <header className="why__head">
-          <span className="index">05 — {t("home.why", lang)}</span>
+          <span className="index">06 — {t("home.why", lang)}</span>
           <Reveal as="h2" className="why__title display" kind="lines">
             Преимущество
           </Reveal>

@@ -6,7 +6,10 @@
  * превращается в опору. Вертикальная прокрутка ведёт камеру вдоль этой линии.
  *
  * Все четыре этапа и их описания — реальные страницы услуг elto.kz; текст
- * взят дословно, фотографии — заводские.
+ * взят дословно. Плиты — метафоры этапов в мире ARGON: плазма режет лист,
+ * лист складывается в восьмигранник, секции входят «конус в конус», цинк
+ * расцветает кристаллами. Пока петля не отрендерена, плита держит заводскую
+ * фотографию.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -38,20 +41,20 @@ const STAGES: Stage[] = [
     no: "01",
     slug: "plazmennaya-rezka-metalla",
     title: "Плазменная резка металла",
-    shot: "plazma",
+    shot: "rez",
     photo: "rezka_katochka.jpg",
   },
   {
     no: "02",
     slug: "gibka-metalla",
     title: "Гибка металла",
-    shot: "gibka",
+    shot: "gib",
     photo: "gibka_katochka.jpg",
   },
   {
     no: "03",
     title: "Сборка и сварка",
-    shot: "svarka",
+    shot: "styk",
     photo: "1_11.jpg",
     text:
       "Сборка секций осуществляется посадкой одной секции в другую методом «конус в конус» " +
@@ -63,14 +66,13 @@ const STAGES: Stage[] = [
     no: "04",
     slug: "uslugi-goryachego-cinkovaniya",
     title: "Услуги горячего цинкования",
-    shot: "cink",
+    shot: "zinc",
     photo: "img_20250818_155550_1.jpg",
   },
 ];
 
 const counts = mediaCounts as Record<string, number | undefined>;
-const hasLoop = (key?: keyof typeof MEDIA) =>
-  !!key && (counts[`${key}-loop`] ?? 0) > 0;
+const hasLoop = (key?: keyof typeof MEDIA) => !!key && (counts[`${key}-loop`] ?? 0) > 0;
 
 /** Первый содержательный абзац описания услуги — без служебного «Описание:». */
 function useStageText() {
@@ -139,8 +141,8 @@ export default function Production({ lang }: { lang: Lang }) {
     <section
       id="production"
       ref={root}
-      className="scene production"
-      data-ground="dark"
+      className="scene production ground-paper"
+      data-ground="paper"
       /* без анимации лента не едет сама — тогда она становится обычной
          прокручиваемой полосой, иначе три этапа из четырёх недостижимы */
       data-static={reduced ? "true" : "false"}
@@ -157,7 +159,10 @@ export default function Production({ lang }: { lang: Lang }) {
         <div className="production__track" ref={track}>
           {STAGES.map((s) => {
             const text = s.slug ? body[s.slug] || "" : s.text || "";
-            const loop = hasLoop(s.shot) && s.shot ? (MEDIA[s.shot] as { video: string; mobile: string; poster: string }) : null;
+            const loop =
+              hasLoop(s.shot) && s.shot
+                ? (MEDIA[s.shot] as { video: string; mobile: string; poster: string })
+                : null;
             return (
               <article className="stage" key={s.no}>
                 <div className="stage__plate">

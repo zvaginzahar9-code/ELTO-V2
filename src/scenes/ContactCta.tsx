@@ -18,7 +18,7 @@ export default function ContactCta({ lang }: { lang: Lang }) {
       <div className="cta__glow" aria-hidden="true" />
       <div className="shell cta__inner">
         <div className="cta__intro">
-          <span className="index">08 — {t("cta.quote", lang)}</span>
+          <span className="index">09 — {t("cta.quote", lang)}</span>
           <Reveal as="h2" className="cta__title display display--tight" kind="lines">
             {t("home.final", lang)}
           </Reveal>

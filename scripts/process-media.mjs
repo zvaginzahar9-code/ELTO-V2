@@ -17,7 +17,7 @@
  * может разойтись с содержимым диска.
  *
  *   node scripts/process-media.mjs             всё, что лежит в media-src
- *   node scripts/process-media.mjs podem       только одну сцену
+ *   node scripts/process-media.mjs iskra       только одну сцену
  */
 
 import { execFile } from "node:child_process";
@@ -36,15 +36,22 @@ const COUNTS = path.join(ROOT, "src", "data", "media.json");
 
 /** ключ → как сцена используется на сайте */
 const PLAN = {
-  podem: { seq: true, frames: 96, posterAt: 0.55 },
-  // вертикальная версия героя: на телефоне кадр 16:9 обрезается до середины
-  // ствола и сцена теряет смысл
-  "podem-portrait": { seq: true, frames: 80, posterAt: 0.5, portrait: true },
-  trassa: { seq: true, frames: 88, posterAt: 0.45 },
-  plazma: { loop: true, posterAt: 0.45 },
-  gibka: { loop: true, posterAt: 0.5 },
-  svarka: { loop: true, posterAt: 0.5 },
-  cink: { loop: true, posterAt: 0.5 },
+  // 01 — искра: капля плазмы → осколки → колонна; кадр адресуется скроллом
+  iskra: { seq: true, frames: 96, posterAt: 0 },
+  "iskra-portrait": { seq: true, frames: 80, posterAt: 0, portrait: true },
+  // 04 — сборка опоры: вертикальный кадр и на десктопе
+  "sborka-portrait": { seq: true, frames: 96, posterAt: 0.02, portrait: true },
+  // 07 — подъём над лесом колонн, затем город-схема
+  vzlet: { seq: true, frames: 64, posterAt: 0, q: 8, w: 1280 },
+  "vzlet-portrait": { seq: true, frames: 56, posterAt: 0, portrait: true, q: 8 },
+  // тёмный детальный кадр плохо жмётся — меньше кадров и чуть сильнее сжатие
+  gorod: { seq: true, frames: 64, posterAt: 0.15, q: 9, w: 1280 },
+  "gorod-portrait": { seq: true, frames: 56, posterAt: 0.15, portrait: true, q: 9 },
+  // 03 — из листа в опору: плиты-петли
+  rez: { loop: true, posterAt: 0.5 },
+  gib: { loop: true, posterAt: 0.55 },
+  styk: { loop: true, posterAt: 0.6 },
+  zinc: { loop: true, posterAt: 0.85 },
 };
 
 const DESKTOP_W = 1600;
@@ -58,9 +65,12 @@ const MOBILE_FRAME_DIVISOR = 2;
 
 async function ffprobeDuration(file) {
   const { stdout } = await run("ffprobe", [
-    "-v", "error",
-    "-show_entries", "format=duration",
-    "-of", "default=noprint_wrappers=1:nokey=1",
+    "-v",
+    "error",
+    "-show_entries",
+    "format=duration",
+    "-of",
+    "default=noprint_wrappers=1:nokey=1",
     file,
   ]);
   return parseFloat(stdout.trim());
@@ -75,29 +85,45 @@ async function ffmpeg(args) {
 /** Безопасный для веба h264: без звука, прогрессивный, faststart, короткий GOP. */
 async function encode(src, dest, width, crf) {
   await ffmpeg([
-    "-i", src,
+    "-i",
+    src,
     "-an",
-    "-vf", `scale=${width}:-2:flags=lanczos,format=yuv420p`,
-    "-c:v", "libx264",
-    "-profile:v", "high",
-    "-level", "4.1",
-    "-preset", "slow",
-    "-crf", String(crf),
-    "-g", "12",
-    "-keyint_min", "12",
-    "-sc_threshold", "0",
-    "-movflags", "+faststart",
+    "-vf",
+    `scale=${width}:-2:flags=lanczos,format=yuv420p`,
+    "-c:v",
+    "libx264",
+    "-profile:v",
+    "high",
+    "-level",
+    "4.1",
+    "-preset",
+    "slow",
+    "-crf",
+    String(crf),
+    "-g",
+    "12",
+    "-keyint_min",
+    "12",
+    "-sc_threshold",
+    "0",
+    "-movflags",
+    "+faststart",
     dest,
   ]);
 }
 
 async function poster(src, dest, duration, at) {
   await ffmpeg([
-    "-ss", String(Math.max(0, duration * at)),
-    "-i", src,
-    "-frames:v", "1",
-    "-vf", `scale=${DESKTOP_W}:-2:flags=lanczos`,
-    "-q:v", "4",
+    "-ss",
+    String(Math.max(0, duration * at)),
+    "-i",
+    src,
+    "-frames:v",
+    "1",
+    "-vf",
+    `scale=${DESKTOP_W}:-2:flags=lanczos`,
+    "-q:v",
+    "4",
     dest,
   ]);
 }
@@ -108,10 +134,14 @@ async function sequence(src, dir, duration, frames, width, quality) {
   await mkdir(dir, { recursive: true });
   const fps = frames / duration;
   await ffmpeg([
-    "-i", src,
-    "-vf", `fps=${fps.toFixed(6)},scale=${width}:-2:flags=lanczos`,
-    "-frames:v", String(frames),
-    "-q:v", String(quality),
+    "-i",
+    src,
+    "-vf",
+    `fps=${fps.toFixed(6)},scale=${width}:-2:flags=lanczos`,
+    "-frames:v",
+    String(frames),
+    "-q:v",
+    String(quality),
     path.join(dir, "%04d.jpg"),
   ]);
   return (await readdir(dir)).filter((f) => f.endsWith(".jpg")).length;
@@ -150,7 +180,12 @@ async function main() {
     const duration = await ffprobeDuration(src);
     console.log(`\n▸ ${key}  (${duration.toFixed(2)} с)`);
 
-    await poster(src, path.join(OUT_POSTER, `${key}.jpg`), duration, plan.posterAt ?? 0.5);
+    await poster(
+      src,
+      path.join(OUT_POSTER, `${key}.jpg`),
+      duration,
+      plan.posterAt ?? 0.5
+    );
     console.log(`  постер   готов`);
 
     if (plan.loop) {
@@ -165,16 +200,23 @@ async function main() {
     }
 
     if (plan.seq) {
-      const wide = plan.portrait ? SEQ_W_PORTRAIT : SEQ_W;
+      const wide = plan.w ?? (plan.portrait ? SEQ_W_PORTRAIT : SEQ_W);
       const narrow = plan.portrait ? SEQ_W_PORTRAIT_M : SEQ_W_M;
-      const n = await sequence(src, path.join(OUT_SEQ, key), duration, plan.frames, wide, 7);
+      const n = await sequence(
+        src,
+        path.join(OUT_SEQ, key),
+        duration,
+        plan.frames,
+        wide,
+        plan.q ?? 7
+      );
       const nm = await sequence(
         src,
         path.join(OUT_SEQ, `${key}-m`),
         duration,
         Math.round(plan.frames / MOBILE_FRAME_DIVISOR),
         narrow,
-        9
+        (plan.q ?? 7) + 2
       );
       counts[key] = n;
       counts[`${key}-m`] = nm;
@@ -182,7 +224,8 @@ async function main() {
       let seqBytes = 0;
       for (const d of [key, `${key}-m`]) {
         const dir = path.join(OUT_SEQ, d);
-        for (const f of await readdir(dir)) seqBytes += (await stat(path.join(dir, f))).size;
+        for (const f of await readdir(dir))
+          seqBytes += (await stat(path.join(dir, f))).size;
       }
       totalBytes += seqBytes;
       console.log(`  кадры    ${n} + ${nm} шт · ${mb(seqBytes)} МБ`);

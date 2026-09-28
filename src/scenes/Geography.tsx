@@ -1,10 +1,10 @@
 /**
  * СЦЕНА 06 — ГЕОГРАФИЯ И ПАРТНЁРЫ
  *
- * Самая спокойная сцена: кадр почти не двигается, потому что здесь важна не
- * анимация, а список имён. Сцена состоит из двух частей и на этом же месте
- * меняет грунт: кинематографичное утверждение на графите — и светлая полоса
- * с логотипами.
+ * Камера снижается из стратосферы к городу, чьи улицы стали схемой света:
+ * узлы схемы оказываются рядами фонарей. Это и есть утверждение сцены —
+ * изделия ELTO стоят в областных центрах по всей стране. Затем грунт
+ * меняется: светлая полоса с логотипами партнёров.
  *
  * Полоса светлая не ради контраста: логотипы партнёров нарисованы под белый
  * фон, и на графите половина из них просто исчезает.
@@ -32,41 +32,77 @@ const table = views as unknown as Record<Lang, Record<string, Partner[]>>;
 export default function Geography({ lang }: { lang: Lang }) {
   const root = useRef<HTMLElement>(null);
   const seq = useRef<SequenceHandle>(null);
+  const rise = useRef<SequenceHandle>(null);
 
   const partners = (
     table[lang]?.partners?.length ? table[lang].partners : table.ru.partners || []
   ).filter((p) => p.image);
 
+  /*
+   * Две половины одной сцены. Сначала камера поднимается из леса светящихся
+   * колонн над туманом, и сверху колонны складываются в сетку огней; потом
+   * сетка перетекает в город, к которому камера снижается. Текст приходит,
+   * когда город уже виден.
+   */
   useEffect(() => {
     const el = root.current;
     if (!el || reducedMotion()) return;
-    const plate = el.querySelector<HTMLElement>(".geo__plate");
+    const risePlate = el.querySelector<HTMLElement>(".geo__plate--rise");
+    const cityPlate = el.querySelector<HTMLElement>(".geo__plate--city");
+    const copy = el.querySelector<HTMLElement>(".geo__inner");
+    const scrim = el.querySelector<HTMLElement>(".geo__scrim");
 
     return registerScene(el, {
       mode: "cover",
       onUpdate(p) {
-        seq.current?.draw(p);
-        if (plate) {
-          plate.style.transform = `scale(${lerp(1.08, 1, span(p, 0, 0.7)).toFixed(4)})`;
-          plate.style.opacity = String(lerp(0.5, 0.85, span(p, 0, 0.55)));
+        rise.current?.draw(span(p, 0, 0.5));
+        seq.current?.draw(span(p, 0.42, 1));
+        const swap = span(p, 0.4, 0.54);
+        if (risePlate) risePlate.style.opacity = (1 - swap).toFixed(3);
+        if (cityPlate) {
+          cityPlate.style.opacity = swap.toFixed(3);
+          cityPlate.style.transform = `scale(${lerp(1.12, 1, span(p, 0.4, 0.8)).toFixed(4)})`;
+        }
+        if (scrim) scrim.style.opacity = span(p, 0.5, 0.66).toFixed(3);
+        if (copy) {
+          const v = span(p, 0.55, 0.68);
+          copy.style.opacity = v.toFixed(3);
+          copy.style.transform = `translate3d(0, ${((1 - v) * 24).toFixed(1)}px, 0)`;
         }
       },
     });
   }, []);
 
-  const ready = hasShot("trassa");
+  const ready = hasShot("gorod");
 
   return (
     <>
       <section id="geography" ref={root} className="scene geo" data-ground="dark">
         <div className="geo__stage">
-          <div className="geo__plate gpu">
+          {hasShot("vzlet") && (
+            <div className="geo__plate geo__plate--rise gpu">
+              <ScrollSequence
+                ref={rise}
+                spec={MEDIA.vzlet.seq}
+                mobileSpec={MEDIA.vzlet.mobileSeq}
+                portraitSpec={MEDIA.vzlet.portraitSeq}
+                portraitMobileSpec={MEDIA.vzlet.portraitMobileSeq}
+                poster={MEDIA.vzlet.poster}
+                portraitPoster={MEDIA.vzlet.portraitPoster}
+                className="fill"
+              />
+            </div>
+          )}
+          <div className="geo__plate geo__plate--city gpu">
             {ready ? (
               <ScrollSequence
                 ref={seq}
-                spec={MEDIA.trassa.seq}
-                mobileSpec={MEDIA.trassa.mobileSeq}
-                poster={MEDIA.trassa.poster}
+                spec={MEDIA.gorod.seq}
+                mobileSpec={MEDIA.gorod.mobileSeq}
+                portraitSpec={MEDIA.gorod.portraitSeq}
+                portraitMobileSpec={MEDIA.gorod.portraitMobileSeq}
+                poster={MEDIA.gorod.poster}
+                portraitPoster={MEDIA.gorod.portraitPoster}
                 className="fill"
               />
             ) : (
@@ -76,16 +112,15 @@ export default function Geography({ lang }: { lang: Lang }) {
           <div className="geo__scrim" aria-hidden="true" />
 
           <div className="shell geo__inner">
-            <span className="index">06 — {t("home.partners", lang)}</span>
+            <span className="index">07 — {t("home.partners", lang)}</span>
             {/* обе фразы — дословно из публикации о компании на elto.kz */}
             <Reveal as="h2" className="geo__title display" kind="lines">
               Установлены во всех областных центрах
-              <br />
-              и крупных городах
+              <br />и крупных городах
             </Reveal>
             <Reveal as="p" className="lead geo__lead" delay={120}>
-              Оборудованием укомплектованы тысячи энергетических объектов не только
-              в Казахстане, но и странах СНГ.
+              Оборудованием укомплектованы тысячи энергетических объектов не только в
+              Казахстане, но и странах СНГ.
             </Reveal>
           </div>
         </div>

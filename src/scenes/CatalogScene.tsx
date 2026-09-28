@@ -28,7 +28,7 @@ export default function CatalogScene({ lang }: { lang: Lang }) {
     <section id="catalog" className="scene cat ground-paper" data-ground="paper">
       <div className="shell cat__inner">
         <header className="cat__head">
-          <span className="index">04 — {t("home.catalog", lang)}</span>
+          <span className="index">05 — {t("home.catalog", lang)}</span>
           <Reveal as="h2" className="cat__title display" kind="lines">
             {t("catalog.title", lang)}
           </Reveal>

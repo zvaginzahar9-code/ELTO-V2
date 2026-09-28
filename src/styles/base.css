@@ -79,7 +79,7 @@ ol {
 
 ::selection {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 
 :focus-visible {
@@ -270,21 +270,21 @@ ol {
 .btn--solid {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 .btn--solid::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(100deg, transparent 20%, rgba(255, 236, 214, 0.75) 50%, transparent 80%);
+  background: linear-gradient(100deg, transparent 20%, rgba(236, 228, 255, 0.55) 50%, transparent 80%);
   transform: translateX(-110%);
   transition: transform 0.9s var(--e-out);
 }
 .btn--solid:hover {
   background: var(--accent-hi);
   border-color: var(--accent-hi);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 .btn--solid:hover::before {
   transform: translateX(110%);
@@ -307,7 +307,7 @@ ol {
 .ground-paper .btn--solid,
 .ground-paper .btn--solid:hover {
   border-color: var(--accent);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 .ground-paper .btn--solid:hover {
   border-color: var(--accent-hi);

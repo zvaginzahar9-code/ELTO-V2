@@ -74,7 +74,7 @@
   border-color: var(--zinc-25);
 }
 .page:not(.ground-paper) .back:hover {
-  color: var(--accent);
+  color: var(--accent-text);
   border-color: var(--accent);
   background: var(--accent-05);
 }
@@ -768,7 +768,7 @@
   transition: color 0.3s var(--e-out);
 }
 .omap__coords:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .omap__coords-hint {
   font-size: var(--t-label);
@@ -777,7 +777,7 @@
   color: var(--accent-ink);
 }
 .omap__coords:hover .omap__coords-hint {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .omap__acts {
@@ -793,7 +793,7 @@
 }
 .ground-paper .omap .btn:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .ground-paper .omap .btn--solid,
 .ground-paper .omap .btn--solid:hover {
@@ -831,7 +831,7 @@
   transition: color 0.3s var(--e-out), background-color 0.3s var(--e-out);
 }
 .omap__layer:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .omap__layer[data-on="true"] {
   color: var(--night);
@@ -1061,7 +1061,7 @@
   inset: -60% 40% auto -10%;
   height: 180%;
   z-index: -1;
-  background: radial-gradient(closest-side, rgba(255, 107, 26, 0.22), transparent);
+  background: radial-gradient(closest-side, rgba(106, 61, 240, 0.22), transparent);
 }
 .ask__h {
   font-size: var(--t-lg);
@@ -1089,7 +1089,7 @@
 }
 .ground-paper .ask .btn--solid,
 .ground-paper .ask .btn--solid:hover {
-  color: var(--ink);
+  color: var(--on-accent);
   border-color: var(--accent);
 }
 

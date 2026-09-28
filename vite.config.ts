@@ -83,7 +83,7 @@ function homeHtml(): Plugin {
           `<li><a class="hero__chip" href="/${lang}/catalog/${s}">${esc(pick(cats[s].title, lang))}<span class="mono">${cats[s].count}</span></a></li>`
       )
       .join("");
-    return `<section class="scene hero hero--boot" data-ground="dark"><div class="hero__stage"><div class="hero__scrim" aria-hidden="true"></div><div class="hero__ui shell"><div class="hero__top"><span class="hero__corner label">${esc(t("hero.place", lang))}</span><span class="hero__corner hero__corner--lit label">${esc(t("hero.since", lang))}</span></div><div class="hero__middle"><div class="hero__lead"><h1 class="hero__h1 display">${lines}${where}</h1><div class="hero__actions"><a class="btn btn--solid" href="/${lang}/catalog">${esc(t("catalog.title", lang))}<span class="btn__arrow" aria-hidden="true">→</span></a><span class="btn">${esc(t("cta.quote", lang))}</span><span class="link-arrow hero__consult"><span>${esc(t("cta.consult", lang))}</span><span aria-hidden="true">→</span></span></div></div></div><nav class="hero__quick"><span class="hero__quick-label label">${esc(t("hero.quick", lang))}</span><ul>${chips}</ul></nav></div></div></section>`;
+    return `<section class="scene hero ground-paper hero--boot" data-ground="paper"><div class="hero__stage"><div class="hero__scrim" aria-hidden="true"></div><div class="hero__ui shell"><div class="hero__top"><span class="hero__corner label">${esc(t("hero.place", lang))}</span><span class="hero__corner hero__corner--lit label">${esc(t("hero.since", lang))}</span></div><div class="hero__middle"><div class="hero__lead"><h1 class="hero__h1 display">${lines}${where}</h1><div class="hero__actions"><a class="btn btn--solid" href="/${lang}/catalog">${esc(t("catalog.title", lang))}<span class="btn__arrow" aria-hidden="true">→</span></a><span class="btn">${esc(t("cta.quote", lang))}</span><span class="link-arrow hero__consult"><span>${esc(t("cta.consult", lang))}</span><span aria-hidden="true">→</span></span></div></div></div><nav class="hero__quick"><span class="hero__quick-label label">${esc(t("hero.quick", lang))}</span><ul>${chips}</ul></nav></div></div></section>`;
   };
 
   return {
@@ -136,5 +136,12 @@ export default defineConfig({
       },
     },
   },
-  server: { port: 5173, host: true },
+  server: {
+    port: 5173,
+    host: true,
+    // рабочие папки генерации и сырые исходники — не часть сайта
+    watch: {
+      ignored: ["**/.flow/**", "**/media-src/**", "**/_source/**", "**/.shots/**"],
+    },
+  },
 });

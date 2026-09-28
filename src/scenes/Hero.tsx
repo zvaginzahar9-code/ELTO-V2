@@ -5,11 +5,12 @@
  * делает и где каталог. Поэтому заголовок, «Каталог», «Запросить расчёт» и
  * входы в главные разделы стоят в кадре сразу, до всякой прокрутки.
  *
- * Дальше скролл — это камера, идущая вверх вдоль мачты к свету: кадр
- * адресуется позицией прокрутки, а натриевое свечение сверху разгорается
- * по мере подъёма — как лампа, к которой мы поднимаемся.
+ * Дальше скролл управляет самой сценой: в жемчужной пустоте капля плазмы
+ * падает на стальной диск, разбивается в хромовую корону, осколки спиралью
+ * поднимаются и собираются в гранёную колонну. Искра становится
+ * конструкцией — это и есть ELTO одним кадром.
  *
- *   0.00–0.30  заголовок уходит вверх, камера набирает высоту
+ *   0.00–0.30  заголовок уходит вверх, капля падает и разбивается
  *   0.26–0.60  строка оригинала — «Качество — основа доверия к нам»
  *   0.52–0.86  кадр отдаётся цифрам каталога
  *   0.86–1.00  кадр темнеет и передаёт сцену следующей
@@ -23,15 +24,11 @@ import ScrollSequence, { type SequenceHandle } from "@/components/motion/ScrollS
 import { MEDIA, hasShot } from "@/motion/media";
 import { registerScene, span, hold, lerp } from "@/motion/scene";
 import { reducedMotion } from "@/motion/clock";
-import { imgSrc } from "@/lib/image-url";
 import { categoryOf, products, site, topCategories } from "@/lib/data";
 import { categoryPath } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { useLead } from "@/components/lead/LeadProvider";
 import { QUICK_SECTIONS, breakLines, heroTitle } from "./hero-copy";
-
-/** Пока сцена не отрендерена, кадр держит настоящая фотография объекта ELTO. */
-const FALLBACK_POSTER = imgSrc("107978646.jpg", 1600);
 
 /**
  * Слоган и подпись — из слайдера оригинала на нужном языке. На казахской
@@ -138,33 +135,38 @@ export default function Hero({ lang }: { lang: Lang }) {
         cornerEls.forEach(
           (c) => (c.style.opacity = lerp(1, 0.3, span(p, 0.3, 0.6)).toFixed(3))
         );
-        if (fadeEl) fadeEl.style.opacity = span(p, 0.88, 1).toFixed(3);
+        // кадр не гаснет до пустоты: колонна остаётся призраком, пока наезжает следующий блок
+        if (fadeEl) fadeEl.style.opacity = (span(p, 0.86, 1) * 0.5).toFixed(3);
       },
     });
   }, []);
 
-  const ready = hasShot("podem");
+  const ready = hasShot("iskra");
   const quick = QUICK_SECTIONS.map((s) => categoryOf(s)).filter(Boolean);
 
   return (
-    <section id="hero" ref={root} className={"scene hero" + (booted ? " hero--booted" : "")}
-      data-ground="dark">
+    <section
+      id="hero"
+      ref={root}
+      className={"scene hero ground-paper" + (booted ? " hero--booted" : "")}
+      data-ground="paper"
+    >
       <div className="hero__stage">
         <div className="hero__plate gpu">
           {ready ? (
             <ScrollSequence
               ref={seq}
-              spec={MEDIA.podem.seq}
-              mobileSpec={MEDIA.podem.mobileSeq}
-              portraitSpec={MEDIA.podem.portraitSeq}
-              portraitMobileSpec={MEDIA.podem.portraitMobileSeq}
-              poster={MEDIA.podem.poster}
-              portraitPoster={MEDIA.podem.portraitPoster}
+              spec={MEDIA.iskra.seq}
+              mobileSpec={MEDIA.iskra.mobileSeq}
+              portraitSpec={MEDIA.iskra.portraitSeq}
+              portraitMobileSpec={MEDIA.iskra.portraitMobileSeq}
+              poster={MEDIA.iskra.poster}
+              portraitPoster={MEDIA.iskra.portraitPoster}
               className="fill"
               eager
             />
           ) : (
-            <img className="fill" src={FALLBACK_POSTER} alt="" aria-hidden="true" />
+            <img className="fill" src={MEDIA.iskra.poster} alt="" aria-hidden="true" />
           )}
         </div>
 

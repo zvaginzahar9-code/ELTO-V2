@@ -348,6 +348,17 @@ const T: Dict = {
     en: "variants in tables",
   },
 
+  "home.assembly": { ru: "Сборка", kk: "Құрастыру", en: "Assembly" },
+  "assembly.title": {
+    ru: "Из деталей — в изделие",
+    kk: "Бөлшектерден — бұйымға",
+    en: "From parts to product",
+  },
+  "assembly.lead": {
+    ru: "Закладные детали, опоры, кронштейны и светильники — разделы одного каталога ELTO.",
+    kk: "Іргетас бөлшектері, тіректер, кронштейндер және шамдар — бір каталогтың бөлімдері.",
+    en: "Foundation parts, poles, brackets and luminaires are sections of one catalogue.",
+  },
   "home.final": {
     ru: "Расчёт под ваш объект",
     kk: "Нысаныңызға есеп",

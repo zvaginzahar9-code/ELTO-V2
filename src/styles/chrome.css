@@ -155,7 +155,7 @@
   transition: color 0.35s var(--e-out);
 }
 .nav__phone:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .nav[data-paper="true"] .nav__phone:hover {
   color: var(--accent-ink);
@@ -264,7 +264,7 @@
   inset: 0;
   z-index: var(--z-menu);
   background:
-    radial-gradient(60% 50% at 85% 0%, rgba(255, 107, 26, 0.16), transparent 70%),
+    radial-gradient(60% 50% at 85% 0%, rgba(106, 61, 240, 0.16), transparent 70%),
     var(--night);
   color: var(--zinc);
   overflow-y: auto;
@@ -307,14 +307,14 @@
   transition: color 0.35s var(--e-out), padding-left 0.45s var(--e-out);
 }
 .menu__link:hover {
-  color: var(--accent);
+  color: var(--accent-text);
   padding-left: clamp(0.5rem, 1.5vw, 1.4rem);
 }
 .menu__no {
   font-size: var(--t-label);
   font-weight: 500;
   letter-spacing: 0.16em;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .menu__foot {
@@ -326,7 +326,7 @@
   font-size: var(--t-md);
 }
 .menu__foot a:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* ── нижняя панель телефона ──────────────────────────────────── */
@@ -379,7 +379,7 @@
   }
   .dock__item--main {
     background: var(--accent);
-    color: var(--ink);
+    color: var(--on-accent);
   }
   .dock__item:active {
     filter: brightness(1.15);
@@ -832,7 +832,7 @@
   transition: color 0.3s var(--e-out);
 }
 .foot__list a:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .foot__address {
@@ -849,7 +849,7 @@
   transition: color 0.3s var(--e-out);
 }
 .foot__big:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .foot__social {
@@ -865,7 +865,7 @@
   transition: color 0.3s var(--e-out);
 }
 .foot__social a:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .foot__bar {
