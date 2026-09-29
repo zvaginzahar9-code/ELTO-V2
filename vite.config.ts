@@ -3,7 +3,15 @@ import react from "@vitejs/plugin-react";
 import path from "node:path";
 import catalog from "./src/data/catalog.json";
 import { LANGS, pick, t, type Lang } from "./src/lib/i18n";
-import { HOME_DESCRIPTION, QUICK_SECTIONS, heroTitle } from "./src/scenes/hero-copy";
+import {
+  HOME_DESCRIPTION,
+  PHONE_HERO_ALT,
+  PHONE_HERO_CAPTION,
+  PHONE_HERO_AVIF,
+  PHONE_HERO_WEBP,
+  QUICK_SECTIONS,
+  heroTitle,
+} from "./src/scenes/hero-copy";
 
 /**
  * Стили — внутрь документа.
@@ -83,8 +91,10 @@ function homeHtml(): Plugin {
           `<li><a class="hero__chip" href="/${lang}/catalog/${s}">${esc(pick(cats[s].title, lang))}<span class="mono">${cats[s].count}</span></a></li>`
       )
       .join("");
-    // телефон получает свой первый экран — тот же, что рисует src/phone/PhoneHome.tsx
-    const phone = `<div class="ph ph--boot"><section class="ph-hero" data-ground="paper"><div class="ph-hero__art" aria-hidden="true"><img src="/media/posters/iskra-phone.webp" alt="" width="720" height="810" fetchpriority="high"></div><div class="ph-hero__sheet"><p class="ph-hero__eyebrow"><i aria-hidden="true"></i>${esc(t("hero.since", lang))}</p><h1 class="ph-hero__h1">${esc(title.lines.join(" "))}</h1>${title.where ? `<p class="ph-hero__where">${esc(title.where)}</p>` : ""}<div class="ph-hero__actions"><a class="ph-btn ph-btn--solid" href="/${lang}/catalog">${esc(t("cta.catalog", lang))}<svg class="ph-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5.5 15.5 10 11 14.5"></path></svg></a><span class="ph-btn">${esc(t("cta.quote", lang))}</span></div></div></section></div>`;
+    // телефон получает свой первый экран — тот же, что рисует src/phone/PhoneHome.tsx;
+    // фото привязано к ширине телефона, иначе широкий экран качал бы его впустую
+    const photo = `<picture><source media="(max-width: 860px)" type="image/avif" srcset="${PHONE_HERO_AVIF}" sizes="100vw"><source media="(max-width: 860px)" type="image/webp" srcset="${PHONE_HERO_WEBP}" sizes="100vw"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="${esc(PHONE_HERO_ALT)}" width="1080" height="1350" fetchpriority="high"></picture>`;
+    const phone = `<div class="ph ph--boot"><section class="ph-hero" data-ground="paper"><div class="ph-hero__text"><h1 class="ph-hero__h1">${esc(title.lines.join(" "))}</h1>${title.where ? `<p class="ph-hero__where">${esc(title.where)}</p>` : ""}<div class="ph-hero__actions"><a class="ph-btn ph-btn--ink" href="/${lang}/catalog">${esc(t("cta.catalog", lang))}</a><span class="ph-btn">${esc(t("cta.quote", lang))}</span></div></div><figure class="ph-hero__photo">${photo}<figcaption>${esc(PHONE_HERO_CAPTION)}</figcaption></figure></section></div>`;
     return phone + `<section class="scene hero ground-paper hero--boot" data-ground="paper"><div class="hero__stage"><div class="hero__scrim" aria-hidden="true"></div><div class="hero__ui shell"><div class="hero__top"><span class="hero__corner label">${esc(t("hero.place", lang))}</span><span class="hero__corner hero__corner--lit label">${esc(t("hero.since", lang))}</span></div><div class="hero__middle"><div class="hero__lead"><h1 class="hero__h1 display">${lines}${where}</h1><div class="hero__actions"><a class="btn btn--solid" href="/${lang}/catalog"><span class="btn__full">${esc(t("catalog.title", lang))}</span><span class="btn__short">${esc(t("cta.catalog", lang))}</span><span class="btn__arrow" aria-hidden="true">→</span></a><span class="btn">${esc(t("cta.quote", lang))}</span><span class="link-arrow hero__consult"><span>${esc(t("cta.consult", lang))}</span><span aria-hidden="true">→</span></span></div></div></div><nav class="hero__quick"><span class="hero__quick-label label">${esc(t("hero.quick", lang))}</span><ul>${chips}</ul></nav></div></div></section>`;
   };
 
@@ -106,6 +116,11 @@ function homeHtml(): Plugin {
         const title = `${heroTitle(lang).full} — Энергосистемы ЭЛТО`;
         const html = source
           .replace(/<!--boot-->[\s\S]*<!--\/boot-->/, hero(lang))
+          // фото первого экрана телефона — в очередь сразу из шапки, а не после скриптов
+          .replace(
+            "</head>",
+            `<link rel="preload" as="image" type="image/avif" imagesrcset="${PHONE_HERO_AVIF}" imagesizes="100vw" media="(max-width: 860px)" fetchpriority="high"></head>`
+          )
           .replace(/<html lang="[^"]*">/, `<html lang="${lang}">`)
           .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
           .replace(

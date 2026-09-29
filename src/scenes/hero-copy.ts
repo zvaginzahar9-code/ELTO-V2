@@ -49,3 +49,13 @@ export function heroTitle(lang: Lang) {
   const [what, where = ""] = full.split(" — ");
   return { full, lines: breakLines(what, 22), where };
 }
+
+/**
+ * Первый кадр телефона — цех горячего цинкования на заводе ELTO. Отдельная
+ * нарезка 4:5 под кадр героя: общая картинка в 1600 px весила вчетверо больше.
+ */
+export const PHONE_HERO_AVIF = "/media/phone/hero-720.avif 720w, /media/phone/hero-1080.avif 1080w";
+export const PHONE_HERO_WEBP = "/media/phone/hero-720.webp 720w, /media/phone/hero-1080.webp 1080w";
+export const PHONE_HERO_SRC = "/media/phone/hero-720.webp";
+export const PHONE_HERO_ALT = "Цех горячего цинкования ELTO";
+export const PHONE_HERO_CAPTION = "Цех горячего цинкования, Караганда";

@@ -28,7 +28,9 @@ const SUBSETS = new Set(["latin", "latin-ext", "cyrillic", "cyrillic-ext"]);
 
 /** Гарнитура интерфейса и моноширинная для данных. */
 const QUERY =
-  "family=Onest:wght@300..800&family=JetBrains+Mono:wght@400;500;600&display=swap";
+  "family=Onest:wght@300..800&family=JetBrains+Mono:wght@400;500;600" +
+  // телефон: Fira Sans для текста и узкая Fira Sans Condensed для заголовков
+  "&family=Fira+Sans:wght@400;500&family=Fira+Sans+Condensed:wght@600&display=swap";
 
 /* без современного user-agent Google отдаёт ttf вместо woff2 */
 const UA =
@@ -62,7 +64,10 @@ const nameOf = (rule, subset) => {
     .exec(rule)[1]
     .toLowerCase()
     .replace(/\s+/g, "-");
-  return `${family}-${subset}.woff2`;
+  // у статичных начертаний свой файл на каждый вес, у переменных — один на все
+  const weight = /font-weight:\s*([^;]+);/.exec(rule)[1].trim();
+  const suffix = /\s/.test(weight) ? "" : `-${weight}`;
+  return `${family}${suffix}-${subset}.woff2`;
 };
 
 const out = [

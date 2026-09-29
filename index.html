@@ -31,6 +31,7 @@
       href="/fonts/onest-cyrillic.woff2"
       as="font"
       type="font/woff2"
+      media="(min-width: 861px)"
       crossorigin
     />
     <!-- цифры и знаки препинания заголовка живут в латинском подмножестве:
@@ -40,13 +41,32 @@
       href="/fonts/onest-latin.woff2"
       as="font"
       type="font/woff2"
+      media="(min-width: 861px)"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/jetbrains-mono-cyrillic.woff2"
+      href="/fonts/jetbrains-mono-400-cyrillic.woff2"
       as="font"
       type="font/woff2"
+      media="(min-width: 861px)"
+      crossorigin
+    />
+    <!-- телефон живёт на Fira: узкая для заголовков и обычная для текста -->
+    <link
+      rel="preload"
+      href="/fonts/fira-sans-condensed-600-cyrillic.woff2"
+      as="font"
+      type="font/woff2"
+      media="(max-width: 860px)"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/fira-sans-400-cyrillic.woff2"
+      as="font"
+      type="font/woff2"
+      media="(max-width: 860px)"
       crossorigin
     />
 

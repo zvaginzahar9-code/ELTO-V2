@@ -1,19 +1,20 @@
 /**
  * Главная на телефоне.
  *
- * Не ужатая версия десктопа, а отдельный экран под палец. Десктоп — это кино:
- * закреплённые сцены, кадры по прокрутке, выноски. На телефоне всё это
- * тормозит и не помещается, поэтому здесь другой жанр — каталог-приложение:
- * крупный заголовок, поиск и разделы сразу под пальцем, короткие блоки,
- * которые читаются за один взгляд, и ни одного закреплённого экрана.
+ * Отдельный экран, а не ужатый десктоп. Десктоп — это кино из сгенерированных
+ * сцен; на телефоне оно тормозит и читается как рендер. Здесь другое правило:
+ * говорит сам завод. Первый кадр — цех горячего цинкования ELTO, изделия —
+ * на белом, как на стенде, производство — настоящими фотографиями.
  *
- * Движение — только появление блоков при входе в кадр, на CSS: прокрутка
- * остаётся родной прокруткой телефона.
+ * Типографика: узкая Fira Sans Condensed в заголовках — как маркировка на
+ * металле и надписи дорожных знаков, — обычная Fira Sans в тексте. Никаких
+ * надписей капсом над заголовками, свечений и появлений по прокрутке:
+ * прокрутка — родная прокрутка телефона.
  *
  * Тексты — те же, что на десктопе, и так же взяты с оригинала.
  */
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Img from "@/components/ui/Img";
 import TaskPicker from "@/components/ui/TaskPicker";
@@ -22,18 +23,35 @@ import { categoryPath, productPath, toRoute } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { ADDRESS_LINES, EMAIL, PHONE, PHONE_HREF, whatsappHref } from "@/lib/contacts";
 import { useLead } from "@/components/lead/LeadProvider";
-import { heroTitle } from "@/scenes/hero-copy";
+import {
+  PHONE_HERO_ALT,
+  PHONE_HERO_AVIF,
+  PHONE_HERO_CAPTION,
+  PHONE_HERO_SRC,
+  PHONE_HERO_WEBP,
+  heroTitle,
+} from "@/scenes/hero-copy";
 import views from "@/data/views.json";
 
-/** Разделы на главной — первые шесть в порядке оригинала, остальное в каталоге. */
-const CATS_SHOWN = 6;
+/** Изделия на «стенде» — разделы, за которыми приходят чаще всего. */
+const SHELF = [
+  "opory-osveshcheniya-granyonye",
+  "machty-osveshcheniya-pmo-vmo",
+  "opora-lep",
+  "kronshteyny-opor-osveshcheniya",
+  "zakladnye-detali-fundamenta",
+  "svetodiodnye-svetilniki",
+];
 
-/** Этапы производства — реальные фото завода и страницы услуг оригинала. */
+/** Разделов в оглавлении до кнопки «показать все». */
+const INDEX_SHOWN = 8;
+
+/** Этапы производства — фото завода и страницы услуг оригинала. */
 const STEPS = [
-  { no: "01", title: "Плазменная резка металла", photo: "rezka_katochka.jpg", slug: "plazmennaya-rezka-metalla" },
-  { no: "02", title: "Гибка металла", photo: "gibka_katochka.jpg", slug: "gibka-metalla" },
-  { no: "03", title: "Сборка и сварка", photo: "1_11.jpg" },
-  { no: "04", title: "Горячее цинкование", photo: "img_20250818_155550_1.jpg", slug: "uslugi-goryachego-cinkovaniya" },
+  { title: "Плазменная резка металла", photo: "rezka_katochka.jpg", slug: "plazmennaya-rezka-metalla" },
+  { title: "Гибка металла", photo: "gibka_katochka.jpg", slug: "gibka-metalla" },
+  { title: "Сборка и сварка", photo: "1_11.jpg" },
+  { title: "Горячее цинкование", photo: "img_20250818_160758.jpg", slug: "uslugi-goryachego-cinkovaniya" },
 ];
 
 /** Порядок — как в блоке «Преимущество» на главной оригинала. */
@@ -49,70 +67,48 @@ const ADVANTAGE_SLUGS = [
 type Partner = { slug: string; title: string; image: string };
 const partnerTable = views as unknown as Record<Lang, Record<string, Partner[]>>;
 
-/** Блок появляется, когда входит в кадр, — один раз, без повторов. */
-function useAppear(root: React.RefObject<HTMLElement | null>) {
-  useEffect(() => {
-    const el = root.current;
-    if (!el) return;
-    const items = Array.from(el.querySelectorAll<HTMLElement>("[data-in]"));
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          e.target.classList.add("is-in");
-          io.unobserve(e.target);
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px" }
-    );
-    items.forEach((n) => io.observe(n));
-    return () => io.disconnect();
-  }, [root]);
-}
-
-function Arrow() {
-  return (
-    <svg className="ph-arrow" viewBox="0 0 20 20" aria-hidden="true">
-      <path d="M4 10h11M11 5.5 15.5 10 11 14.5" />
-    </svg>
-  );
-}
+const plural = (n: number, one: string, few: string, many: string) => {
+  const d = n % 10;
+  const h = n % 100;
+  if (d === 1 && h !== 11) return one;
+  if (d >= 2 && d <= 4 && (h < 12 || h > 14)) return few;
+  return many;
+};
 
 export function PhoneHero({ lang }: { lang: Lang }) {
   const title = heroTitle(lang);
   const openLead = useLead();
   return (
     <section className="ph-hero" data-ground="paper">
-      <div className="ph-hero__art" aria-hidden="true">
-        <img src="/media/posters/iskra-phone.webp" alt="" width={720} height={810} fetchPriority="high" />
-      </div>
-      <div className="ph-hero__sheet">
-        <p className="ph-hero__eyebrow">
-          <i aria-hidden="true" />
-          {t("hero.since", lang)}
-        </p>
+      <div className="ph-hero__text">
         <h1 className="ph-hero__h1">{title.lines.join(" ")}</h1>
         {title.where && <p className="ph-hero__where">{title.where}</p>}
         <div className="ph-hero__actions">
-          <Link className="ph-btn ph-btn--solid" to={`/${lang}/catalog`}>
+          <Link className="ph-btn ph-btn--ink" to={`/${lang}/catalog`}>
             {t("cta.catalog", lang)}
-            <Arrow />
           </Link>
           <button type="button" className="ph-btn" onClick={() => openLead()}>
             {t("cta.quote", lang)}
           </button>
         </div>
       </div>
+      <figure className="ph-hero__photo">
+        <picture>
+          <source type="image/avif" srcSet={PHONE_HERO_AVIF} sizes="100vw" />
+          <source type="image/webp" srcSet={PHONE_HERO_WEBP} sizes="100vw" />
+          <img src={PHONE_HERO_SRC} alt={PHONE_HERO_ALT} width={1080} height={1350} fetchPriority="high" />
+        </picture>
+        <figcaption>{PHONE_HERO_CAPTION}</figcaption>
+      </figure>
     </section>
   );
 }
 
 export default function PhoneHome({ lang }: { lang: Lang }) {
-  const root = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const openLead = useLead();
   const [query, setQuery] = useState("");
-  useAppear(root);
+  const [allSections, setAllSections] = useState(false);
 
   const search = (e: FormEvent) => {
     e.preventDefault();
@@ -120,8 +116,12 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
     navigate(`/${lang}/catalog${q ? `?q=${encodeURIComponent(q)}` : ""}`);
   };
 
-  const byslug = new Map(pages.map((p) => [p.s, p]));
-  const advantages = ADVANTAGE_SLUGS.map((s) => byslug.get(s)).filter(Boolean);
+  const bySlug = new Map(topCategories.map((c) => [c.slug, c]));
+  const shelf = SHELF.map((s) => bySlug.get(s)).filter(Boolean);
+  const index = allSections ? topCategories : topCategories.slice(0, INDEX_SHOWN);
+
+  const pageBySlug = new Map(pages.map((p) => [p.s, p]));
+  const advantages = ADVANTAGE_SLUGS.map((s) => pageBySlug.get(s)).filter(Boolean);
   const partners = (
     partnerTable[lang]?.partners?.length ? partnerTable[lang].partners : partnerTable.ru.partners || []
   ).filter((p) => p.image);
@@ -130,7 +130,7 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
     .slice(0, 5)
     .map((n) => {
       const slug = n.href.replace(/\/+$/, "").split("/").pop() || "";
-      const page = byslug.get(slug);
+      const page = pageBySlug.get(slug);
       return {
         slug,
         href: toRoute(n.href, lang),
@@ -139,22 +139,25 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
       };
     });
 
+  const itemsWord =
+    lang === "ru" ? plural(products.length, "изделие", "изделия", "изделий") : t("common.items", lang);
+  const sectionsWord =
+    lang === "ru" ? plural(topCategories.length, "разделе", "разделах", "разделах") : t("common.sections", lang);
+
   return (
-    <div className="ph" ref={root}>
+    <div className="ph">
       <PhoneHero lang={lang} />
 
-      {/* ── каталог: поиск и разделы ── */}
+      {/* ── каталог ── */}
       <section className="ph-sec" data-ground="paper" id="catalog">
-        <header className="ph-head" data-in>
-          <p className="ph-kicker">{t("home.catalog", lang)}</p>
-          <h2 className="ph-h2">{t("catalog.title", lang)}</h2>
-          <p className="ph-note">
-            {topCategories.length} {t("common.sections", lang)} · {products.length}{" "}
-            {t("common.items", lang)}
-          </p>
-        </header>
+        <h2 className="ph-h2">{t("catalog.title", lang)}</h2>
+        <p className="ph-sub">
+          {lang === "ru"
+            ? `${products.length} ${itemsWord} в ${topCategories.length} ${sectionsWord}`
+            : `${products.length} ${itemsWord}, ${topCategories.length} ${sectionsWord}`}
+        </p>
 
-        <form className="ph-search" role="search" onSubmit={search} data-in>
+        <form className="ph-search" role="search" onSubmit={search}>
           <svg viewBox="0 0 20 20" aria-hidden="true">
             <circle cx="8.5" cy="8.5" r="5.5" />
             <path d="M13 13l4.5 4.5" />
@@ -171,61 +174,67 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
           />
         </form>
 
-        <ul className="ph-cats">
-          {topCategories.slice(0, CATS_SHOWN).map((c) => (
-            <li key={c.slug} data-in>
-              <Link className="ph-cat" to={categoryPath(lang, c.slug)}>
-                <span className="ph-cat__img">
-                  <Img file={c.image} alt="" sizes="46vw" fit="contain" />
+        {/* стенд: изделия на белом, листаются пальцем */}
+        <ul className="ph-shelf">
+          {shelf.map((c) => (
+            <li key={c!.slug}>
+              <Link className="ph-item" to={categoryPath(lang, c!.slug)}>
+                <span className="ph-item__img">
+                  <Img file={c!.image} alt="" sizes="64vw" fit="contain" />
                 </span>
-                <span className="ph-cat__name">{pick(c.title, lang)}</span>
-                <span className="ph-cat__n">{c.count}</span>
+                <span className="ph-item__name">{pick(c!.title, lang)}</span>
+                <span className="ph-item__n">{c!.count}</span>
               </Link>
             </li>
           ))}
         </ul>
-        <Link className="ph-more" to={`/${lang}/catalog`} data-in>
-          <span>
-            {t("catalog.all", lang)}
-            <small>
-              {topCategories.length} {t("common.sections", lang)}
-            </small>
-          </span>
-          <Arrow />
-        </Link>
+
+        {/* оглавление каталога — все разделы оригинала по порядку */}
+        <ul className="ph-index">
+          {index.map((c) => (
+            <li key={c.slug}>
+              <Link to={categoryPath(lang, c.slug)}>
+                <span>{pick(c.title, lang)}</span>
+                <span className="ph-index__n">{c.count}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        {!allSections && (
+          <button type="button" className="ph-link" onClick={() => setAllSections(true)}>
+            {t("catalog.showAll", lang)} ({topCategories.length})
+          </button>
+        )}
       </section>
 
       {/* ── подбор по задаче ── */}
-      <section className="ph-sec ph-sec--tint" data-ground="paper">
-        <header className="ph-head" data-in>
-          <p className="ph-kicker">{t("search.help", lang)}</p>
-          <h2 className="ph-h2">{t("task.title", lang)}</h2>
-          <p className="ph-lead">{t("task.lead", lang)}</p>
-        </header>
-        <div className="ph-tasks" data-in>
+      <section className="ph-sec ph-sec--white" data-ground="paper">
+        <h2 className="ph-h2">{t("task.title", lang)}</h2>
+        <p className="ph-sub">{t("task.lead", lang)}</p>
+        <div className="ph-tasks">
           <TaskPicker lang={lang} />
         </div>
       </section>
 
-      {/* ── производство ── */}
+      {/* ── производство: этапы по порядку ── */}
       <section className="ph-sec" data-ground="paper">
-        <header className="ph-head" data-in>
-          <p className="ph-kicker">{t("home.production", lang)}</p>
-          <h2 className="ph-h2">Из листа в опору</h2>
-        </header>
+        <h2 className="ph-h2">От листа до цинка</h2>
+        <p className="ph-sub">Собственное производство в Караганде.</p>
         <ol className="ph-steps">
-          {STEPS.map((s) => {
+          {STEPS.map((s, i) => {
             const body = (
               <>
                 <span className="ph-step__img">
-                  <Img file={s.photo} alt="" sizes="46vw" fit="cover" />
-                  <span className="ph-step__no">{s.no}</span>
+                  <Img file={s.photo} alt="" sizes="(min-width: 600px) 45vw, 88vw" fit="cover" />
                 </span>
-                <span className="ph-step__t">{s.title}</span>
+                <span className="ph-step__t">
+                  <span className="ph-step__no">{i + 1}</span>
+                  {s.title}
+                </span>
               </>
             );
             return (
-              <li key={s.no} data-in>
+              <li key={s.title}>
                 {s.slug ? (
                   <Link className="ph-step" to={productPath(lang, s.slug)}>
                     {body}
@@ -239,76 +248,53 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
         </ol>
       </section>
 
-      {/* ── масштаб: тёмная карточка ── */}
-      <section className="ph-sec" data-ground="paper">
-        <div className="ph-proof" data-in>
-          <p className="ph-kicker ph-kicker--lit">{t("home.partners", lang)}</p>
-          {/* обе фразы — дословно из публикации о компании на elto.kz */}
-          <h2 className="ph-proof__h">Установлены во всех областных центрах и крупных городах</h2>
-          <p className="ph-proof__p">
-            Оборудованием укомплектованы тысячи энергетических объектов не только в
-            Казахстане, но и странах СНГ.
-          </p>
-          <dl className="ph-stats">
-            <div>
-              <dt>Год основания</dt>
-              <dd>2014</dd>
-            </div>
-            <div>
-              <dt>{t("common.sections", lang)}</dt>
-              <dd>{topCategories.length}</dd>
-            </div>
-            <div>
-              <dt>{t("common.items", lang)}</dt>
-              <dd>{products.length}</dd>
-            </div>
-          </dl>
-        </div>
-
+      {/* ── где стоят изделия ── */}
+      <section className="ph-sec ph-sec--white" data-ground="paper">
+        {/* обе фразы — дословно из публикации о компании на elto.kz */}
+        <h2 className="ph-h2">Установлены во всех областных центрах и крупных городах</h2>
+        <p className="ph-sub">
+          Оборудованием укомплектованы тысячи энергетических объектов не только в
+          Казахстане, но и странах СНГ. Завод работает с 2014 года.
+        </p>
+        <figure className="ph-wide">
+          <Img file="whatsapp_image_2024-04-09_at_19.25.24_1.jpg" alt="Освещение стадиона на опорах ELTO" sizes="100vw" fit="cover" />
+        </figure>
         {partners.length > 0 && (
-          <div className="ph-logos" aria-label={t("home.partners", lang)}>
-            {/* лента из двух одинаковых половин: сдвиг на половину — бесшовный круг */}
-            <ul className="ph-logos__track">
-              {[...partners, ...partners].map((p, i) => (
-                <li key={p.slug + i} aria-hidden={i >= partners.length}>
-                  <Img file={p.image} alt={i < partners.length ? p.title : ""} sizes="120px" fit="contain" />
+          <>
+            <h3 className="ph-h3">{t("home.partners", lang)}</h3>
+            <ul className="ph-logos">
+              {partners.slice(0, 9).map((p) => (
+                <li key={p.slug}>
+                  <Img file={p.image} alt={p.title} sizes="30vw" fit="contain" />
                 </li>
               ))}
             </ul>
-          </div>
+            <Link className="ph-link" to={`/${lang}/partners`}>
+              {t("common.all", lang)} ({partners.length})
+            </Link>
+          </>
         )}
       </section>
 
       {/* ── почему ELTO ── */}
-      <section className="ph-sec ph-sec--tint" data-ground="paper">
-        <header className="ph-head" data-in>
-          <p className="ph-kicker">{t("home.why", lang)}</p>
-          <h2 className="ph-h2">Работа с производителем, без посредников</h2>
-        </header>
+      <section className="ph-sec" data-ground="paper">
+        <h2 className="ph-h2">Работа с производителем, без посредников</h2>
         <ul className="ph-why">
           {advantages.map((p) => (
-            <li key={p!.s} data-in>
-              <svg viewBox="0 0 20 20" aria-hidden="true">
-                <path d="M4.5 10.5l3.5 3.5 7.5-8" />
-              </svg>
-              {pick(p!.t, lang)}
-            </li>
+            <li key={p!.s}>{pick(p!.t, lang)}</li>
           ))}
         </ul>
       </section>
 
       {/* ── новости ── */}
       {news.length > 0 && (
-        <section className="ph-sec" data-ground="paper">
-          <header className="ph-head ph-head--row" data-in>
-            <div>
-              <p className="ph-kicker">{t("home.news", lang)}</p>
-              <h2 className="ph-h2">{t("home.news", lang)}</h2>
-            </div>
-            <Link className="ph-chip-link" to={`/${lang}/news`}>
+        <section className="ph-sec ph-sec--white" data-ground="paper">
+          <div className="ph-row">
+            <h2 className="ph-h2">{t("home.news", lang)}</h2>
+            <Link className="ph-link" to={`/${lang}/news`}>
               {t("common.all", lang)}
             </Link>
-          </header>
+          </div>
           <ul className="ph-rail">
             {news.map((n) => (
               <li key={n.slug}>
@@ -324,56 +310,26 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
         </section>
       )}
 
-      {/* ── связь ── */}
+      {/* ── связь: номер телефона — главный элемент экрана ── */}
       <section className="ph-contact" data-ground="dark" id="contact">
-        <div className="ph-contact__glow" aria-hidden="true" />
-        <p className="ph-kicker ph-kicker--lit" data-in>
-          {t("cta.quote", lang)}
-        </p>
-        <h2 className="ph-contact__h" data-in>
-          {t("home.final", lang)}
-        </h2>
-        <p className="ph-contact__p" data-in>
-          {t("home.final.lead", lang)}
-        </p>
-        <button type="button" className="ph-btn ph-btn--solid ph-btn--wide" onClick={() => openLead()}>
-          {t("cta.quote", lang)}
-          <Arrow />
-        </button>
-        <div className="ph-contact__row" data-in>
-          <a className="ph-btn ph-btn--glass" href={PHONE_HREF}>
-            <svg viewBox="0 0 20 20" aria-hidden="true">
-              <path d="M6 2.5l2.5 4-2 1.6a10 10 0 0 0 5.4 5.4l1.6-2 4 2.5-1.2 3A2 2 0 0 1 14.4 18 13.5 13.5 0 0 1 2 5.6a2 2 0 0 1 1-1.9z" />
-            </svg>
-            {t("cta.call", lang)}
-          </a>
-          <a className="ph-btn ph-btn--glass" href={whatsappHref()} target="_blank" rel="noreferrer noopener">
-            <svg viewBox="0 0 20 20" aria-hidden="true">
-              <path d="M3 17l1.2-3.6A7.5 7.5 0 1 1 7 16.2zM7.5 7c0 3 2.5 5.5 5.5 5.5" />
-            </svg>
+        <h2 className="ph-h2">{t("home.final", lang)}</h2>
+        <p className="ph-sub">{t("home.final.lead", lang)}</p>
+        <a className="ph-phone" href={PHONE_HREF}>
+          {PHONE}
+        </a>
+        <div className="ph-contact__actions">
+          <button type="button" className="ph-btn ph-btn--light" onClick={() => openLead()}>
+            {t("cta.quote", lang)}
+          </button>
+          <a className="ph-btn ph-btn--line" href={whatsappHref()} target="_blank" rel="noreferrer noopener">
             WhatsApp
           </a>
         </div>
-        <dl className="ph-contact__list" data-in>
-          <div>
-            <dt>{t("contacts.phone", lang)}</dt>
-            <dd>
-              <a href={PHONE_HREF}>{PHONE}</a>
-            </dd>
-          </div>
-          <div>
-            <dt>{t("contacts.email", lang)}</dt>
-            <dd>
-              <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-            </dd>
-          </div>
-          <div>
-            <dt>{t("contacts.address", lang)}</dt>
-            <dd>
-              {ADDRESS_LINES[0]}, {ADDRESS_LINES[1]}
-            </dd>
-          </div>
-        </dl>
+        <p className="ph-contact__meta">
+          <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+          <br />
+          {ADDRESS_LINES[0]}, {ADDRESS_LINES[1]}
+        </p>
       </section>
     </div>
   );
