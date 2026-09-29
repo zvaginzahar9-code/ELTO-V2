@@ -7,16 +7,32 @@
  * панели нет — там всё это в шапке.
  */
 
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { t, type Lang } from "@/lib/i18n";
 import { PHONE_HREF, whatsappHref } from "@/lib/contacts";
 import { useLead } from "@/components/lead/LeadProvider";
 
 export default function Dock({ lang }: { lang: Lang }) {
   const openLead = useLead();
+  const { pathname } = useLocation();
+  const home = pathname === `/${lang}` || pathname === `/${lang}/`;
+  const [atTop, setAtTop] = useState(true);
+  const tucked = home && atTop;
+
+  // на первом экране главной свои кнопки — панель приходит, когда начали листать
+  useEffect(() => {
+    const onScroll = () => setAtTop(window.scrollY < window.innerHeight * 0.5);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className="dock" aria-label={t("product.actions", lang)}>
+    <nav
+      className="dock"
+      aria-label={t("product.actions", lang)}
+      data-tucked={tucked ? "true" : "false"}
+    >
       <Link className="dock__item" to={`/${lang}/catalog`}>
         <svg viewBox="0 0 20 20" aria-hidden="true">
           <path d="M3 3h6v6H3zM11 3h6v6h-6zM3 11h6v6H3zM11 11h6v6h-6z" />

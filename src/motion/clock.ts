@@ -29,7 +29,9 @@ export function startClock() {
 
   engine.useDefaultMainLoop = false;
 
-  const soft = !reducedMotion();
+  // палец листает родной прокруткой телефона — подменять её нечем и незачем
+  const touch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  const soft = !reducedMotion() && !touch;
 
   if (soft) {
     lenis = new Lenis({

@@ -4,6 +4,10 @@
  * Семь сцен, и каждая передаёт кадр следующей. Ритм задаёт смена грунта:
  * кино → работа → кино. Именно на этой смене держится ощущение, что
  * промышленный сайт может быть и зрелищным, и удобным одновременно.
+ *
+ * На телефоне — своя главная (src/phone): закреплённые сцены и кадры по
+ * прокрутке там тормозят и не помещаются, поэтому это другой экран, а не
+ * ужатый этот.
  */
 
 import Hero from "@/scenes/Hero";
@@ -15,11 +19,15 @@ import Advantages from "@/scenes/Advantages";
 import Geography from "@/scenes/Geography";
 import News from "@/scenes/News";
 import ContactCta from "@/scenes/ContactCta";
+import PhoneHome from "@/phone/PhoneHome";
 import Seo from "@/components/Seo";
 import { HOME_DESCRIPTION } from "@/scenes/hero-copy";
 import { t, type Lang } from "@/lib/i18n";
+import { PHONE, useMedia } from "@/motion/use-media";
 
 export default function Home({ lang }: { lang: Lang }) {
+  const phone = useMedia(PHONE);
+
   return (
     <>
       <Seo
@@ -28,15 +36,21 @@ export default function Home({ lang }: { lang: Lang }) {
         title={t("hero.h1", lang)}
         description={HOME_DESCRIPTION[lang]}
       />
-      <Hero lang={lang} />
-      <Company lang={lang} />
-      <Production lang={lang} />
-      <Assembly lang={lang} />
-      <CatalogScene lang={lang} />
-      <Advantages lang={lang} />
-      <Geography lang={lang} />
-      <News lang={lang} />
-      <ContactCta lang={lang} />
+      {phone ? (
+        <PhoneHome lang={lang} />
+      ) : (
+        <>
+          <Hero lang={lang} />
+          <Company lang={lang} />
+          <Production lang={lang} />
+          <Assembly lang={lang} />
+          <CatalogScene lang={lang} />
+          <Advantages lang={lang} />
+          <Geography lang={lang} />
+          <News lang={lang} />
+          <ContactCta lang={lang} />
+        </>
+      )}
     </>
   );
 }

@@ -28,7 +28,10 @@ import { useLead } from "@/components/lead/LeadProvider";
 type Marks = Awaited<ReturnType<typeof loadMarks>>;
 
 export default function Catalog({ lang }: { lang: Lang }) {
-  const [query, setQuery] = useState("");
+  // поиск с главной телефона приходит в адресе: /catalog?q=СТВ 9
+  const [query, setQuery] = useState(
+    () => new URLSearchParams(window.location.search).get("q") ?? ""
+  );
   const [marks, setMarks] = useState<Marks | null>(null);
   const q = useDeferredValue(query);
   const openLead = useLead();

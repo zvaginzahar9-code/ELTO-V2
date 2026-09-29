@@ -40,7 +40,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           </p>
         </div>
 
-        <div className="foot__col">
+        <div className="foot__col foot__col--cats">
           <h2 className="label foot__h">{t("catalog.sections", lang)}</h2>
           <ul className="foot__list">
             {topCategories.map((c) => (

@@ -1,0 +1,805 @@
+/* ──────────────────────────────────────────────────────────────
+   ELTO — главная телефона (src/phone/PhoneHome.tsx)
+   Каталог-приложение: крупный заголовок, поиск и разделы под пальцем,
+   короткие блоки. Цвет, шрифты и знаки — из системы Argon, остальное своё.
+   Рендерится только на экране до 860 px.
+   ────────────────────────────────────────────────────────────── */
+
+.ph {
+  --ph-r: 18px;
+  --ph-line: rgba(23, 20, 31, 0.09);
+  background: var(--paper);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* первый экран из HTML: телефону — свой, широкому экрану — сцена героя */
+.ph--boot {
+  display: none;
+}
+@media (max-width: 860px) {
+  .ph--boot {
+    display: block;
+  }
+  .hero--boot {
+    display: none;
+  }
+}
+
+/* ── общие детали ── */
+
+.ph-sec {
+  padding: 2.8rem var(--gutter);
+}
+.ph-sec--tint {
+  background: #eceaf3;
+}
+.ph-sec + .ph-sec:not(.ph-sec--tint) {
+  padding-top: 0.6rem;
+}
+.ph-sec--tint + .ph-sec {
+  padding-top: 2.8rem;
+}
+
+.ph-head {
+  margin-bottom: 1.25rem;
+}
+.ph-head--row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ph-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.ph-kicker::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 4px var(--accent-12);
+}
+.ph-kicker--lit {
+  color: var(--plasma);
+}
+.ph-kicker--lit::before {
+  box-shadow: 0 0 10px 1px var(--plasma-soft);
+}
+
+.ph-h2 {
+  margin-top: 0.6rem;
+  font-size: clamp(1.75rem, 7.6vw, 2.4rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.ph-note {
+  margin-top: 0.5rem;
+  font-family: var(--f-mono);
+  font-size: 0.84rem;
+  color: var(--ink-muted);
+}
+.ph-lead {
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink-70);
+  text-wrap: pretty;
+}
+
+.ph-arrow {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── кнопки ── */
+
+.ph-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 54px;
+  padding: 0 1.1rem;
+  font-family: var(--f-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--ink-12);
+  border-radius: 16px;
+  transition: transform 0.2s var(--e-out), background-color 0.2s var(--e-out);
+}
+.ph-btn:active {
+  transform: scale(0.97);
+}
+.ph-btn svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ph-btn--solid,
+.ph .ph-btn--solid:hover {
+  color: #fff;
+  background: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 10px 24px -10px rgba(106, 61, 240, 0.8);
+}
+.ph-btn--solid:active {
+  background: var(--accent-hi);
+}
+.ph-btn--wide {
+  width: 100%;
+}
+.ph-btn--glass,
+.ph .ph-btn--glass:hover {
+  color: var(--zinc);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.ph-chip-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 1.05rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border: 1px solid var(--ink-25);
+  border-radius: 999px;
+}
+
+/* ── первый экран: арт и лист ── */
+
+.ph-hero {
+  position: relative;
+  background: var(--paper);
+}
+.ph-hero__art {
+  position: relative;
+  height: 46svh;
+  min-height: 260px;
+  max-height: 540px;
+  overflow: hidden;
+  background: #dcdbe0;
+}
+.ph-hero__art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+.ph-hero__sheet {
+  position: relative;
+  margin-top: -30px;
+  padding: 1.5rem var(--gutter) 2.2rem;
+  background: var(--paper);
+  border-radius: 28px 28px 0 0;
+  box-shadow: 0 -10px 30px -18px rgba(23, 20, 31, 0.25);
+}
+.ph-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.42rem 0.8rem 0.42rem 0.7rem;
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent-12);
+  border-radius: 999px;
+}
+.ph-hero__eyebrow i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--plasma);
+  box-shadow: 0 0 8px 1px var(--plasma-soft);
+  animation: ph-pulse 2.4s ease-in-out infinite;
+}
+@keyframes ph-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+.ph-hero__h1 {
+  margin-top: 1rem;
+  font-size: clamp(1.9rem, 8.7vw, 3rem);
+  font-weight: 650;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.ph-hero__where {
+  margin-top: 0.55rem;
+  font-size: 1.08rem;
+  color: var(--ink-muted);
+}
+.ph-hero__actions {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+/* ── поиск и разделы ── */
+
+.ph-search {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  height: 56px;
+  padding: 0 1rem;
+  margin-bottom: 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--ink-12);
+  border-radius: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ph-search:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-12);
+}
+.ph-search svg {
+  flex: 0 0 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--ink-muted);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+.ph-search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  /* 16 px и больше — иначе iOS увеличивает страницу при фокусе */
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  outline: none;
+}
+.ph-search input::placeholder {
+  color: var(--ink-muted);
+  opacity: 0.85;
+}
+
+.ph-cats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+.ph-cat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.45rem 0.45rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--ph-line);
+  border-radius: var(--ph-r);
+  transition: transform 0.2s var(--e-out), border-color 0.2s;
+}
+.ph-cat:active {
+  transform: scale(0.97);
+  border-color: var(--accent);
+}
+.ph-cat__img {
+  display: block;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 0.75rem;
+  padding: 11%;
+  background: #fff;
+  border-radius: 13px;
+  overflow: hidden;
+}
+.ph-cat__img picture,
+.ph-cat__img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ph-cat__name {
+  padding-inline: 0.4rem;
+  font-size: clamp(0.8rem, 3.75vw, 0.98rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  hyphens: auto;
+}
+.ph-cat__n {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  min-width: 1.9rem;
+  padding: 0.15rem 0.5rem;
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--ink-muted);
+  background: var(--paper);
+  border-radius: 999px;
+}
+
+.ph-more {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 64px;
+  margin-top: 0.6rem;
+  padding: 0 1.2rem;
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: var(--ph-r);
+  transition: transform 0.2s var(--e-out);
+}
+.ph .ph-more:hover {
+  color: var(--paper);
+}
+.ph-more:active {
+  transform: scale(0.98);
+}
+.ph-more small {
+  display: block;
+  margin-top: 0.1rem;
+  font-family: var(--f-mono);
+  font-size: 0.76rem;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+/* ── подбор по задаче (компонент общий с десктопом) ── */
+
+.ph-tasks .tasks {
+  display: block;
+}
+.ph-tasks .tasks__list {
+  display: flex;
+  gap: 0.45rem;
+  margin: 0 calc(var(--gutter) * -1) 1rem;
+  padding: 0 var(--gutter) 0.2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ph-tasks .tasks__list::-webkit-scrollbar {
+  display: none;
+}
+.ph-tasks .tasks__tab {
+  min-height: 42px;
+  padding: 0.5rem 0.95rem;
+  background: var(--surface);
+  border-color: var(--ph-line);
+}
+.ph-tasks .tasks__tab[aria-pressed="true"] {
+  background: var(--ink);
+}
+.ph-tasks .tasks__sections {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+.ph-tasks .tasks__sect {
+  padding: 0.45rem 0.45rem 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--ph-line);
+  border-radius: var(--ph-r);
+}
+.ph-tasks .tasks__shot {
+  padding: 11%;
+  background: #fff;
+  border: 0;
+  border-radius: 13px;
+}
+.ph-tasks .tasks__sect-h,
+.ph-tasks .tasks__sect-n {
+  padding-inline: 0.4rem;
+}
+.ph-tasks .tasks__sect-h {
+  font-size: 0.96rem;
+  hyphens: auto;
+}
+.ph-tasks .tasks__help {
+  margin-top: 1rem;
+}
+
+/* ── производство ── */
+
+.ph-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 0.6rem;
+}
+.ph-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.ph-step__img {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--paper-2);
+  border-radius: var(--ph-r);
+}
+.ph-step__img picture {
+  position: absolute;
+  inset: 0;
+}
+.ph-step__img img {
+  width: 100%;
+  height: 100%;
+}
+.ph-step__img::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(180deg, transparent, rgba(18, 15, 28, 0.62));
+}
+.ph-step__no {
+  position: absolute;
+  left: 0.8rem;
+  bottom: 0.55rem;
+  z-index: 1;
+  font-family: var(--f-mono);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+}
+.ph-step__t {
+  padding-inline: 0.2rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.2;
+  hyphens: auto;
+}
+a.ph-step:active .ph-step__img {
+  transform: scale(0.97);
+}
+.ph-step__img {
+  transition: transform 0.2s var(--e-out);
+}
+
+/* ── масштаб: тёмная карточка и партнёры ── */
+
+.ph-proof {
+  position: relative;
+  padding: 1.6rem 1.3rem 1.3rem;
+  color: var(--zinc);
+  background: var(--night);
+  border-radius: 24px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.ph-proof::before {
+  content: "";
+  position: absolute;
+  top: -45%;
+  right: -35%;
+  z-index: -1;
+  width: 100%;
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, rgba(255, 79, 163, 0.42), rgba(106, 61, 240, 0.22) 55%,
+    transparent);
+}
+.ph-proof__h {
+  margin-top: 0.75rem;
+  font-size: clamp(1.5rem, 6.6vw, 2rem);
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #fff;
+  text-wrap: balance;
+}
+.ph-proof__p {
+  margin-top: 0.8rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--zinc-70);
+}
+.ph-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 1.4rem 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--zinc-12);
+}
+.ph-stats > div + div {
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--zinc-12);
+}
+.ph-stats dt {
+  font-family: var(--f-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--zinc-muted);
+}
+.ph-stats dd {
+  margin: 0.35rem 0 0;
+  font-family: var(--f-mono);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* логотипы едут сами: лента из двух одинаковых половин */
+.ph-logos {
+  margin: 1rem calc(var(--gutter) * -1) 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.ph-logos__track {
+  display: flex;
+  width: max-content;
+  animation: ph-marquee 48s linear infinite;
+}
+.ph-logos__track li {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 120px;
+  height: 74px;
+  margin-right: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  background: #fff;
+  border: 1px solid var(--ph-line);
+  border-radius: 14px;
+}
+.ph-logos__track picture {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+.ph-logos__track img {
+  max-width: 100%;
+  max-height: 44px;
+  width: auto;
+  height: auto;
+  filter: grayscale(1);
+  opacity: 0.8;
+}
+@keyframes ph-marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ── почему ELTO ── */
+
+.ph-why {
+  display: grid;
+  gap: 0.5rem;
+}
+.ph-why li {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 62px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 550;
+  line-height: 1.25;
+  background: var(--surface);
+  border: 1px solid var(--ph-line);
+  border-radius: 16px;
+}
+.ph-why svg {
+  flex: 0 0 30px;
+  height: 30px;
+  padding: 6px;
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  background: var(--accent-12);
+  border-radius: 50%;
+}
+
+/* ── новости ── */
+
+.ph-rail {
+  display: flex;
+  gap: 0.7rem;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 0 var(--gutter) 0.2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.ph-rail::-webkit-scrollbar {
+  display: none;
+}
+.ph-rail li {
+  flex: 0 0 72vw;
+  max-width: 300px;
+  scroll-snap-align: start;
+}
+.ph-news {
+  display: block;
+}
+.ph-news__img {
+  display: block;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  background: var(--paper-2);
+  border-radius: var(--ph-r);
+}
+.ph-news__img picture,
+.ph-news__img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ph-news__t {
+  display: -webkit-box;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.25;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── связь ── */
+
+.ph-contact {
+  position: relative;
+  padding: 3rem var(--gutter) 2.6rem;
+  color: var(--zinc);
+  background: var(--night);
+  overflow: hidden;
+  isolation: isolate;
+}
+.ph-contact__glow {
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  z-index: -1;
+  width: 150%;
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, rgba(106, 61, 240, 0.34), transparent);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.ph-contact__h {
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 9vw, 2.7rem);
+  font-weight: 650;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  color: #fff;
+  text-wrap: balance;
+}
+.ph-contact__p {
+  margin: 0.85rem 0 1.5rem;
+  line-height: 1.5;
+  color: var(--zinc-70);
+}
+.ph-contact__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+.ph-contact__list {
+  display: grid;
+  gap: 1rem;
+  margin: 1.8rem 0 0;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--zinc-12);
+}
+.ph-contact__list dt {
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--zinc-muted);
+}
+.ph-contact__list dd {
+  margin: 0.3rem 0 0;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  color: var(--zinc-70);
+}
+.ph-contact__list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  font-family: var(--f-mono);
+  font-size: 1.05rem;
+  color: #fff;
+}
+
+/* ── появление блоков ── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .ph [data-in] {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    transition: opacity 0.7s var(--e-out), transform 0.8s var(--e-out);
+  }
+  .ph [data-in].is-in {
+    opacity: 1;
+    transform: none;
+  }
+  .ph-cats li:nth-child(even)[data-in],
+  .ph-steps li:nth-child(even)[data-in] {
+    transition-delay: 0.07s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ph-logos__track {
+    animation: none;
+  }
+  .ph-hero__eyebrow i {
+    animation: none;
+  }
+}
+
+/* ── планшет в портрете: больше колонок, текст не растягивается ── */
+
+@media (min-width: 600px) {
+  .ph-cats,
+  .ph-steps,
+  .ph-tasks .tasks__sections {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ph-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .ph-hero__h1,
+  .ph-h2,
+  .ph-lead,
+  .ph-contact__h,
+  .ph-contact__p {
+    max-width: 30ch;
+  }
+  .ph-lead,
+  .ph-contact__p {
+    max-width: 52ch;
+  }
+  .ph-hero__actions,
+  .ph-contact__row,
+  .ph-btn--wide {
+    max-width: 520px;
+  }
+  .ph-why {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

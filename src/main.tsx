@@ -12,6 +12,7 @@ import "./styles/scenes.css";
 import "./styles/catalog.css";
 import "./styles/article.css";
 import "./styles/mobile.css";
+import "./styles/phone.css";
 
 startClock();
 

@@ -20,7 +20,6 @@ import Img from "@/components/ui/Img";
 import { MEDIA } from "@/motion/media";
 import { registerScene } from "@/motion/scene";
 import { useReducedMotion } from "@/motion/use-reduced-motion";
-import { PHONE, useMedia } from "@/motion/use-media";
 import { loadProduct } from "@/lib/data";
 import { productPath } from "@/lib/routes";
 import { t, type Lang } from "@/lib/i18n";
@@ -111,45 +110,15 @@ export default function Production({ lang }: { lang: Lang }) {
   const rail = useRef<HTMLSpanElement>(null);
   const body = useStageText();
   const reduced = useReducedMotion();
-  /*
-   * На телефоне лента не едет по вертикальной прокрутке: четыре экрана
-   * закреплённого кадра, где палец тянет вниз, а картинка уходит вбок, —
-   * это борьба с жестом. Там она листается пальцем, как карусель, а
-   * вертикальная прокрутка просто идёт дальше.
-   */
-  const phone = useMedia(PHONE);
-  const swipe = reduced || phone;
-  const [current, setCurrent] = useState(0);
-
-  // карусель: полоса прогресса и номер этапа идут за пальцем
-  useEffect(() => {
-    const tr = track.current;
-    if (!tr || !swipe) return;
-    const onScroll = () => {
-      const max = tr.scrollWidth - tr.clientWidth;
-      const p = max > 0 ? tr.scrollLeft / max : 0;
-      if (rail.current) rail.current.style.transform = `scaleX(${Math.max(p, 1 / STAGES.length)})`;
-      setCurrent(Math.round(p * (STAGES.length - 1)));
-    };
-    onScroll();
-    tr.addEventListener("scroll", onScroll, { passive: true });
-    return () => tr.removeEventListener("scroll", onScroll);
-  }, [swipe]);
-
-  const goTo = (i: number) => {
-    const tr = track.current;
-    const card = tr?.querySelectorAll<HTMLElement>(".stage")[i];
-    if (tr && card) tr.scrollTo({ left: card.offsetLeft - tr.offsetLeft - 16, behavior: "smooth" });
-  };
 
   useEffect(() => {
     const el = root.current;
     const tr = track.current;
-    if (!el || !tr || swipe) return;
+    if (!el || !tr || reduced) return;
 
     const panels = Array.from(tr.querySelectorAll<HTMLElement>(".stage"));
 
-    const off = registerScene(el, {
+    return registerScene(el, {
       mode: "cover",
       onUpdate(p) {
         // линия едет влево ровно на свою избыточную ширину
@@ -166,13 +135,7 @@ export default function Production({ lang }: { lang: Lang }) {
         });
       },
     });
-    // окно сузили до телефона — лента становится каруселью без следов сцены
-    return () => {
-      off();
-      tr.style.transform = "";
-      panels.forEach((panel) => panel.style.removeProperty("--near"));
-    };
-  }, [swipe]);
+  }, [reduced]);
 
   return (
     <section
@@ -180,10 +143,10 @@ export default function Production({ lang }: { lang: Lang }) {
       ref={root}
       className="scene production ground-paper"
       data-ground="paper"
-      /* без анимации и на телефоне лента не едет сама — тогда она становится
-         обычной прокручиваемой полосой, иначе три этапа из четырёх недостижимы */
-      data-static={swipe ? "true" : "false"}
-      style={swipe ? undefined : { height: `${STAGES.length * 100}vh` }}
+      /* без анимации лента не едет сама — тогда она становится обычной
+         прокручиваемой полосой, иначе три этапа из четырёх недостижимы */
+      data-static={reduced ? "true" : "false"}
+      style={reduced ? undefined : { height: `${STAGES.length * 100}vh` }}
     >
       <div className="production__stage">
         <header className="production__head shell">
@@ -237,26 +200,6 @@ export default function Production({ lang }: { lang: Lang }) {
         <div className="production__rail" aria-hidden="true">
           <span ref={rail} />
         </div>
-
-        {swipe && (
-          <div className="production__pager shell">
-            <span className="mono production__count">
-              {STAGES[current].no} <i>/ {STAGES[STAGES.length - 1].no}</i>
-            </span>
-            <div className="production__dots">
-              {STAGES.map((s, i) => (
-                <button
-                  key={s.no}
-                  type="button"
-                  className="production__dot"
-                  aria-label={s.title}
-                  aria-current={i === current}
-                  onClick={() => goTo(i)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

@@ -327,6 +327,11 @@ const T: Dict = {
     kk: "Таңбалау немесе атауы: СТВ 9, ЗФ-220…",
     en: "Type or name: STV 9, ZF-220, tray…",
   },
+  "search.short": {
+    ru: "СТВ 9, ЗФ-220, лоток…",
+    kk: "СТВ 9, ЗФ-220, науа…",
+    en: "STV 9, ZF-220, tray…",
+  },
   "search.byMark": { ru: "по маркировке", kk: "таңбалау бойынша", en: "by type" },
   "search.know": {
     ru: "Я знаю, что нужно",
