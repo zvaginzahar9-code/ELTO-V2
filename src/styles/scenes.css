@@ -228,7 +228,7 @@
   margin-bottom: clamp(0.7rem, 1.8vh, 1.2rem);
 }
 .hero__slogan .mask > span {
-  transform: translate3d(0, 115%, 0);
+  transform: translate3d(0, 140%, 0);
 }
 .hero__sub {
   max-width: 36ch;

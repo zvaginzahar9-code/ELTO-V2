@@ -1,0 +1,739 @@
+/* ──────────────────────────────────────────────────────────────
+   ELTO — телефон и планшет
+   Не уменьшенный десктоп, а своя раскладка под палец: карточки вместо
+   таблиц и строк, ленты, которые листают, плавающая панель действий.
+   Грунты, цвет, шрифты и сцены — те же, что на большом экране.
+   Файл подключается последним и переопределяет общие правила.
+   ────────────────────────────────────────────────────────────── */
+
+/* элементы, которых на широком экране нет */
+.cat__more,
+.production__pager {
+  display: none;
+}
+
+/* ── планшет и телефон: каталог плитками ─────────────────────── */
+
+@media (max-width: 980px) {
+  .cat__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .cat__row,
+  .cat__row:last-child {
+    border: 0;
+  }
+  .cat__link,
+  .cat__row.is-active .cat__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    height: 100%;
+    padding: 0 0 0.95rem;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--ink-12);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.3s var(--e-out), transform 0.3s var(--e-out);
+  }
+  .cat__link:active {
+    transform: scale(0.98);
+    border-color: var(--accent);
+  }
+  .cat__thumb {
+    display: block;
+    order: -1;
+    width: 100%;
+    margin: 0 0 0.45rem;
+    aspect-ratio: 1 / 1;
+    padding: 12%;
+    background: #fff;
+    border-bottom: 1px solid var(--ink-06);
+  }
+  .cat__thumb picture,
+  .cat__thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .cat__no {
+    display: none;
+  }
+  .cat__name {
+    padding-inline: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.2;
+    hyphens: auto;
+  }
+  .cat__count {
+    margin-top: auto;
+    padding-inline: 0.85rem;
+    color: var(--accent-ink);
+  }
+  .cat__count::after {
+    content: " →";
+  }
+  .cat__list:not(.is-all) .cat__row:nth-child(n + 10) {
+    display: none;
+  }
+  .cat__more {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+  .cat__more .mono {
+    color: var(--ink-muted);
+  }
+}
+
+/* ── телефон ─────────────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  :root {
+    --gutter: 1.15rem;
+    --shelf: clamp(3.6rem, 9vh, 4.6rem);
+    /* мягкий угол — всё, чего касаются пальцем: кнопки, плитки, карточки */
+    --radius: 12px;
+    --t-label: 0.78rem;
+    --t-body: 1.05rem;
+    --t-small: 1rem;
+    --t-md: 1.1rem;
+    --t-xl: clamp(2rem, 9vw, 2.9rem);
+    --t-lg: clamp(1.6rem, 7vw, 2.2rem);
+    /* место под плавающей панелью: её высота, отступ и «чёлка» снизу */
+    --dock-space: calc(76px + env(safe-area-inset-bottom));
+  }
+
+  body {
+    padding-bottom: 0;
+  }
+
+  .btn {
+    min-height: 52px;
+    padding-inline: 1.2em;
+  }
+
+  /* кнопка, которую нажали, отвечает сразу — на телефоне нет наведения */
+  .btn:active,
+  .hero__chip:active,
+  .tasks__sect:active,
+  .news__card a:active {
+    transform: scale(0.98);
+  }
+
+  .index {
+    font-size: 0.74rem;
+  }
+
+  /* ── плавающая панель действий ── */
+
+  .dock {
+    left: 0.6rem;
+    right: 0.6rem;
+    max-width: 520px;
+    margin-inline: auto;
+    bottom: calc(0.6rem + env(safe-area-inset-bottom));
+    grid-template-columns: 1fr 1.2fr 1fr 1fr;
+    gap: 0.25rem;
+    padding: 0.3rem;
+    background: rgba(18, 15, 28, 0.84);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    backdrop-filter: blur(18px) saturate(1.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(18, 15, 28, 0.3), 0 2px 6px rgba(18, 15, 28, 0.2);
+    padding-bottom: 0.3rem;
+  }
+  .dock__item {
+    min-height: 54px;
+    gap: 0.22rem;
+    padding: 0.35rem 0.2rem;
+    background: transparent;
+    border-radius: 15px;
+    font-family: var(--f-sans);
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--zinc);
+    transition: background-color 0.25s var(--e-out), transform 0.25s var(--e-out);
+  }
+  .dock__item:active {
+    filter: none;
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .dock__item svg {
+    width: 21px;
+    height: 21px;
+  }
+  .dock__item--main {
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+    box-shadow: 0 0 22px rgba(106, 61, 240, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+  .dock__item--main:active {
+    background: var(--accent-hi);
+  }
+
+  /* под панелью ничего не прячется: последний экран — подвал — длиннее на неё */
+  .foot__bar {
+    padding-bottom: calc(1.4rem + var(--dock-space));
+  }
+
+  /* ── 01 герой ── */
+
+  .hero {
+    height: 230vh;
+  }
+  .hero__plate {
+    height: 60svh;
+  }
+  .hero__ui {
+    row-gap: 0.9rem;
+    padding-bottom: calc(var(--dock-space) + 0.6rem);
+  }
+  .hero__h1 {
+    font-size: min(clamp(1.75rem, 7.7vw, 3.2rem), 6.8vh);
+    letter-spacing: -0.045em;
+    margin-bottom: 1.2rem;
+  }
+  .hero__h1-where {
+    margin-top: 0.45em;
+    font-size: 0.56em;
+    letter-spacing: -0.015em;
+  }
+  .hero__actions .btn {
+    min-height: 54px;
+  }
+  .hero__consult {
+    min-height: 40px;
+  }
+  .hero__chip {
+    min-height: 42px;
+    font-size: 0.94rem;
+    background: rgba(251, 250, 253, 0.82);
+  }
+  .hero__slogan {
+    font-size: min(clamp(2rem, 9vw, 2.8rem), 7vh);
+  }
+
+  /* ── 02 компания ── */
+
+  .company__title {
+    font-size: var(--t-lg);
+    max-width: none;
+  }
+  .company__title br {
+    display: none;
+  }
+  .company__body {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1.4rem;
+  }
+  .company__figure picture {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius);
+  }
+  .company__figure figcaption {
+    display: none;
+  }
+  /* на телефоне — первый абзац и ссылка на полную страницу: стена текста
+     посреди главной не читается, её пролистывают */
+  .company__text .lead:nth-of-type(n + 2) {
+    display: none;
+  }
+  .company__text .lead {
+    font-size: 1.06rem;
+    color: var(--ink-70);
+  }
+  .company__more {
+    margin-top: 0.4rem;
+  }
+  .company__figures {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .company__figures .fig {
+    padding: 0.9rem 0.8rem;
+    background: var(--surface);
+    border: 1px solid var(--ink-12);
+    border-radius: var(--radius);
+  }
+  .company__figures dt {
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    min-height: 2.8em;
+  }
+  .fig__v {
+    font-size: clamp(1.5rem, 7vw, 2.1rem);
+    color: var(--accent-ink);
+  }
+
+  /* ── 03 из листа в опору: карусель ── */
+
+  .production[data-static="true"] .production__stage {
+    grid-template-rows: auto;
+    padding-top: var(--shelf);
+    padding-bottom: var(--shelf);
+  }
+  .production[data-static="true"] .production__head {
+    margin-bottom: 1.3rem;
+  }
+  .production[data-static="true"] .production__track {
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0 var(--gutter) 0.2rem;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .production__track::-webkit-scrollbar {
+    display: none;
+  }
+  .production[data-static="true"] .stage {
+    width: min(82vw, 420px);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    align-items: stretch;
+    gap: 0;
+    opacity: 1;
+    background: var(--surface);
+    border: 1px solid var(--ink-12);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .production[data-static="true"] .stage__plate {
+    aspect-ratio: 4 / 3;
+    border: 0;
+  }
+  .stage__no {
+    left: 0.9rem;
+    bottom: 0.5rem;
+    font-size: 2.6rem;
+  }
+  .stage__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.1rem 1.1rem 1.2rem;
+  }
+  .stage__h {
+    font-size: 1.35rem;
+    margin-bottom: 0.55rem;
+  }
+  .stage__p {
+    font-size: 0.97rem;
+    line-height: 1.5;
+    -webkit-line-clamp: 4;
+    margin-bottom: 1rem;
+  }
+  .stage__text .btn {
+    margin-top: auto;
+    min-height: 46px;
+  }
+  .production[data-static="true"] .production__rail {
+    display: block;
+    margin-top: 1.1rem;
+  }
+  .production__rail > span {
+    transition: transform 0.25s linear;
+  }
+  .production__pager {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.8rem;
+  }
+  .production__count {
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .production__count i {
+    font-style: normal;
+    color: var(--ink-muted);
+    font-weight: 400;
+  }
+  .production__dots {
+    display: flex;
+    gap: 0.15rem;
+  }
+  .production__dot {
+    position: relative;
+    width: 32px;
+    height: 32px;
+  }
+  .production__dot::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--ink-25);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s var(--e-out), background-color 0.3s var(--e-out);
+  }
+  .production__dot[aria-current="true"]::after {
+    width: 22px;
+    background: var(--accent);
+  }
+
+  /* ── 04 сборка: опора слева, выноски как на чертеже справа ── */
+
+  .asm {
+    height: 230vh;
+  }
+  .asm__frame {
+    container-type: size;
+    top: calc(var(--nav-h) + 0.8rem);
+    left: var(--gutter);
+    height: min(calc(100svh - var(--nav-h) - var(--dock-space) - 12.6rem), 90vw);
+    transform: none;
+  }
+  .asm__plate {
+    border-radius: 16px;
+  }
+  .asm__tags {
+    position: absolute;
+    inset: 0;
+  }
+  .asm__tag {
+    right: auto;
+    left: 50%;
+  }
+  .asm__tag a {
+    flex-direction: row;
+    gap: 0.35rem;
+  }
+  .asm__tag-line {
+    width: calc(50cqw + 0.4rem);
+    transform-origin: left;
+  }
+  .asm__tag-line::after {
+    margin: -3px auto 0 0;
+  }
+  .asm__tag-text {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+    max-width: calc(100vw - 2 * var(--gutter) - 100cqw - 1.1rem);
+    hyphens: auto;
+    padding: 0.4em 0.65em;
+    font-size: 0.8rem;
+    line-height: 1.18;
+    white-space: normal;
+    border-radius: 10px;
+    transform: translateX(-0.6rem);
+    box-shadow: 0 4px 14px rgba(23, 20, 31, 0.08);
+  }
+  /* счётчик позиций в выноске — лишняя строка: соседние выноски сталкиваются */
+  .asm__tag-text .mono {
+    display: none;
+  }
+  .asm__text {
+    bottom: calc(var(--dock-space) + 0.7rem);
+    padding: 1.05rem 1.05rem 1.1rem;
+    background: rgba(251, 250, 253, 0.9);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(23, 20, 31, 0.08);
+  }
+  .asm__title {
+    font-size: 1.6rem;
+    max-width: none;
+  }
+
+  /* ── 05 каталог ── */
+
+  .cat__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+  .cat__list:not(.is-all) .cat__row:nth-child(n + 9) {
+    display: none;
+  }
+  .cat__mode {
+    margin-bottom: 0.8rem;
+  }
+  .cat__tasks {
+    margin-top: 3rem;
+    padding-top: 2rem;
+  }
+  .tasks__shot {
+    padding: 10%;
+    background: #fff;
+  }
+  .tasks__sect-h {
+    hyphens: auto;
+  }
+
+  /* ── 06 преимущества: две колонки плиток ── */
+
+  .why__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    background: none;
+    border: 0;
+  }
+  .why__card {
+    min-height: 8.6rem;
+    padding: 1rem 0.95rem;
+    border: 1px solid var(--ink-12);
+    border-radius: var(--radius);
+  }
+  .why__no {
+    margin-bottom: 0.8rem;
+    color: var(--accent-ink);
+  }
+  .why__h {
+    font-size: 1.02rem;
+    line-height: 1.2;
+    hyphens: auto;
+  }
+  .why__list {
+    gap: 0.75rem;
+    margin-top: 1.8rem;
+  }
+  .why__line {
+    font-size: 1rem;
+  }
+
+  /* ── 07 география и партнёры ── */
+
+  .geo {
+    height: 260vh;
+  }
+  .geo__scrim {
+    background: linear-gradient(180deg, rgba(18, 15, 28, 0.2) 0%, rgba(18, 15, 28, 0.45) 45%,
+      rgba(18, 15, 28, 0.88) 100%);
+  }
+  .geo__stage {
+    align-items: end;
+  }
+  .geo__inner {
+    padding-bottom: calc(var(--dock-space) + 1.4rem);
+  }
+  .geo__title {
+    font-size: var(--t-xl);
+  }
+  .geo__lead {
+    font-size: 1.06rem;
+  }
+
+  /* логотипы — лентой, а не простынёй из семи рядов */
+  .partners__grid {
+    display: flex;
+    gap: 0.6rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 0.2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .partners__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .partners__item {
+    flex: 0 0 40vw;
+    max-width: 180px;
+    min-height: 124px;
+    scroll-snap-align: start;
+    border-radius: var(--radius);
+  }
+
+  /* ── 08 новости: лента карточек ── */
+
+  .news__grid {
+    display: flex;
+    gap: 0.75rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 0.2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .news__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .news__card {
+    flex: 0 0 min(80vw, 360px);
+    scroll-snap-align: start;
+  }
+  .news__card a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-bottom: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--ink-12);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .news__shot {
+    margin-bottom: 0.9rem;
+  }
+  .news__h,
+  .news__p {
+    padding-inline: 1rem;
+  }
+  .news__h {
+    font-size: 1.08rem;
+  }
+  .cat__head,
+  .news__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    column-gap: 1rem;
+  }
+  .cat__head .index,
+  .news__head .index {
+    flex: 1 0 100%;
+  }
+  .cat__all,
+  .news__all {
+    margin-top: 0;
+    min-height: 44px;
+    padding-inline: 1em;
+  }
+  .cat__all {
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  /* ── 09 заявка ── */
+
+  .cta__title {
+    font-size: var(--t-xl);
+  }
+  .cta__contacts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem 1rem;
+  }
+  .cta__contacts > div:last-child {
+    grid-column: 1 / -1;
+  }
+  .cta__big {
+    font-size: 0.98rem;
+  }
+  .cta__form {
+    padding: 1.2rem 1.05rem;
+    border-radius: 16px;
+  }
+
+  /* ── подвал ── */
+
+  .foot__list {
+    columns: 2;
+    column-gap: 1rem;
+  }
+  .foot__list li {
+    break-inside: avoid;
+    font-size: 0.94rem;
+    line-height: 1.3;
+  }
+
+  /* ── внутренние страницы ── */
+
+  .sect__h,
+  .product__title,
+  .page__title {
+    hyphens: auto;
+  }
+
+  /* таблица контактов — карточками: три колонки на 390 px не помещаются */
+  .contacts__people .spec-wrap {
+    border: 0;
+    background: none;
+    overflow: visible;
+  }
+  .contacts__people .spec thead {
+    display: none;
+  }
+  .contacts__people .spec,
+  .contacts__people .spec tbody {
+    display: grid;
+    gap: 0.6rem;
+    font-family: var(--f-sans);
+  }
+  .contacts__people .spec tr {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.95rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--ink-12);
+    border-radius: var(--radius);
+  }
+  .contacts__people .spec tbody tr:nth-child(even),
+  .contacts__people .spec tbody tr:hover {
+    background: var(--surface);
+  }
+  .contacts__people .spec td,
+  .contacts__people .spec tbody tr:nth-child(even) td:first-child {
+    position: static;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    white-space: normal;
+  }
+  .contacts__people .spec td:first-child {
+    font-size: 1.02rem;
+  }
+  .contacts__people .spec td:not(:first-child) {
+    color: var(--ink-muted);
+    font-size: 0.94rem;
+  }
+  .contacts__people .spec td a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    font-family: var(--f-mono);
+    color: var(--accent-ink);
+  }
+}
+
+/* узкий телефон: 320–370 px */
+@media (max-width: 370px) {
+  .hero__h1 {
+    font-size: min(7.1vw, 6.8vh);
+  }
+  .dock__item {
+    font-size: 0.7rem;
+  }
+  .company__figures dt {
+    font-size: 0.6rem;
+  }
+  .cat__name {
+    font-size: 0.94rem;
+  }
+}
+
+/* планшет: плиток каталога три в ряд, остальное — как на телефоне */
+@media (min-width: 561px) and (max-width: 860px) {
+  .cat__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cat__list:not(.is-all) .cat__row:nth-child(9) {
+    display: block;
+  }
+  .why__cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

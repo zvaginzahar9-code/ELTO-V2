@@ -146,6 +146,14 @@ const T: Dict = {
   "cta.whatsapp": { ru: "WhatsApp", kk: "WhatsApp", en: "WhatsApp" },
   "cta.catalog": { ru: "Каталог", kk: "Каталог", en: "Catalogue" },
   "cta.pdf": { ru: "PDF-каталог", kk: "PDF-каталог", en: "PDF catalogue" },
+  /* короткие подписи нижней панели телефона: в ней четыре кнопки по четверти экрана */
+  "dock.quote": { ru: "Расчёт", kk: "Есептеу", en: "Quote" },
+  "dock.call": { ru: "Звонок", kk: "Қоңырау", en: "Call" },
+  "catalog.showAll": {
+    ru: "Показать все разделы",
+    kk: "Барлық бөлімдерді көрсету",
+    en: "Show all sections",
+  },
 
   "lead.title.quote": {
     ru: "Расчёт стоимости",

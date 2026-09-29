@@ -22,6 +22,7 @@ import { pick, t, type Lang } from "@/lib/i18n";
 
 export default function CatalogScene({ lang }: { lang: Lang }) {
   const [active, setActive] = useState(0);
+  const [all, setAll] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
 
   return (
@@ -43,7 +44,7 @@ export default function CatalogScene({ lang }: { lang: Lang }) {
         <h3 className="cat__mode label">{t("search.know", lang)}</h3>
 
         <div className="cat__body">
-          <ul className="cat__list" ref={listRef}>
+          <ul className={"cat__list" + (all ? " is-all" : "")} ref={listRef}>
             {topCategories.map((c, i) => (
               <li
                 key={c.slug}
@@ -52,18 +53,29 @@ export default function CatalogScene({ lang }: { lang: Lang }) {
                 onFocus={() => setActive(i)}
               >
                 <Link className="cat__link" to={categoryPath(lang, c.slug)}>
+                  {/* на телефоне строка становится плиткой, и превью — её лицо */}
+                  <span className="cat__thumb" aria-hidden="true">
+                    <Img file={c.image} alt="" sizes="(max-width: 860px) 44vw, 0px" fit="contain" />
+                  </span>
                   <span className="cat__no mono">{String(i + 1).padStart(2, "0")}</span>
                   <span className="cat__name title">{pick(c.title, lang)}</span>
                   <span className="cat__count mono">{c.count}</span>
                 </Link>
-
-                {/* на телефоне превью живёт внутри строки */}
-                <div className="cat__thumb" aria-hidden="true">
-                  <Img file={c.image} alt="" sizes="30vw" fit="contain" />
-                </div>
               </li>
             ))}
           </ul>
+
+          {/* семнадцать плиток подряд — это три экрана; на телефоне сначала восемь */}
+          {!all && (
+            <button
+              type="button"
+              className="btn cat__more"
+              onClick={() => setAll(true)}
+            >
+              {t("catalog.showAll", lang)}
+              <span className="mono">{topCategories.length}</span>
+            </button>
+          )}
 
           <div className="cat__stage" aria-hidden="true">
             {topCategories.map((c, i) => (

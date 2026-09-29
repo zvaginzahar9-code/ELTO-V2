@@ -11,6 +11,7 @@ import "./styles/chrome.css";
 import "./styles/scenes.css";
 import "./styles/catalog.css";
 import "./styles/article.css";
+import "./styles/mobile.css";
 
 startClock();
 

@@ -138,7 +138,7 @@ export default function Hero({ lang }: { lang: Lang }) {
         sloganLines.forEach((line, i) => {
           const a = 0.26 + i * 0.03;
           const y =
-            (1 - span(p, a, a + 0.12)) * 115 - span(p, 0.54, 0.64 + i * 0.03) * 115;
+            (1 - span(p, a, a + 0.12)) * 140 - span(p, 0.54, 0.64 + i * 0.03) * 140;
           line.style.transform = `translate3d(0, ${y.toFixed(2)}%, 0)`;
         });
         set(subEl, hold(p, 0.34, 0.42, 0.54, 0.62), (1 - span(p, 0.34, 0.42)) * 20);

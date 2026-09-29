@@ -31,13 +31,13 @@ export default function Dock({ lang }: { lang: Lang }) {
         <svg viewBox="0 0 20 20" aria-hidden="true">
           <path d="M5 2h7l3 3v13H5zM8 9h5M8 12h5M8 15h3" />
         </svg>
-        {t("cta.quote", lang)}
+        {t("dock.quote", lang)}
       </button>
       <a className="dock__item" href={PHONE_HREF}>
         <svg viewBox="0 0 20 20" aria-hidden="true">
           <path d="M6 2.5l2.5 4-2 1.6a10 10 0 0 0 5.4 5.4l1.6-2 4 2.5-1.2 3A2 2 0 0 1 14.4 18 13.5 13.5 0 0 1 2 5.6a2 2 0 0 1 1-1.9z" />
         </svg>
-        {t("cta.call", lang)}
+        {t("dock.call", lang)}
       </a>
       <a
         className="dock__item"
