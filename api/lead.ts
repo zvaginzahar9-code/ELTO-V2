@@ -80,7 +80,14 @@ export async function POST(request: Request) {
   const message = field(form, "message");
   const topic = field(form, "topic");
 
+  // согласие субъекта — условие сбора (ст. 7, 8 Закона РК «О персональных
+  // данных и их защите»); форма присылает редакцию политики, которую приняли
+  const consent = form.get("consent");
+  const policy =
+    typeof consent === "string" && /^\d{4}-\d{2}-\d{2}$/.test(consent) ? consent : "";
+
   const errors: Record<string, string> = {};
+  if (!policy) errors.consent = "required";
   if (name.length < 2) errors.name = "required";
   if (!isContact(contact)) errors.contact = "invalid";
 
@@ -111,7 +118,12 @@ export async function POST(request: Request) {
     `Контакт: ${contact}`,
     attachment && `Вложение: ${attachment.filename}`,
   ].filter(Boolean);
-  const text = `${head.join("\n")}\n\n${message || "(без сообщения)"}`;
+  // подтверждение получения согласия (подп. 5 п. 2 ст. 25 Закона) — в самой заявке
+  const proof =
+    `Согласие на сбор и обработку персональных данных, включая трансграничную ` +
+    `передачу: дано в форме на сайте ${new Date().toISOString()} (UTC), ` +
+    `редакция политики ${policy}.`;
+  const text = `${head.join("\n")}\n\n${message || "(без сообщения)"}\n\n${proof}`;
 
   const email = contact.includes("@") ? contact : undefined;
 

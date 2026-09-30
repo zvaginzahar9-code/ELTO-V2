@@ -28,6 +28,7 @@ const paths = [
   "/catalog",
   "/about",
   "/contacts",
+  "/privacy",
   "/news",
   "/partners",
   "/vacancy",

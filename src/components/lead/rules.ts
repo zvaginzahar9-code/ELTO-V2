@@ -21,7 +21,7 @@ export type LeadFields = {
 };
 
 /** Текст заявки для письма или WhatsApp, когда онлайн-отправка недоступна. */
-export function leadText(f: LeadFields, fileName?: string) {
+export function leadText(f: LeadFields, fileName?: string, policy?: string) {
   const head = [
     f.topic && `Тема: ${f.topic}`,
     `Имя: ${f.name}`,
@@ -29,5 +29,9 @@ export function leadText(f: LeadFields, fileName?: string) {
     `Контакт: ${f.contact}`,
     fileName && `Файл ТЗ: ${fileName} (приложу к письму)`,
   ].filter(Boolean);
-  return f.message ? `${head.join("\n")}\n\n${f.message}` : head.join("\n");
+  const body = f.message ? `${head.join("\n")}\n\n${f.message}` : head.join("\n");
+  // подтверждение согласия идёт вместе с заявкой и по запасному пути
+  return policy
+    ? `${body}\n\nСогласие на обработку персональных данных дано в форме на сайте (редакция политики ${policy}).`
+    : body;
 }

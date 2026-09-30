@@ -34,7 +34,8 @@ const hasContent = (p: { d: string; i: string }) => Boolean(p.d || p.i);
 const ABOUT_SLUG = "o-nas";
 
 /** Ролик, который стоит на главной оригинала. */
-const FILM = "https://www.youtube.com/embed/2lW6Hn6otPU";
+// youtube-nocookie — единственный адрес видео, который разрешает CSP (vercel.json)
+const FILM = "https://www.youtube-nocookie.com/embed/2lW6Hn6otPU";
 
 export default function About({ lang }: { lang: Lang }) {
   const { data } = useRecord<PageFull>(ABOUT_SLUG, loadPage);

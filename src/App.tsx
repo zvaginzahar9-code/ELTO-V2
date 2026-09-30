@@ -25,6 +25,7 @@ const InfoList = lazy(() => import("./pages/InfoList"));
 const About = lazy(() => import("./pages/About"));
 const Contacts = lazy(() => import("./pages/Contacts"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Privacy = lazy(() => import("./pages/Privacy"));
 
 /** Язык берётся из адреса; неизвестный — это 404, а не молчаливая подмена. */
 function LangLayout() {
@@ -58,6 +59,7 @@ function LangLayout() {
             <Route path="product/:slug" element={<Product lang={l} />} />
             <Route path="about" element={<About lang={l} />} />
             <Route path="contacts" element={<Contacts lang={l} />} />
+            <Route path="privacy" element={<Privacy lang={l} />} />
             <Route path="info" element={<InfoList lang={l} kind="info" />} />
             <Route path="news" element={<InfoList lang={l} kind="news" />} />
             <Route path="partners" element={<InfoList lang={l} kind="partners" />} />

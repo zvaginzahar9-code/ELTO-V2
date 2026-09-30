@@ -686,6 +686,41 @@
   color: var(--ink-muted);
 }
 
+/* согласие на обработку персональных данных — отдельная отметка перед отправкой */
+.lead__agree {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  margin-top: 1.2rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+.lead__agree input {
+  width: 22px;
+  height: 22px;
+  margin: 0.05rem 0 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.lead__agree a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.lead__agree.is-invalid input {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+.lead--night .lead__agree {
+  color: var(--zinc-muted);
+}
+.lead--night .lead__agree a {
+  color: var(--zinc);
+}
+
 .lead__direct {
   display: flex;
   flex-wrap: wrap;

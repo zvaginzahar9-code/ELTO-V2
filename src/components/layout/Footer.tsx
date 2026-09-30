@@ -20,6 +20,7 @@ import {
   whatsappHref,
 } from "@/lib/contacts";
 import Logo from "@/components/ui/Logo";
+import { privacyPath } from "@/lib/privacy";
 
 const SOCIAL = [
   { label: "WhatsApp", href: whatsappHref() },
@@ -98,6 +99,9 @@ export default function Footer({ lang }: { lang: Lang }) {
         <span className="mono">{copyright}</span>
         <Link className="mono" to={`/${lang}/contacts`}>
           {t("nav.contacts", lang)}
+        </Link>
+        <Link className="mono" to={privacyPath(lang)}>
+          {t("privacy.link", lang)}
         </Link>
       </div>
     </footer>

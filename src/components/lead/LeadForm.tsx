@@ -11,8 +11,10 @@
  */
 
 import { useId, useRef, useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { t, type Lang } from "@/lib/i18n";
 import { mailtoHref, whatsappHref, PHONE, PHONE_HREF, EMAIL } from "@/lib/contacts";
+import { OPERATOR, POLICY_VERSION, privacyPath } from "@/lib/privacy";
 import {
   FILE_ACCEPT,
   FILE_EXT,
@@ -24,7 +26,7 @@ import {
 } from "./rules";
 
 type Status = "idle" | "sending" | "sent" | "fallback";
-type Errors = Partial<Record<"name" | "contact" | "file" | "form", string>>;
+type Errors = Partial<Record<"name" | "contact" | "file" | "consent" | "form", string>>;
 
 type Props = {
   lang: Lang;
@@ -77,10 +79,13 @@ export default function LeadForm({
     const next: Errors = {};
     if (fields.name.length < 2) next.name = t("lead.err.name", lang);
     if (!isContact(fields.contact)) next.contact = t("lead.err.contact", lang);
+    // без согласия субъекта сбор данных не допускается (ст. 7, 8 Закона РК № 94-V)
+    if (data.get("consent") !== POLICY_VERSION) next.consent = t("lead.err.consent", lang);
     setErrors(next);
-    if (next.name || next.contact) {
+    if (next.name || next.contact || next.consent) {
       // состояние ещё не отрисовано — фокус ставим по имени поля, а не по aria-invalid
-      const bad = form.elements.namedItem(next.name ? "name" : "contact");
+      const first = next.name ? "name" : next.contact ? "contact" : "consent";
+      const bad = form.elements.namedItem(first);
       if (bad instanceof HTMLElement) bad.focus();
       return;
     }
@@ -116,6 +121,7 @@ export default function LeadForm({
         };
         const f = detail.fields || {};
         setErrors({
+          consent: f.consent && t("lead.err.consent", lang),
           name: f.name && t("lead.err.name", lang),
           contact: f.contact && t("lead.err.contact", lang),
           file:
@@ -152,7 +158,7 @@ export default function LeadForm({
   }
 
   if (status === "fallback" && draft) {
-    const text = leadText(draft, file?.name);
+    const text = leadText(draft, file?.name, POLICY_VERSION);
     const subject = `Заявка с сайта: ${draft.topic || draft.name}`;
     return (
       <div className={`lead lead--${tone} lead--fallback`} role="status">
@@ -294,6 +300,29 @@ export default function LeadForm({
         </p>
       )}
 
+      <label className={"lead__agree" + (errors.consent ? " is-invalid" : "")}>
+        <input
+          type="checkbox"
+          name="consent"
+          value={POLICY_VERSION}
+          onChange={() => setErrors((e) => ({ ...e, consent: undefined }))}
+          aria-invalid={errors.consent ? true : undefined}
+          aria-describedby={errors.consent ? `${id}-consent-err` : undefined}
+        />
+        <span>
+          {t("lead.consent", lang).replace("{op}", OPERATOR.short).replace("{bin}", OPERATOR.bin)}{" "}
+          <Link to={privacyPath(lang)} target="_blank" rel="noopener">
+            {t("lead.consent.link", lang)}
+          </Link>
+          .
+        </span>
+      </label>
+      {errors.consent && (
+        <p className="lead__err lead__err--form" id={`${id}-consent-err`} role="alert">
+          {errors.consent} <a href={PHONE_HREF}>{PHONE}</a>
+        </p>
+      )}
+
       <div className="lead__foot">
         <button
           type="submit"
@@ -305,7 +334,6 @@ export default function LeadForm({
             →
           </span>
         </button>
-        <p className="lead__consent">{t("lead.consent", lang)}</p>
       </div>
 
       {direct && (

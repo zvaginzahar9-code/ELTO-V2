@@ -213,10 +213,30 @@ const T: Dict = {
   "lead.optional": { ru: "необязательно", kk: "міндетті емес", en: "optional" },
   "lead.send": { ru: "Отправить заявку", kk: "Өтінімді жіберу", en: "Send request" },
   "lead.sending": { ru: "Отправляем…", kk: "Жіберілуде…", en: "Sending…" },
+  /*
+   * Согласие по пункту 4 статьи 8 Закона РК «О персональных данных и их
+   * защите»: оператор и БИН ({op}, {bin}), перечень данных, цель,
+   * трансграничная передача, срок. Подробности — в политике по ссылке.
+   */
   "lead.consent": {
-    ru: "Отправляя заявку, вы соглашаетесь на обработку контактных данных для ответа на неё.",
-    kk: "Өтінімді жібере отырып, жауап беру үшін байланыс деректерін өңдеуге келісесіз.",
-    en: "By sending, you agree to the processing of your contact details to answer the request.",
+    ru: "Даю согласие {op} (БИН {bin}) на сбор и обработку данных из этой формы — имени, телефона или e-mail, названия компании, текста заявки и файла — для ответа на заявку, в том числе на их трансграничную передачу в США через сервисы Vercel и Resend. Согласие действует до достижения этой цели или до его отзыва. Подробно — в",
+    kk: "{op}-ке (БСН {bin}) осы формадағы деректерді — атын, телефонын немесе e-mail-ін, компания атауын, өтінім мәтінін және файлды — өтінімге жауап беру үшін жинауға және өңдеуге, соның ішінде оларды Vercel және Resend сервистері арқылы АҚШ-қа трансшекаралық беруге келісім беремін. Келісім осы мақсатқа жеткенге дейін немесе қайтарып алынғанға дейін әрекет етеді. Толығырақ —",
+    en: "I consent to {op} (BIN {bin}) collecting and processing the data in this form — name, phone or e-mail, company, request text and file — to answer my request, including their cross-border transfer to the USA via the Vercel and Resend services. The consent is valid until this purpose is achieved or until I withdraw it. Details are in the",
+  },
+  "lead.consent.link": {
+    ru: "Политике обработки персональных данных",
+    kk: "дербес деректерді өңдеу саясатында",
+    en: "Personal Data Policy (in Russian)",
+  },
+  "lead.err.consent": {
+    ru: "Без согласия заявку отправить нельзя. Можно позвонить:",
+    kk: "Келісімсіз өтінімді жіберу мүмкін емес. Қоңырау шалуға болады:",
+    en: "The request can't be sent without consent. You can call instead:",
+  },
+  "privacy.link": {
+    ru: "Политика обработки персональных данных",
+    kk: "Дербес деректерді өңдеу саясаты",
+    en: "Personal data policy",
   },
   "lead.err.name": { ru: "Укажите имя", kk: "Атыңызды жазыңыз", en: "Enter your name" },
   "lead.err.contact": {
