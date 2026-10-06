@@ -80,22 +80,22 @@ function homeHtml(): Plugin {
   const hero = (lang: Lang) => {
     const title = heroTitle(lang);
     const lines = title.lines
-      .map((l) => `<span class="mask"><span>${esc(l)}</span></span>`)
+      .map((l, i) => `<span class="mask" style="--i:${i}"><span>${esc(l)}</span></span>`)
       .join("");
     const where = title.where
-      ? `<span class="mask hero__h1-where"><span>${esc(title.where)}</span></span>`
+      ? `<span class="mask hero__where" style="--i:3"><span>${esc(title.where)}</span></span>`
       : "";
     const chips = QUICK_SECTIONS.filter((s) => cats[s])
       .map(
         (s) =>
-          `<li><a class="hero__chip" href="/${lang}/catalog/${s}">${esc(pick(cats[s].title, lang))}<span class="mono">${cats[s].count}</span></a></li>`
+          `<li><a class="hero__chip" href="/${lang}/catalog/${s}">${esc(pick(cats[s].title, lang))}<span>${cats[s].count}</span></a></li>`
       )
       .join("");
     // телефон получает свой первый экран — тот же, что рисует src/phone/PhoneHome.tsx;
     // фото привязано к ширине телефона, иначе широкий экран качал бы его впустую
     const photo = `<picture><source media="(max-width: 860px)" type="image/avif" srcset="${PHONE_HERO_AVIF}" sizes="100vw"><source media="(max-width: 860px)" type="image/webp" srcset="${PHONE_HERO_WEBP}" sizes="100vw"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="${esc(PHONE_HERO_ALT)}" width="1080" height="1350" fetchpriority="high"></picture>`;
     const phone = `<div class="ph ph--boot"><section class="ph-hero" data-ground="paper"><div class="ph-hero__text"><h1 class="ph-hero__h1">${esc(title.lines.join(" "))}</h1>${title.where ? `<p class="ph-hero__where">${esc(title.where)}</p>` : ""}<div class="ph-hero__actions"><a class="ph-btn ph-btn--ink" href="/${lang}/catalog">${esc(t("cta.catalog", lang))}</a><span class="ph-btn">${esc(t("cta.quote", lang))}</span></div></div><figure class="ph-hero__photo">${photo}<figcaption>${esc(PHONE_HERO_CAPTION)}</figcaption></figure></section></div>`;
-    return phone + `<section class="scene hero ground-paper hero--boot" data-ground="paper"><div class="hero__stage"><div class="hero__scrim" aria-hidden="true"></div><div class="hero__ui shell"><div class="hero__top"><span class="hero__corner label">${esc(t("hero.place", lang))}</span><span class="hero__corner hero__corner--lit label">${esc(t("hero.since", lang))}</span></div><div class="hero__middle"><div class="hero__lead"><h1 class="hero__h1 display">${lines}${where}</h1><div class="hero__actions"><a class="btn btn--solid" href="/${lang}/catalog"><span class="btn__full">${esc(t("catalog.title", lang))}</span><span class="btn__short">${esc(t("cta.catalog", lang))}</span><span class="btn__arrow" aria-hidden="true">→</span></a><span class="btn">${esc(t("cta.quote", lang))}</span><span class="link-arrow hero__consult"><span>${esc(t("cta.consult", lang))}</span><span aria-hidden="true">→</span></span></div></div></div><nav class="hero__quick"><span class="hero__quick-label label">${esc(t("hero.quick", lang))}</span><ul>${chips}</ul></nav></div></div></section>`;
+    return phone + `<section class="scene hero hero--boot" data-ground="dark"><div class="hero__stage"><div class="hero__ui shell"><div class="hero__lead"><p class="hero__place">${esc(t("hero.since", lang))}</p><h1 class="hero__h1">${lines}${where}</h1><div class="hero__actions"><a class="btn btn--solid" href="/${lang}/catalog"><span class="btn__full">${esc(t("catalog.title", lang))}</span><span class="btn__short">${esc(t("cta.catalog", lang))}</span></a><span class="btn btn--glass">${esc(t("cta.quote", lang))}</span></div></div><div class="hero__deck"></div><nav class="hero__quick"><ul>${chips}</ul></nav></div></div></section>`;
   };
 
   return {

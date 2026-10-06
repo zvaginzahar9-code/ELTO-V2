@@ -19,19 +19,32 @@ import TaskPicker from "@/components/ui/TaskPicker";
 import { topCategories } from "@/lib/data";
 import { categoryPath } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
+import { useArcStop } from "@/motion/use-arc";
+import { fanArc } from "./arc-shapes";
 
 export default function CatalogScene({ lang }: { lang: Lang }) {
   const [active, setActive] = useState(0);
   const [all, setAll] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
+  const root = useRef<HTMLElement>(null);
+  useArcStop(root, fanArc);
 
   return (
-    <section id="catalog" className="scene cat ground-paper" data-ground="paper">
+    <section id="catalog" ref={root} className="scene cat ground-paper" data-ground="paper">
       <div className="shell cat__inner">
         <header className="cat__head">
-          <span className="index">05 — {t("home.catalog", lang)}</span>
+          <span className="index">{t("home.catalog", lang)}</span>
           <Reveal as="h2" className="cat__title display" kind="lines">
-            {t("catalog.title", lang)}
+            {(() => {
+              const [first, ...rest] = t("catalog.title", lang).split(" ");
+              return rest.length ? (
+                <>
+                  {first} <em>{rest.join(" ")}</em>
+                </>
+              ) : (
+                first
+              );
+            })()}
           </Reveal>
           <Link className="btn btn--ink cat__all" to={`/${lang}/catalog`}>
             {t("catalog.all", lang)}

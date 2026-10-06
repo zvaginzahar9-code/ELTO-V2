@@ -22,6 +22,8 @@ import { categoryOf, products, topCategories } from "@/lib/data";
 import { categoryPath } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { useLead } from "@/components/lead/LeadProvider";
+import { useArcStop } from "@/motion/use-arc";
+import { axisArc } from "./arc-shapes";
 
 /**
  * Выноски: раздел каталога, момент сборки, когда узел встаёт на место,
@@ -42,6 +44,7 @@ export default function Assembly({ lang }: { lang: Lang }) {
   const openLead = useLead();
   const shot = MEDIA.sborka;
   const ready = (shot.portraitSeq.count ?? 0) > 1;
+  useArcStop(root, axisArc);
 
   useEffect(() => {
     const el = root.current;
@@ -75,7 +78,7 @@ export default function Assembly({ lang }: { lang: Lang }) {
       <div className="asm__stage">
         <div className="shell asm__inner">
           <div className="asm__text">
-            <span className="index">04 — {t("home.assembly", lang)}</span>
+            <span className="index">{t("home.assembly", lang)}</span>
             <h2 className="asm__title display">{t("assembly.title", lang)}</h2>
             <p className="asm__lead lead">{t("assembly.lead", lang)}</p>
             <dl className="asm__figures">

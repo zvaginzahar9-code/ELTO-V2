@@ -30,7 +30,9 @@ const SUBSETS = new Set(["latin", "latin-ext", "cyrillic", "cyrillic-ext"]);
 const QUERY =
   "family=Onest:wght@300..800&family=JetBrains+Mono:wght@400;500;600" +
   // телефон: Fira Sans для текста и узкая Fira Sans Condensed для заголовков
-  "&family=Fira+Sans:wght@400;500&family=Fira+Sans+Condensed:wght@600&display=swap";
+  "&family=Fira+Sans:wght@400;500&family=Fira+Sans+Condensed:wght@600" +
+  // акцентное слово в заголовках главной — курсивная антиква
+  "&family=Cormorant:ital,wght@1,500&display=swap";
 
 /* без современного user-agent Google отдаёт ttf вместо woff2 */
 const UA =

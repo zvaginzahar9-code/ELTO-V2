@@ -23,6 +23,8 @@ import Img from "@/components/ui/Img";
 import { imgSrc } from "@/lib/image-url";
 import views from "@/data/views.json";
 import { t, type Lang } from "@/lib/i18n";
+import { useArcStop } from "@/motion/use-arc";
+import { horizonArc, quietArc } from "./arc-shapes";
 
 const FALLBACK = imgSrc("uepdhfvotuc.jpg", 1600);
 
@@ -33,6 +35,9 @@ export default function Geography({ lang }: { lang: Lang }) {
   const root = useRef<HTMLElement>(null);
   const seq = useRef<SequenceHandle>(null);
   const rise = useRef<SequenceHandle>(null);
+  const strip = useRef<HTMLElement>(null);
+  useArcStop(root, horizonArc);
+  useArcStop(strip, quietArc);
 
   const partners = (
     table[lang]?.partners?.length ? table[lang].partners : table.ru.partners || []
@@ -112,7 +117,7 @@ export default function Geography({ lang }: { lang: Lang }) {
           <div className="geo__scrim" aria-hidden="true" />
 
           <div className="shell geo__inner">
-            <span className="index">07 — {t("home.partners", lang)}</span>
+            <span className="index">{t("home.partners", lang)}</span>
             {/* обе фразы — дословно из публикации о компании на elto.kz */}
             <Reveal as="h2" className="geo__title display" kind="lines">
               Установлены во всех областных центрах
@@ -126,7 +131,7 @@ export default function Geography({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      <section className="partners ground-paper" data-ground="paper">
+      <section ref={strip} className="partners ground-paper" data-ground="paper">
         <div className="shell partners__inner">
           <div className="partners__head">
             <h2 className="label partners__h">{t("home.partners", lang)}</h2>

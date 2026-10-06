@@ -403,6 +403,26 @@ const T: Dict = {
     en: "Send a specification, a drawing or just a list of products — the sales team will reply with a quote.",
   },
 
+  "home.manifest": { ru: "Почему ELTO", kk: "Неліктен ELTO", en: "Why ELTO" },
+  "spec.title": {
+    ru: "Опоры освещения гранёные конические фланцевые",
+    kk: "Қырлы конустық фланецті жарық тіректері",
+    en: "Faceted conical flanged lighting poles",
+  },
+  "spec.sizes": { ru: "типоразмеров", kk: "типөлшем", en: "sizes" },
+  "spec.mark": { ru: "Обозначение", kk: "Белгіленуі", en: "Designation" },
+  "spec.height": { ru: "Высота H", kk: "Биіктігі H", en: "Height H" },
+  "spec.mass": { ru: "Масса", kk: "Салмағы", en: "Mass" },
+  "spec.open": {
+    ru: "Все характеристики",
+    kk: "Барлық сипаттамалар",
+    en: "All specifications",
+  },
+  "fig.since": { ru: "год основания", kk: "құрылған жылы", en: "founded" },
+  "fig.sections": { ru: "разделов каталога", kk: "каталог бөлімі", en: "catalogue sections" },
+  "fig.items": { ru: "изделий в каталоге", kk: "каталогтағы бұйым", en: "products in the catalogue" },
+  "seal.more": { ru: "Смотреть каталог", kk: "Каталогты қарау", en: "Browse the catalogue" },
+
   "a11y.langs": { ru: "Выбор языка", kk: "Тілді таңдау", en: "Language" },
   "a11y.mainnav": {
     ru: "Основная навигация",

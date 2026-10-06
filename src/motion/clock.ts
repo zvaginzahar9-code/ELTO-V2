@@ -19,6 +19,23 @@ import { tickScenes, measureScenes } from "./scene";
 let lenis: Lenis | null = null;
 let started = false;
 
+/**
+ * Подписчики кадра — то, что рисуется не по сценам, а поверх всей страницы
+ * (аргоновая дуга главной). Они тикают последними, в том же кадре, когда
+ * прокрутка и сцены уже посчитаны.
+ */
+type Frame = (time: number, scroll: number) => void;
+const frames = new Set<Frame>();
+
+export function onFrame(cb: Frame) {
+  frames.add(cb);
+  return () => {
+    frames.delete(cb);
+  };
+}
+
+export const currentScroll = () => (lenis ? lenis.scroll : window.scrollY);
+
 export const reducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -53,7 +70,9 @@ export function startClock() {
   const loop = (time: number) => {
     lenis?.raf(time);
     engine.update();
-    tickScenes(lenis ? lenis.scroll : window.scrollY);
+    const scroll = lenis ? lenis.scroll : window.scrollY;
+    tickScenes(scroll);
+    frames.forEach((f) => f(time, scroll));
     requestAnimationFrame(loop);
   };
   requestAnimationFrame(loop);

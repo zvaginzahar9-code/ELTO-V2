@@ -9,6 +9,7 @@ import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/chrome.css";
 import "./styles/scenes.css";
+import "./styles/home.css";
 import "./styles/catalog.css";
 import "./styles/article.css";
 import "./styles/mobile.css";

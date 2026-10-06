@@ -95,6 +95,10 @@ export default function Footer({ lang }: { lang: Lang }) {
         </div>
       </div>
 
+      <div className="foot__mark shell" aria-hidden="true">
+        <Logo tagline={false} />
+      </div>
+
       <div className="foot__bar shell">
         <span className="mono">{copyright}</span>
         <Link className="mono" to={`/${lang}/contacts`}>

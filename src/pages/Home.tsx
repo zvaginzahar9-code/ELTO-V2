@@ -1,9 +1,10 @@
 /**
  * Главная — один непрерывный проход по компании ELTO.
  *
- * Семь сцен, и каждая передаёт кадр следующей. Ритм задаёт смена грунта:
- * кино → работа → кино. Именно на этой смене держится ощущение, что
- * промышленный сайт может быть и зрелищным, и удобным одновременно.
+ * Через все сцены идёт одна аргоновая дуга (ArcLayer): в герое она
+ * прорезает кадр, в манифесте становится опорой, на производстве — линией
+ * реза, перед слоганом сходится в знак. Ритм задаёт смена грунта под ней —
+ * ночь → жемчуг → аргон → жемчуг → ночь — одним непрерывным переходом.
  *
  * На телефоне — своя главная (src/phone): закреплённые сцены и кадры по
  * прокрутке там тормозят и не помещаются, поэтому это другой экран, а не
@@ -11,11 +12,12 @@
  */
 
 import Hero from "@/scenes/Hero";
-import Company from "@/scenes/Company";
+import Manifest from "@/scenes/Manifest";
 import Production from "@/scenes/Production";
 import Assembly from "@/scenes/Assembly";
+import Seal from "@/scenes/Seal";
 import CatalogScene from "@/scenes/CatalogScene";
-import Advantages from "@/scenes/Advantages";
+import ArcLayer from "@/components/motion/ArcLayer";
 import Geography from "@/scenes/Geography";
 import News from "@/scenes/News";
 import ContactCta from "@/scenes/ContactCta";
@@ -39,17 +41,18 @@ export default function Home({ lang }: { lang: Lang }) {
       {phone ? (
         <PhoneHome lang={lang} />
       ) : (
-        <>
+        <div className="home">
+          <ArcLayer />
           <Hero lang={lang} />
-          <Company lang={lang} />
+          <Manifest lang={lang} />
           <Production lang={lang} />
           <Assembly lang={lang} />
+          <Seal lang={lang} />
           <CatalogScene lang={lang} />
-          <Advantages lang={lang} />
           <Geography lang={lang} />
           <News lang={lang} />
           <ContactCta lang={lang} />
-        </>
+        </div>
       )}
     </>
   );

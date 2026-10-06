@@ -250,7 +250,7 @@ ol {
   letter-spacing: -0.005em;
   line-height: 1.2;
   border: 1px solid var(--zinc-25);
-  border-radius: var(--radius);
+  border-radius: 999px;
   color: var(--zinc);
   overflow: hidden;
   isolation: isolate;
