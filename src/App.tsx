@@ -8,6 +8,7 @@ import { DEFAULT_LANG, isLang, type Lang } from "./lib/i18n";
 import { measureScenes } from "./motion/scene";
 import { scrollToTop } from "./motion/clock";
 import { recordPath } from "./lib/nav-history";
+import { toRoute } from "./lib/routes";
 
 /*
  * Главная не ленивая намеренно. Её чанк нужен сразу при любом заходе на
@@ -25,6 +26,18 @@ const InfoList = lazy(() => import("./pages/InfoList"));
 const About = lazy(() => import("./pages/About"));
 const Contacts = lazy(() => import("./pages/Contacts"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+
+/**
+ * Старые адреса elto.kz (/ru/content/…, /ru/katalog/…, /ru/usefullinf) ведут
+ * на те же материалы нового сайта: ссылки из поиска и закладок не теряются.
+ * Если адрес не узнан, остаётся страница 404.
+ */
+function Legacy({ lang }: { lang: Lang }) {
+  const { pathname } = useLocation();
+  const target = toRoute(pathname, lang);
+  if (target !== pathname.replace(/\/+$/, "")) return <Navigate to={target} replace />;
+  return <NotFound lang={lang} />;
+}
 const Privacy = lazy(() => import("./pages/Privacy"));
 
 /** Язык берётся из адреса; неизвестный — это 404, а не молчаливая подмена. */
@@ -66,7 +79,7 @@ function LangLayout() {
             <Route path="vacancy" element={<InfoList lang={l} kind="vacancy" />} />
             <Route path="gallery" element={<InfoList lang={l} kind="gallery" />} />
             <Route path="info/:slug" element={<Info lang={l} />} />
-            <Route path="*" element={<NotFound lang={l} />} />
+            <Route path="*" element={<Legacy lang={l} />} />
           </Routes>
         </Suspense>
       </main>

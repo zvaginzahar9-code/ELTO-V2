@@ -6,7 +6,7 @@
  * разделы, все изделия, разделы каталога и материалы — на трёх языках,
  * с hreflang-ссылками между версиями.
  *
- * Адрес сайта берётся из SITE_ORIGIN (по умолчанию — текущий адрес на Vercel).
+ * Адрес сайта берётся из SITE_ORIGIN (по умолчанию — https://elto.kz).
  *
  *   SITE_ORIGIN=https://elto.kz node scripts/build-sitemap.mjs
  */
@@ -15,7 +15,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const HERE = path.resolve(import.meta.dirname, "..");
-const SITE = (process.env.SITE_ORIGIN || "https://elto.vercel.app").replace(/\/+$/, "");
+const SITE = (process.env.SITE_ORIGIN || "https://elto.kz").replace(/\/+$/, "");
 const LANGS = ["ru", "kk", "en"];
 
 const read = async (p) => JSON.parse(await readFile(path.join(HERE, p), "utf8"));

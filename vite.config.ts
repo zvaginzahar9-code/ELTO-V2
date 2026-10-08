@@ -52,7 +52,7 @@ function inlineCss(): Plugin {
  * только по абсолютной ссылке, а скрипты они не выполняют.
  */
 function siteUrl(): Plugin {
-  const url = (process.env.SITE_ORIGIN || "https://elto.vercel.app").replace(/\/+$/, "");
+  const url = (process.env.SITE_ORIGIN || "https://elto.kz").replace(/\/+$/, "");
   return {
     name: "elto-site-url",
     transformIndexHtml: (html) => html.replaceAll("__SITE_URL__", url),
