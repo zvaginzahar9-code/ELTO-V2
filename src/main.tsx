@@ -17,6 +17,11 @@ import "./styles/phone.css";
 
 startClock();
 
+// Корень сайта отдаётся готовой страницей home-ru.html. Адрес меняется на /ru
+// до запуска роутера: иначе он сначала смонтирует «/», уйдёт на /ru и
+// перерисует уже показанный первый экран.
+if (location.pathname === "/") history.replaceState(history.state, "", "/ru" + location.search + location.hash);
+
 // главная пришла с первым экраном в HTML — сцена героя подхватит его без повтора
 if (document.querySelector("#root .hero--boot")) document.documentElement.dataset.boot = "hero";
 

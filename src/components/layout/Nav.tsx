@@ -287,6 +287,7 @@ export default function Nav({ lang }: { lang: Lang }) {
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="menu-panel"
+              aria-label={open ? t("nav.close", lang) : t("nav.menu", lang)}
             >
               <span className="nav__burger-label mono">
                 {open ? t("nav.close", lang) : t("nav.menu", lang)}
