@@ -22,6 +22,7 @@ import Reveal from "@/components/motion/Reveal";
 import BackLink from "@/components/ui/BackLink";
 import Img from "@/components/ui/Img";
 import Seo from "@/components/Seo";
+import SpecTable from "@/components/ui/SpecTable";
 import {
   categoryOf,
   leafCategoryOf,
@@ -62,7 +63,7 @@ export default function Product({ lang }: { lang: Lang }) {
   useEffect(() => {
     const el = specRef.current;
     if (!el || !data || reducedMotion()) return;
-    const rows = el.querySelectorAll("tbody tr");
+    const rows = el.querySelectorAll("tbody tr, .spec-card");
     if (!rows.length) return;
     const observer = onScroll({ enter: "bottom-=6% top", repeat: false });
     const rowsIn = animate(rows, {
@@ -297,32 +298,7 @@ export default function Product({ lang }: { lang: Lang }) {
             <section className="product__specs" ref={specRef}>
               <h2 className="product__h label">{t("product.specs", lang)}</h2>
               {data.tables.map((table, ti) => (
-                <div
-                  className="spec-wrap"
-                  key={ti}
-                  tabIndex={0}
-                  role="region"
-                  aria-label={`${t("product.specs", lang)} ${ti + 1}`}
-                >
-                  <table className="spec">
-                    <thead>
-                      <tr>
-                        {table[0].map((cell, i) => (
-                          <th key={i}>{cell}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {table.slice(1).map((row, ri) => (
-                        <tr key={ri}>
-                          {row.map((cell, ci) => (
-                            <td key={ci}>{cell}</td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <SpecTable key={ti} table={table} label={`${t("product.specs", lang)} ${ti + 1}`} />
               ))}
             </section>
           )}

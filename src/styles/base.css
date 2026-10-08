@@ -518,3 +518,78 @@ ol {
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+ * Таблица характеристик на телефоне — карточками (components/ui/SpecTable):
+ * строка таблицы становится карточкой, листать вбок не нужно.
+ */
+.spec-cards {
+  display: none;
+}
+@media (max-width: 860px) {
+  .spec-wrap--wide {
+    display: none;
+  }
+  .spec-cards {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .spec-cards__section {
+    margin: 0.9rem 0 0.1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .spec-cards__section:first-child {
+    margin-top: 0;
+  }
+  .spec-card {
+    padding: 0.85rem 1rem 0.4rem;
+    border: 1px solid var(--ink-12);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .spec-card__title {
+    display: grid;
+    gap: 0.15rem;
+    margin: 0 0 0.45rem;
+    font-family: var(--f-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+  .spec-card__key {
+    font-family: var(--f-sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--ink-muted);
+  }
+  .spec-card__list {
+    margin: 0;
+  }
+  .spec-card__list > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--ink-12);
+  }
+  .spec-card__list dt {
+    font-size: 0.88rem;
+    line-height: 1.35;
+    color: var(--ink-muted);
+  }
+  .spec-card__list dd {
+    margin: 0;
+    font-family: var(--f-mono);
+    font-size: 0.92rem;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+}

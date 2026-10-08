@@ -15,6 +15,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import Reveal from "@/components/motion/Reveal";
 import Seo from "@/components/Seo";
+import SpecTable from "@/components/ui/SpecTable";
 import ArticleShot from "@/components/ui/ArticleShot";
 import BackLink from "@/components/ui/BackLink";
 import Img from "@/components/ui/Img";
@@ -230,26 +231,7 @@ export default function Info({ lang }: { lang: Lang }) {
           {!!data?.tables.length && (
             <div className="art__col art__col--wide art__rise">
               {data.tables.map((table, ti) => (
-                <div className="spec-wrap" key={ti}>
-                  <table className="spec">
-                    <thead>
-                      <tr>
-                        {table[0].map((c, i) => (
-                          <th key={i}>{c}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {table.slice(1).map((row, ri) => (
-                        <tr key={ri}>
-                          {row.map((c, ci) => (
-                            <td key={ci}>{c}</td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <SpecTable key={ti} table={table} />
               ))}
             </div>
           )}
