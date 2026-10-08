@@ -85,8 +85,8 @@ function homeHtml(): Plugin {
 
     // телефон получает свой первый экран — тот же, что рисует src/phone/PhoneHome.tsx;
     // фото привязано к ширине телефона, иначе широкий экран качал бы его впустую
-    const photo = `<picture><source media="(max-width: 860px)" type="image/avif" srcset="${PHONE_HERO_AVIF}" sizes="100vw"><source media="(max-width: 860px)" type="image/webp" srcset="${PHONE_HERO_WEBP}" sizes="100vw"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="${esc(PHONE_HERO_ALT)}" width="1080" height="1350" fetchpriority="high"></picture>`;
-    const phone = `<div class="ph ph--boot"><section class="ph-hero" data-ground="paper"><div class="ph-hero__text"><h1 class="ph-hero__h1">${esc(title.lines.join(" "))}</h1>${title.where ? `<p class="ph-hero__where">${esc(title.where)}</p>` : ""}<div class="ph-hero__actions"><a class="ph-btn ph-btn--ink" href="/${lang}/catalog">${esc(t("cta.catalog", lang))}</a><span class="ph-btn">${esc(t("cta.quote", lang))}</span></div></div><figure class="ph-hero__photo">${photo}<figcaption>${esc(PHONE_HERO_CAPTION)}</figcaption></figure></section></div>`;
+    const photo = `<picture><source media="(max-width: 860px)" type="image/avif" srcset="${PHONE_HERO_AVIF}" sizes="100vw"><source media="(max-width: 860px)" type="image/webp" srcset="${PHONE_HERO_WEBP}" sizes="100vw"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="${esc(t(PHONE_HERO_ALT, lang))}" width="1080" height="1350" fetchpriority="high"></picture>`;
+    const phone = `<div class="ph ph--boot"><section class="ph-hero" data-ground="paper"><div class="ph-hero__text"><h1 class="ph-hero__h1">${esc(title.lines.join(" "))}</h1>${title.where ? `<p class="ph-hero__where">${esc(title.where)}</p>` : ""}<div class="ph-hero__actions"><a class="ph-btn ph-btn--ink" href="/${lang}/catalog">${esc(t("cta.catalog", lang))}</a><span class="ph-btn">${esc(t("cta.quote", lang))}</span></div></div><figure class="ph-hero__photo">${photo}<figcaption>${esc(t(PHONE_HERO_CAPTION, lang))}</figcaption></figure></section></div>`;
     // подпись первого экрана — вторая строка слайдера оригинала, как в сцене героя
     const slider = (siteData as unknown as { home: Record<string, Record<string, { text?: string }>> }).home;
     const sub = ((slider[lang]?.["w-slider"] ?? slider.ru?.["w-slider"])?.text || "")
@@ -110,13 +110,14 @@ function homeHtml(): Plugin {
       }
 
       for (const lang of LANGS) {
-        const title = `${heroTitle(lang).full} — Энергосистемы ЭЛТО`;
+        const title = `${heroTitle(lang).full} — ${t("brand.name", lang)}`;
         const html = source
           .replace(/<!--boot-->[\s\S]*<!--\/boot-->/, hero(lang))
-          // фото первого экрана телефона — в очередь сразу из шапки, а не после скриптов
+          // фото первого экрана телефона — в очередь первой строкой шапки: ниже стоят
+          // ~100 КБ встроенных стилей, и предзагрузка после них приходит поздно
           .replace(
-            "</head>",
-            `<link rel="preload" as="image" type="image/avif" imagesrcset="${PHONE_HERO_AVIF}" imagesizes="100vw" media="(max-width: 860px)" fetchpriority="high"></head>`
+            /(<meta charset="[^"]*"\s*\/?>)/i,
+            `$1<link rel="preload" as="image" type="image/avif" imagesrcset="${PHONE_HERO_AVIF}" imagesizes="100vw" media="(max-width: 860px)" fetchpriority="high">`
           )
           .replace(/<html lang="[^"]*">/, `<html lang="${lang}">`)
           .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
