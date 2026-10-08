@@ -14,7 +14,8 @@
  * Весь текст, все названия и все цифры — дословно с elto.kz.
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { Link, useParams } from "react-router-dom";
 import { animate, onScroll, stagger } from "animejs";
 import Reveal from "@/components/motion/Reveal";
@@ -26,13 +27,11 @@ import {
   leafCategoryOf,
   loadProduct,
   productBySlug,
-  type ProductFull,
-} from "@/lib/data";
+  type ProductFull, localize, descOf } from "@/lib/data";
 import { categoryPath, productPath, rewriteLinks } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { useRecord } from "@/lib/use-record";
 import { catalogDocFor, PHONE, PHONE_HREF, whatsappHref } from "@/lib/contacts";
-import { registerScene, span } from "@/motion/scene";
 import { reducedMotion } from "@/motion/clock";
 import { useLead, useLeadTopic } from "@/components/lead/LeadProvider";
 import NotFound from "./NotFound";
@@ -40,35 +39,24 @@ import NotFound from "./NotFound";
 export default function Product({ lang }: { lang: Lang }) {
   const { slug = "" } = useParams();
   const brief = productBySlug.get(slug);
-  const { data, failed } = useRecord<ProductFull>(slug, loadProduct);
-  const mediaRef = useRef<HTMLDivElement>(null);
+  const { data: raw, failed } = useRecord<ProductFull>(slug, loadProduct);
+  const data = useMemo(() => localize(raw, lang), [raw, lang]);
   const specRef = useRef<HTMLDivElement>(null);
   const openLead = useLead();
   const title = brief ? pick(brief.t, lang) : "";
   useLeadTopic(title);
 
-  /* кадр переходит от изделия к чертежу по мере чтения */
-  useEffect(() => {
-    const el = mediaRef.current;
-    if (!el || !data || reducedMotion()) return;
-    const layers = Array.from(el.querySelectorAll<HTMLElement>(".shot__layer"));
-    const ticks = Array.from(el.querySelectorAll<HTMLElement>(".shot__tick"));
-    if (layers.length < 2) return;
-
-    return registerScene(el.closest(".product") as HTMLElement, {
-      mode: "cover",
-      onUpdate(p) {
-        const steps = layers.length - 1;
-        layers.forEach((layer, i) => {
-          if (i === 0) return;
-          const v = span(p, (i - 1) / steps + 0.04, i / steps - 0.04);
-          layer.style.clipPath = `inset(${((1 - v) * 100).toFixed(2)}% 0 0 0)`;
-        });
-        const at = Math.min(steps, Math.round(p * steps));
-        ticks.forEach((tk, i) => tk.setAttribute("data-on", String(i === at)));
-      },
-    });
-  }, [data]);
+  /*
+   * Кадры листаются кнопками, а не прокруткой: человек сам решает, когда
+   * смотреть чертёж, и страница при чтении текста не меняет картинку.
+   */
+  const [shot, setShot] = useState(0);
+  const [shotFor, setShotFor] = useState(slug);
+  if (shotFor !== slug) {
+    setShotFor(slug);
+    setShot(0);
+  }
+  const swipe = useRef<number | null>(null);
 
   /* строки характеристик приходят сверху вниз, как их читают */
   useEffect(() => {
@@ -101,6 +89,8 @@ export default function Product({ lang }: { lang: Lang }) {
   const shots = (
     data ? [...data.photos, ...data.drawings].slice(0, 4) : [brief.i]
   ).filter(Boolean);
+  const go = (step: number) =>
+    setShot((i) => (i + step + shots.length) % shots.length);
   const html = data ? rewriteLinks(data.html[lang] || data.html.ru || "", lang) : "";
   const variants = data?.tables.reduce((n, tb) => n + Math.max(0, tb.length - 1), 0) ?? 0;
 
@@ -110,19 +100,40 @@ export default function Product({ lang }: { lang: Lang }) {
         lang={lang}
         path={`/product/${slug}`}
         title={title}
-        description={data?.description || brief.d}
+        description={data?.description || descOf(brief, lang)}
         type="product"
       />
 
       <div className="shell product__inner">
-        <div className="product__media" ref={mediaRef}>
+        <div className="product__media">
           <div className="product__sticky">
-            <div className="shot">
+            <div
+              className="shot"
+              tabIndex={shots.length > 1 ? 0 : undefined}
+              aria-roledescription={shots.length > 1 ? "carousel" : undefined}
+              aria-label={title}
+              onKeyDown={(e) => {
+                if (shots.length < 2) return;
+                if (e.key === "ArrowLeft") go(-1);
+                if (e.key === "ArrowRight") go(1);
+              }}
+              onPointerDown={(e) => {
+                if (e.pointerType !== "mouse") swipe.current = e.clientX;
+              }}
+              onPointerUp={(e) => {
+                // на телефоне кадр перелистывается и пальцем
+                if (swipe.current === null) return;
+                const dx = e.clientX - swipe.current;
+                swipe.current = null;
+                if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+              }}
+            >
               {shots.map((file, i) => (
                 <div
                   className="shot__layer"
                   key={file}
-                  style={i === 0 ? undefined : { clipPath: "inset(100% 0 0 0)" }}
+                  data-on={i === shot ? "true" : "false"}
+                  aria-hidden={i === shot ? undefined : true}
                 >
                   <Img
                     file={file}
@@ -136,20 +147,42 @@ export default function Product({ lang }: { lang: Lang }) {
               {/* визирные засечки по углам кадра — как на листе чертежа */}
               <span className="shot__corner shot__corner--tl" aria-hidden="true" />
               <span className="shot__corner shot__corner--br" aria-hidden="true" />
+              {shots.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    className="shot__btn shot__btn--prev"
+                    onClick={() => go(-1)}
+                    aria-label={t("product.prev", lang)}
+                  >
+                    <CaretLeft weight="bold" aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    className="shot__btn shot__btn--next"
+                    onClick={() => go(1)}
+                    aria-label={t("product.next", lang)}
+                  >
+                    <CaretRight weight="bold" aria-hidden="true" />
+                  </button>
+                </>
+              )}
             </div>
             {shots.length > 1 && (
-              <div className="shot__rail" aria-hidden="true">
-                <span className="label muted">
-                  {data?.drawings.length
-                    ? `${t("product.photo", lang)} → ${t("product.drawing", lang)}`
-                    : t("product.gallery", lang)}
+              <div className="shot__rail">
+                <span className="label muted" aria-live="polite">
+                  {shot + 1} / {shots.length}
                 </span>
                 <span className="shot__ticks">
                   {shots.map((f, i) => (
-                    <i
+                    <button
+                      type="button"
                       className="shot__tick"
                       key={f}
-                      data-on={i === 0 ? "true" : "false"}
+                      data-on={i === shot ? "true" : "false"}
+                      aria-label={`${i + 1} / ${shots.length}`}
+                      aria-current={i === shot ? "true" : undefined}
+                      onClick={() => setShot(i)}
                     />
                   ))}
                 </span>
@@ -164,7 +197,7 @@ export default function Product({ lang }: { lang: Lang }) {
             to={leaf ? categoryPath(lang, leaf.slug) : `/${lang}/catalog`}
             label={leaf ? pick(leaf.title, lang) : t("back.catalog", lang)}
           />
-          <nav className="crumbs mono" aria-label="Хлебные крошки">
+          <nav className="crumbs mono" aria-label={t("a11y.crumbs", lang)}>
             <Link to={`/${lang}/catalog`}>{t("catalog.title", lang)}</Link>
             {root && (
               <>
@@ -245,7 +278,7 @@ export default function Product({ lang }: { lang: Lang }) {
               </a>
               {doc && (
                 <a href={doc.href} target="_blank" rel="noreferrer">
-                  ↓ {doc.label}
+                  ↓ {t(`doc.${doc.key}`, lang)}
                 </a>
               )}
             </div>
@@ -257,7 +290,7 @@ export default function Product({ lang }: { lang: Lang }) {
               dangerouslySetInnerHTML={{ __html: html }}
             />
           ) : (
-            <p className="lead">{brief.d}</p>
+            <p className="lead">{descOf(brief, lang)}</p>
           )}
 
           {!!data?.tables.length && (

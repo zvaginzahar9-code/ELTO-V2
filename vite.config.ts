@@ -1,15 +1,14 @@
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
-import catalog from "./src/data/catalog.json";
-import { LANGS, pick, t, type Lang } from "./src/lib/i18n";
+import siteData from "./src/data/site.json";
+import { LANGS, t, type Lang } from "./src/lib/i18n";
 import {
   HOME_DESCRIPTION,
   PHONE_HERO_ALT,
   PHONE_HERO_CAPTION,
   PHONE_HERO_AVIF,
   PHONE_HERO_WEBP,
-  QUICK_SECTIONS,
   heroTitle,
 } from "./src/scenes/hero-copy";
 
@@ -67,13 +66,11 @@ function siteUrl(): Plugin {
  * после загрузки бандла: он и был самым поздним крупным элементом (LCP).
  * Поэтому сборка кладёт рядом с index.html страницы home-ru/kk/en.html, где
  * вместо стартового кадра стоит настоящая разметка героя — тот же заголовок,
- * те же кнопки и входы в разделы, из тех же строк, что и сцена. Стили к этому
+ * те же кнопки, из тех же строк, что и сцена. Стили к этому
  * моменту уже внутри документа (inlineCss), так что кадр совпадает с тем,
  * что потом нарисует React. vercel.json отдаёт эти страницы на /ru, /kk, /en.
  */
 function homeHtml(): Plugin {
-  type Node = { title: Partial<Record<Lang, string>>; count: number };
-  const cats = (catalog as unknown as { categories: Record<string, Node> }).categories;
   const esc = (s: string) =>
     s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 
@@ -83,19 +80,19 @@ function homeHtml(): Plugin {
       .map((l, i) => `<span class="mask" style="--i:${i}"><span>${esc(l)}</span></span>`)
       .join("");
     const where = title.where
-      ? `<span class="mask hero__where" style="--i:3"><span>${esc(title.where)}</span></span>`
+      ? `<span class="mask hero__where" style="--i:3"><span>${esc(title.where)}<span class="hero__dock" aria-hidden="true"></span></span></span>`
       : "";
-    const chips = QUICK_SECTIONS.filter((s) => cats[s])
-      .map(
-        (s) =>
-          `<li><a class="hero__chip" href="/${lang}/catalog/${s}">${esc(pick(cats[s].title, lang))}<span>${cats[s].count}</span></a></li>`
-      )
-      .join("");
+
     // телефон получает свой первый экран — тот же, что рисует src/phone/PhoneHome.tsx;
     // фото привязано к ширине телефона, иначе широкий экран качал бы его впустую
     const photo = `<picture><source media="(max-width: 860px)" type="image/avif" srcset="${PHONE_HERO_AVIF}" sizes="100vw"><source media="(max-width: 860px)" type="image/webp" srcset="${PHONE_HERO_WEBP}" sizes="100vw"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="${esc(PHONE_HERO_ALT)}" width="1080" height="1350" fetchpriority="high"></picture>`;
     const phone = `<div class="ph ph--boot"><section class="ph-hero" data-ground="paper"><div class="ph-hero__text"><h1 class="ph-hero__h1">${esc(title.lines.join(" "))}</h1>${title.where ? `<p class="ph-hero__where">${esc(title.where)}</p>` : ""}<div class="ph-hero__actions"><a class="ph-btn ph-btn--ink" href="/${lang}/catalog">${esc(t("cta.catalog", lang))}</a><span class="ph-btn">${esc(t("cta.quote", lang))}</span></div></div><figure class="ph-hero__photo">${photo}<figcaption>${esc(PHONE_HERO_CAPTION)}</figcaption></figure></section></div>`;
-    return phone + `<section class="scene hero hero--boot" data-ground="dark"><div class="hero__stage"><div class="hero__ui shell"><div class="hero__lead"><p class="hero__place">${esc(t("hero.since", lang))}</p><h1 class="hero__h1">${lines}${where}</h1><div class="hero__actions"><a class="btn btn--solid" href="/${lang}/catalog"><span class="btn__full">${esc(t("catalog.title", lang))}</span><span class="btn__short">${esc(t("cta.catalog", lang))}</span></a><span class="btn btn--glass">${esc(t("cta.quote", lang))}</span></div></div><div class="hero__deck"></div><nav class="hero__quick"><ul>${chips}</ul></nav></div></div></section>`;
+    // подпись первого экрана — вторая строка слайдера оригинала, как в сцене героя
+    const slider = (siteData as unknown as { home: Record<string, Record<string, { text?: string }>> }).home;
+    const sub = ((slider[lang]?.["w-slider"] ?? slider.ru?.["w-slider"])?.text || "")
+      .split("\n")[1]?.trim().replace(/\s+kz$/i, "").replace(/\s+[-–—]\s+/g, " - ") || "";
+    const arrow = `<span class="pill__icon" aria-hidden="true"></span>`;
+    return phone + `<section class="scene hero hero--boot" data-ground="paper"><div class="hero__stage"><div class="hero__ui shell"><div class="hero__lead"><h1 class="hero__h1">${lines}${where}</h1><p class="hero__sub hero__fade">${esc(sub)}</p><div class="hero__actions hero__fade"><a class="pill pill--argon" href="/${lang}/catalog"><span class="pill__label">${esc(t("catalog.title", lang))}</span>${arrow}</a><span class="pill pill--glass"><span class="pill__label">${esc(t("cta.quote", lang))}</span>${arrow}</span></div></div><div class="hero__deck"></div></div></div></section>`;
   };
 
   return {

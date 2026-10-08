@@ -37,9 +37,15 @@ export type ProductBrief = {
   n: number;
   /** первый абзац описания */
   d: string;
+  /** он же по-казахски и по-английски (scripts/build-i18n.mjs) */
+  dl?: Partial<Record<Lang, string>>;
 };
 
-export type PageBrief = { s: string; t: Localized; d: string; i: string };
+export type PageBrief = { s: string; t: Localized; d: string; dl?: Partial<Record<Lang, string>>; i: string };
+
+/** Анонс записи на языке страницы. */
+export const descOf = (b: { d: string; dl?: Partial<Record<Lang, string>> }, lang: Lang) =>
+  (lang !== "ru" && b.dl?.[lang]) || b.d;
 
 export type ProductFull = {
   slug: string;
@@ -56,6 +62,7 @@ export type ProductFull = {
   related: { slug: string; title: string; image: string }[];
   categories: string[];
   description: string;
+  i18n?: Partial<Record<Lang, Translated>>;
 };
 
 export type PageFull = {
@@ -68,7 +75,29 @@ export type PageFull = {
   images: string[];
   docs: { text: string; href: string }[];
   description: string;
+  i18n?: Partial<Record<Lang, Translated>>;
 };
+
+/**
+ * Перевод полей записи, которые хранятся одной строкой: таблицы, анонс,
+ * описание, документы. Их казахская и английская версии лежат в i18n
+ * (собирает scripts/build-i18n.mjs); по-русски — сами поля.
+ */
+type Translated = {
+  tables: string[][][];
+  description: string;
+  lead: string;
+  docs: { text: string; href: string }[];
+  related?: { slug: string; title: string; image: string }[];
+};
+
+export function localize<T extends Omit<Translated, "related"> & { i18n?: Partial<Record<Lang, Translated>> }>(
+  rec: T | null,
+  lang: Lang
+): T | null {
+  const tr = rec && lang !== "ru" ? rec.i18n?.[lang] : undefined;
+  return tr && rec ? { ...rec, ...tr } : rec;
+}
 
 export const catalog = catalogRaw as unknown as {
   tree: (CategoryNode & { items: string[] })[];

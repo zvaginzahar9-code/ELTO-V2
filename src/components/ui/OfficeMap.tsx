@@ -409,9 +409,9 @@ export default function OfficeMap({ lang }: { lang: Lang }) {
       <div className="omap__card">
         <span className="index">{t("map.office", lang)}</span>
         <address className="omap__addr">
-          г. Караганда, район Алихана Букейханова,
+          {t("address.1", lang)}
           <br />
-          учетный квартал 018, строение 20
+          {t("address.2", lang)}
         </address>
         <button type="button" className="omap__coords mono" onClick={copy}>
           <span className="omap__coords-val">{COORDS}</span>
@@ -424,7 +424,7 @@ export default function OfficeMap({ lang }: { lang: Lang }) {
             {t("map.route", lang)}
           </a>
           <a className="btn" href={GIS} target="_blank" rel="noreferrer noopener">
-            2ГИС
+            {t("map.2gis", lang)}
           </a>
           <a className="btn" href={GOOGLE} target="_blank" rel="noreferrer noopener">
             Google

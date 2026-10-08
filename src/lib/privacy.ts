@@ -18,5 +18,10 @@ export const OPERATOR = {
 /** Дата действующей редакции политики — меняется вместе с её текстом. */
 export const POLICY_VERSION = "2026-09-30";
 export const POLICY_DATE_RU = "30 сентября 2026 года";
+export const POLICY_DATE: Record<"ru" | "kk" | "en", string> = {
+  ru: POLICY_DATE_RU,
+  kk: "2026 жылғы 30 қыркүйек",
+  en: "30 September 2026",
+};
 
 export const privacyPath = (lang: string) => `/${lang}/privacy`;

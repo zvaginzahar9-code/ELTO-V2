@@ -271,7 +271,7 @@ export default function LeadForm({
               <b>{file ? file.name : t("lead.file", lang)}</b>
               <small id={`${id}-file-hint`}>
                 {file
-                  ? `${(file.size / 1024 / 1024).toFixed(2)} МБ`
+                  ? `${(file.size / 1024 / 1024).toFixed(2)} ${t("file.mb", lang)}`
                   : t("lead.file.hint", lang)}
               </small>
             </span>
@@ -310,7 +310,7 @@ export default function LeadForm({
           aria-describedby={errors.consent ? `${id}-consent-err` : undefined}
         />
         <span>
-          {t("lead.consent", lang).replace("{op}", OPERATOR.short).replace("{bin}", OPERATOR.bin)}{" "}
+          {t("lead.consent", lang).replace("{op}", t("brand.legal", lang)).replace("{bin}", OPERATOR.bin)}{" "}
           <Link to={privacyPath(lang)} target="_blank" rel="noopener">
             {t("lead.consent.link", lang)}
           </Link>

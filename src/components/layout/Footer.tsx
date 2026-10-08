@@ -7,11 +7,10 @@
  */
 
 import { Link } from "react-router-dom";
-import { site, topCategories } from "@/lib/data";
+import { topCategories } from "@/lib/data";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { categoryPath } from "@/lib/routes";
 import {
-  ADDRESS_LINES,
   CATALOG_DOCS,
   EMAIL,
   INSTAGRAM,
@@ -28,16 +27,18 @@ const SOCIAL = [
 ];
 
 export default function Footer({ lang }: { lang: Lang }) {
-  const copyright = site.copyright[lang] || site.copyright.ru;
 
   return (
     <footer className="foot" data-ground="dark">
+      {/* знак во всю ширину: на главной поток проходит за буквами и перед ними */}
+      <div className="foot__mark shell" aria-hidden="true">
+        <Logo tagline={false} />
+      </div>
       <div className="foot__inner shell">
         <div className="foot__brand">
           <Logo className="foot__logo" title="ELTO" />
           <p className="foot__claim lead">
-            ТОО «Энергосистемы ЭЛТО» — завод-производитель опор освещения, мачт и
-            металлоконструкций различного назначения.
+            {t("brand.claim", lang)}
           </p>
         </div>
 
@@ -55,9 +56,9 @@ export default function Footer({ lang }: { lang: Lang }) {
         <div className="foot__col">
           <h2 className="label foot__h">{t("contacts.address", lang)}</h2>
           <address className="foot__address">
-            {ADDRESS_LINES[0]}
+            {t("address.1", lang)}
             <br />
-            {ADDRESS_LINES[1]}
+            {t("address.2", lang)}
           </address>
 
           <h2 className="label foot__h foot__h--gap">{t("contacts.phone", lang)}</h2>
@@ -87,7 +88,7 @@ export default function Footer({ lang }: { lang: Lang }) {
             {CATALOG_DOCS.map((d) => (
               <li key={d.href}>
                 <a href={d.href} target="_blank" rel="noreferrer" className="label">
-                  ↓ {d.label}
+                  ↓ {t(`doc.${d.key}`, lang)}
                 </a>
               </li>
             ))}
@@ -95,12 +96,8 @@ export default function Footer({ lang }: { lang: Lang }) {
         </div>
       </div>
 
-      <div className="foot__mark shell" aria-hidden="true">
-        <Logo tagline={false} />
-      </div>
-
       <div className="foot__bar shell">
-        <span className="mono">{copyright}</span>
+        <span className="mono">{t("brand.legal", lang)} © {new Date().getFullYear()}</span>
         <Link className="mono" to={`/${lang}/contacts`}>
           {t("nav.contacts", lang)}
         </Link>

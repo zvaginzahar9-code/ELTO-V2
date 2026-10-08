@@ -11,7 +11,7 @@
  */
 
 import { useEffect } from "react";
-import { LANGS, type Lang } from "@/lib/i18n";
+import { LANGS, t, type Lang } from "@/lib/i18n";
 
 type Props = {
   lang: Lang;
@@ -25,7 +25,6 @@ type Props = {
   noindex?: boolean;
 };
 
-const BRAND = "Энергосистемы ЭЛТО";
 const OG_LOCALE: Record<Lang, string> = { ru: "ru_RU", kk: "kk_KZ", en: "en_US" };
 
 function meta(attr: "name" | "property", key: string, content: string) {
@@ -64,8 +63,9 @@ export default function Seo({
   useEffect(() => {
     const origin = window.location.origin;
     const url = `${origin}/${lang}${path === "/" ? "" : path}`;
-    const full = title.includes(BRAND) ? title : `${title} — ${BRAND}`;
-    const text = (description || "").replace(/\s+/g, " ").trim().slice(0, 300);
+    const brand = t("brand.name", lang);
+    const full = title.includes(brand) ? title : `${title} — ${brand}`;
+    const text = (description || t("brand.claim", lang)).replace(/\s+/g, " ").trim().slice(0, 300);
 
     document.title = full;
     if (text) {

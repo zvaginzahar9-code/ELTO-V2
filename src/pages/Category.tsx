@@ -51,7 +51,7 @@ export default function Category({ lang }: { lang: Lang }) {
           to={parent ? categoryPath(lang, parent.slug) : `/${lang}/catalog`}
           label={parent ? pick(parent.title, lang) : t("back.catalog", lang)}
         />
-        <nav className="crumbs mono" aria-label="Хлебные крошки">
+        <nav className="crumbs mono" aria-label={t("a11y.crumbs", lang)}>
           <Link to={`/${lang}/catalog`}>{t("catalog.title", lang)}</Link>
           {parent && (
             <>
@@ -128,7 +128,7 @@ export default function Category({ lang }: { lang: Lang }) {
             </button>
             {doc && (
               <a className="btn" href={doc.href} target="_blank" rel="noreferrer">
-                ↓ {doc.label}
+                ↓ {t(`doc.${doc.key}`, lang)}
               </a>
             )}
           </div>

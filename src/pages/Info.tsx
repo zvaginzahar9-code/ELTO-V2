@@ -11,14 +11,14 @@
  * Меняется только подача.
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import Reveal from "@/components/motion/Reveal";
 import Seo from "@/components/Seo";
 import ArticleShot from "@/components/ui/ArticleShot";
 import BackLink from "@/components/ui/BackLink";
 import Img from "@/components/ui/Img";
-import { loadPage, pages, type PageFull } from "@/lib/data";
+import { loadPage, pages, type PageFull, localize, descOf } from "@/lib/data";
 import { article } from "@/lib/prose";
 import { rewriteLinks } from "@/lib/routes";
 import { imgSrc } from "@/lib/image-url";
@@ -118,7 +118,8 @@ const titleSize = (s: string) => (s.length > 78 ? "sm" : s.length > 38 ? "md" : 
 export default function Info({ lang }: { lang: Lang }) {
   const { slug = "" } = useParams();
   const brief = pages.find((p) => p.s === slug);
-  const { data, failed } = useRecord<PageFull>(slug, loadPage);
+  const { data: rec, failed } = useRecord<PageFull>(slug, loadPage);
+  const data = useMemo(() => localize(rec, lang), [rec, lang]);
   const body = useRef<HTMLDivElement>(null);
 
   /* тело материала приходит спокойно, по факту появления в кадре */
@@ -160,7 +161,7 @@ export default function Info({ lang }: { lang: Lang }) {
         lang={lang}
         path={`/info/${slug}`}
         title={title}
-        description={data?.description || lead || brief.d}
+        description={data?.description || lead || descOf(brief, lang)}
         image={hero ? imgSrc(hero, 1600) : undefined}
         type="article"
       />
@@ -203,12 +204,12 @@ export default function Info({ lang }: { lang: Lang }) {
             </span>
           </div>
 
-          {(lead || brief.d) && (
+          {(lead || descOf(brief, lang)) && (
             /* врезка приходит разметкой оригинала — её не режем на строки,
                иначе ссылка внутри абзаца развалится на куски */
             <p
               className="art__lead lead art__in"
-              dangerouslySetInnerHTML={{ __html: lead || brief.d }}
+              dangerouslySetInnerHTML={{ __html: lead || descOf(brief, lang) }}
             />
           )}
         </div>
@@ -222,7 +223,7 @@ export default function Info({ lang }: { lang: Lang }) {
             {text ? (
               <div className="prose" dangerouslySetInnerHTML={{ __html: text }} />
             ) : (
-              !lead && <p className="lead">{brief.d || t("common.loading", lang)}</p>
+              !lead && <p className="lead">{descOf(brief, lang) || t("common.loading", lang)}</p>
             )}
           </div>
 

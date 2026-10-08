@@ -1,10 +1,10 @@
 /**
  * Языки сайта повторяют оригинал: русский, казахский, английский.
  *
- * Здесь живут только подписи интерфейса — кнопки, заголовки блоков,
- * служебные строки. Содержательный текст, названия изделий и характеристики
- * берутся из выгрузки оригинала и не переводятся заново: если на elto.kz
- * перевода нет, показывается русский оригинал.
+ * Здесь живут подписи интерфейса — кнопки, заголовки блоков, служебные
+ * строки — и короткие формулировки главной. Каталог, страницы и новости
+ * на elto.kz есть только по-русски; их казахский и английский переводы
+ * лежат в i18n/ и накладываются на данные скриптом scripts/build-i18n.mjs.
  */
 
 export const LANGS = ["ru", "kk", "en"] as const;
@@ -68,9 +68,10 @@ const T: Dict = {
   "common.sections": { ru: "разделов", kk: "бөлім", en: "sections" },
 
   "catalog.title": {
-    ru: "Каталог продукции",
-    kk: "Өнім каталогы",
-    en: "Product catalogue",
+    // как в меню оригинала
+    ru: "Каталог",
+    kk: "Каталог",
+    en: "Catalogue",
   },
   "catalog.all": { ru: "Весь каталог", kk: "Толық каталог", en: "Full catalogue" },
   "catalog.sections": { ru: "Разделы", kk: "Бөлімдер", en: "Sections" },
@@ -85,7 +86,7 @@ const T: Dict = {
   "product.specs": {
     ru: "Технические характеристики",
     kk: "Техникалық сипаттамалар",
-    en: "Technical specifications",
+    en: "Specifications",
   },
   "product.description": { ru: "Описание", kk: "Сипаттама", en: "Description" },
   "product.drawing": { ru: "Чертёж", kk: "Сызба", en: "Drawing" },
@@ -98,10 +99,12 @@ const T: Dict = {
   },
   "product.section": { ru: "Раздел", kk: "Бөлім", en: "Section" },
   "product.request": { ru: "Запросить цену", kk: "Бағаны сұрау", en: "Request a price" },
+  "product.prev": { ru: "Предыдущее изображение", kk: "Алдыңғы сурет", en: "Previous image" },
+  "product.next": { ru: "Следующее изображение", kk: "Келесі сурет", en: "Next image" },
   "product.gallery": { ru: "Изображения", kk: "Суреттер", en: "Images" },
 
   "contacts.address": { ru: "Наш адрес", kk: "Мекенжайымыз", en: "Our address" },
-  "contacts.phone": { ru: "Телефон", kk: "Телефон", en: "Phone" },
+  "contacts.phone": { ru: "Контактный телефон", kk: "Байланыс телефоны", en: "Contact phone" },
   "contacts.email": { ru: "E-mail", kk: "E-mail", en: "E-mail" },
   "contacts.map": { ru: "Карта проезда", kk: "Бағыт картасы", en: "Directions" },
   "contacts.write": { ru: "Написать нам", kk: "Бізге жазу", en: "Write to us" },
@@ -118,7 +121,7 @@ const T: Dict = {
   "map.copy": { ru: "Скопировать", kk: "Көшіру", en: "Copy" },
   "map.copied": { ru: "Скопировано", kk: "Көшірілді", en: "Copied" },
   "map.drag": { ru: "Тяните карту", kk: "Картаны жылжытыңыз", en: "Drag the map" },
-  "map.plan": { ru: "Схема", kk: "Схема", en: "Map" },
+  "map.plan": { ru: "Схема", kk: "Сызба", en: "Map" },
   "map.sat": { ru: "Спутник", kk: "Спутник", en: "Satellite" },
   "map.layer": { ru: "Вид карты", kk: "Карта түрі", en: "Map view" },
   "map.zoomin": { ru: "Приблизить", kk: "Жақындату", en: "Zoom in" },
@@ -134,20 +137,22 @@ const T: Dict = {
   "home.production": { ru: "Производство", kk: "Өндіріс", en: "Production" },
   "home.catalog": { ru: "Продукция", kk: "Өнім", en: "Products" },
   "home.why": { ru: "Почему мы", kk: "Неліктен біз", en: "Why us" },
-  "home.partners": { ru: "Партнёры", kk: "Серіктестер", en: "Partners" },
+  "home.partners": { ru: "Партнеры", kk: "Серіктестер", en: "Partners" },
   "home.news": { ru: "Новости", kk: "Жаңалықтар", en: "News" },
   "home.contacts": { ru: "Контакты", kk: "Байланыс", en: "Contacts" },
+  // кнопка слайдера оригинала
+  "home.aboutMore": { ru: "Подробнее о нас", kk: "Біз туралы толығырақ", en: "More about us" },
   "home.watch": { ru: "Посмотреть ролик", kk: "Роликті көру", en: "Watch the film" },
 
-  "cta.quote": { ru: "Запросить расчёт", kk: "Есептеуді сұрау", en: "Request a quote" },
-  "cta.tz": { ru: "Отправить ТЗ", kk: "ТТ жіберу", en: "Send specifications" },
-  "cta.consult": { ru: "Получить консультацию", kk: "Кеңес алу", en: "Get advice" },
+  "cta.quote": { ru: "Написать нам", kk: "Бізге жазу", en: "Write to us" },
+  "cta.tz": { ru: "Написать нам", kk: "Бізге жазу", en: "Write to us" },
+  "cta.consult": { ru: "Заказать звонок", kk: "Қоңырауға тапсырыс", en: "Request a call" },
   "cta.call": { ru: "Позвонить", kk: "Қоңырау шалу", en: "Call" },
   "cta.whatsapp": { ru: "WhatsApp", kk: "WhatsApp", en: "WhatsApp" },
   "cta.catalog": { ru: "Каталог", kk: "Каталог", en: "Catalogue" },
   "cta.pdf": { ru: "PDF-каталог", kk: "PDF-каталог", en: "PDF catalogue" },
   /* короткие подписи нижней панели телефона: в ней четыре кнопки по четверти экрана */
-  "dock.quote": { ru: "Расчёт", kk: "Есептеу", en: "Quote" },
+  "dock.quote": { ru: "Написать нам", kk: "Бізге жазу", en: "Write to us" },
   "dock.call": { ru: "Звонок", kk: "Қоңырау", en: "Call" },
   "catalog.showAll": {
     ru: "Показать все разделы",
@@ -156,51 +161,51 @@ const T: Dict = {
   },
 
   "lead.title.quote": {
-    ru: "Расчёт стоимости",
-    kk: "Құнын есептеу",
-    en: "Price calculation",
+    ru: "Написать нам",
+    kk: "Бізге жазу",
+    en: "Write to us",
   },
   "lead.title.tz": {
-    ru: "Техническое задание",
-    kk: "Техникалық тапсырма",
-    en: "Technical specifications",
+    ru: "Написать нам",
+    kk: "Бізге жазу",
+    en: "Write to us",
   },
   "lead.title.consult": {
-    ru: "Консультация инженера",
-    kk: "Инженер кеңесі",
-    en: "Engineering advice",
+    ru: "Заказать звонок",
+    kk: "Қоңырауға тапсырыс",
+    en: "Request a call",
   },
   "lead.intro.quote": {
-    ru: "Опишите, что нужно и в каком количестве — отдел продаж подготовит расчёт.",
-    kk: "Не және қанша қажет екенін жазыңыз — сату бөлімі есеп дайындайды.",
-    en: "Tell us what you need and how many — the sales team will prepare a quote.",
+    ru: "",
+    kk: "",
+    en: "",
   },
   "lead.intro.tz": {
-    ru: "Приложите чертёж, спецификацию или проект — ответим по существу.",
-    kk: "Сызбаны, спецификацияны немесе жобаны тіркеңіз.",
-    en: "Attach a drawing, specification or project and we will reply in detail.",
+    ru: "",
+    kk: "",
+    en: "",
   },
   "lead.intro.consult": {
-    ru: "Не знаете точную маркировку? Опишите задачу — поможем подобрать изделие.",
-    kk: "Нақты таңбалауды білмейсіз бе? Міндетті сипаттаңыз — таңдауға көмектесеміз.",
-    en: "Not sure of the exact type? Describe the task and we will help you choose.",
+    ru: "",
+    kk: "",
+    en: "",
   },
   "lead.topic": { ru: "Заявка по", kk: "Өтінім тақырыбы", en: "Request about" },
-  "lead.name": { ru: "Имя", kk: "Аты", en: "Name" },
-  "lead.company": { ru: "Компания", kk: "Компания", en: "Company" },
+  "lead.name": { ru: "Имя / Организация", kk: "Аты / Ұйым", en: "Name / Organisation" },
+  "lead.company": { ru: "Должность", kk: "Лауазымы", en: "Position" },
   "lead.contact": {
-    ru: "Телефон или e-mail",
-    kk: "Телефон немесе e-mail",
-    en: "Phone or e-mail",
+    ru: "Ваш телефон / Ваш e-mail",
+    kk: "Телефоныңыз / e-mail",
+    en: "Your phone / your e-mail",
   },
-  "lead.message": { ru: "Что нужно", kk: "Не қажет", en: "What you need" },
+  "lead.message": { ru: "Ваше сообщение", kk: "Хабарламаңыз", en: "Your message" },
   "lead.message.ph": {
-    ru: "Изделие, маркировка, количество, объект, сроки",
-    kk: "Өнім, таңбалау, саны, нысан, мерзімі",
-    en: "Product, type, quantity, site, timing",
+    ru: "",
+    kk: "",
+    en: "",
   },
   "lead.file": {
-    ru: "Прикрепить ТЗ или чертёж",
+    ru: "Прикрепить файл",
     kk: "ТТ немесе сызбаны тіркеу",
     en: "Attach specs or a drawing",
   },
@@ -211,7 +216,7 @@ const T: Dict = {
   },
   "lead.file.remove": { ru: "Убрать файл", kk: "Файлды алып тастау", en: "Remove file" },
   "lead.optional": { ru: "необязательно", kk: "міндетті емес", en: "optional" },
-  "lead.send": { ru: "Отправить заявку", kk: "Өтінімді жіберу", en: "Send request" },
+  "lead.send": { ru: "Отправить", kk: "Жіберу", en: "Send" },
   "lead.sending": { ru: "Отправляем…", kk: "Жіберілуде…", en: "Sending…" },
   /*
    * Согласие по пункту 4 статьи 8 Закона РК «О персональных данных и их
@@ -219,9 +224,9 @@ const T: Dict = {
    * трансграничная передача, срок. Подробности — в политике по ссылке.
    */
   "lead.consent": {
-    ru: "Даю согласие {op} (БИН {bin}) на сбор и обработку данных из этой формы — имени, телефона или e-mail, названия компании, текста заявки и файла — для ответа на заявку, в том числе на их трансграничную передачу в США через сервисы Vercel и Resend. Согласие действует до достижения этой цели или до его отзыва. Подробно — в",
-    kk: "{op}-ке (БСН {bin}) осы формадағы деректерді — атын, телефонын немесе e-mail-ін, компания атауын, өтінім мәтінін және файлды — өтінімге жауап беру үшін жинауға және өңдеуге, соның ішінде оларды Vercel және Resend сервистері арқылы АҚШ-қа трансшекаралық беруге келісім беремін. Келісім осы мақсатқа жеткенге дейін немесе қайтарып алынғанға дейін әрекет етеді. Толығырақ —",
-    en: "I consent to {op} (BIN {bin}) collecting and processing the data in this form — name, phone or e-mail, company, request text and file — to answer my request, including their cross-border transfer to the USA via the Vercel and Resend services. The consent is valid until this purpose is achieved or until I withdraw it. Details are in the",
+    ru: "Даю согласие {op} (БИН {bin}) на сбор и обработку данных из этой формы — имени или организации, должности, телефона или e-mail, текста сообщения и файла — для ответа на заявку, в том числе на их трансграничную передачу в США через сервисы Vercel и Resend. Согласие действует до достижения этой цели или до его отзыва. Подробно — в",
+    kk: "{op}-ке (БСН {bin}) осы формадағы деректерді — атын немесе ұйымын, лауазымын, телефонын немесе e-mail-ін, хабарлама мәтінін және файлды — өтінімге жауап беру үшін жинауға және өңдеуге, соның ішінде оларды Vercel және Resend сервистері арқылы АҚШ-қа трансшекаралық беруге келісім беремін. Келісім осы мақсатқа жеткенге дейін немесе қайтарып алынғанға дейін әрекет етеді. Толығырақ —",
+    en: "I consent to {op} (BIN {bin}) collecting and processing the data in this form — name or organisation, position, phone or e-mail, message text and file — to answer my request, including their cross-border transfer to the USA via the Vercel and Resend services. The consent is valid until this purpose is achieved or until I withdraw it. Details are in the",
   },
   "lead.consent.link": {
     ru: "Политике обработки персональных данных",
@@ -240,7 +245,7 @@ const T: Dict = {
   },
   "lead.err.name": { ru: "Укажите имя", kk: "Атыңызды жазыңыз", en: "Enter your name" },
   "lead.err.contact": {
-    ru: "Нужен телефон или e-mail, чтобы ответить",
+    ru: "Укажите телефон или e-mail",
     kk: "Жауап беру үшін телефон немесе e-mail қажет",
     en: "We need a phone or e-mail to reply",
   },
@@ -260,14 +265,14 @@ const T: Dict = {
     en: "Too many requests. Try again in a few minutes or call us.",
   },
   "lead.done.title": {
-    ru: "Заявка отправлена",
+    ru: "Сообщение отправлено",
     kk: "Өтінім жіберілді",
     en: "Request sent",
   },
   "lead.done.text": {
-    ru: "Отдел продаж свяжется с вами по указанному контакту.",
-    kk: "Сату бөлімі көрсетілген байланыс арқылы хабарласады.",
-    en: "The sales team will contact you shortly.",
+    ru: "",
+    kk: "",
+    en: "",
   },
   "lead.fallback.title": {
     ru: "Отправьте заявку напрямую",
@@ -285,9 +290,10 @@ const T: Dict = {
   "lead.direct": { ru: "Или напрямую", kk: "Немесе тікелей", en: "Or directly" },
 
   "hero.h1": {
-    ru: "Опоры освещения, мачты и металлоконструкции — от завода в Караганде",
-    kk: "Жарық тіректері, мачталар және металл конструкциялар — Қарағандыдағы зауыттан",
-    en: "Lighting poles, masts and steel structures — made at our plant in Karaganda",
+    // дословно со страницы «О нас» оригинала
+    ru: "Завод производитель опор освещения, мачт и металлоконструкций различного назначения",
+    kk: "Жарық тіректерін, мачталарды және әртүрлі мақсаттағы металл конструкцияларды өндіруші зауыт",
+    en: "Manufacturer of lighting poles, masts and steel structures for various purposes",
   },
   "hero.quick": { ru: "Быстрый вход", kk: "Жылдам кіру", en: "Quick access" },
 
@@ -393,35 +399,24 @@ const T: Dict = {
     en: "Foundation parts, poles, brackets and luminaires are sections of one catalogue.",
   },
   "home.final": {
-    ru: "Расчёт под ваш объект",
-    kk: "Нысаныңызға есеп",
-    en: "A quote for your site",
+    ru: "Остались вопросы?",
+    kk: "Сұрақтарыңыз қалды ма?",
+    en: "Any questions left?",
   },
   "home.final.lead": {
-    ru: "Пришлите спецификацию, чертёж или просто список изделий — отдел продаж ответит расчётом.",
-    kk: "Спецификацияны, сызбаны немесе өнімдер тізімін жіберіңіз — сату бөлімі есеппен жауап береді.",
-    en: "Send a specification, a drawing or just a list of products — the sales team will reply with a quote.",
+    ru: "",
+    kk: "",
+    en: "",
   },
 
-  "home.manifest": { ru: "Почему ELTO", kk: "Неліктен ELTO", en: "Why ELTO" },
-  "spec.title": {
-    ru: "Опоры освещения гранёные конические фланцевые",
-    kk: "Қырлы конустық фланецті жарық тіректері",
-    en: "Faceted conical flanged lighting poles",
-  },
-  "spec.sizes": { ru: "типоразмеров", kk: "типөлшем", en: "sizes" },
-  "spec.mark": { ru: "Обозначение", kk: "Белгіленуі", en: "Designation" },
-  "spec.height": { ru: "Высота H", kk: "Биіктігі H", en: "Height H" },
-  "spec.mass": { ru: "Масса", kk: "Салмағы", en: "Mass" },
-  "spec.open": {
-    ru: "Все характеристики",
-    kk: "Барлық сипаттамалар",
-    en: "All specifications",
-  },
-  "fig.since": { ru: "год основания", kk: "құрылған жылы", en: "founded" },
-  "fig.sections": { ru: "разделов каталога", kk: "каталог бөлімі", en: "catalogue sections" },
-  "fig.items": { ru: "изделий в каталоге", kk: "каталогтағы бұйым", en: "products in the catalogue" },
-  "seal.more": { ru: "Смотреть каталог", kk: "Каталогты қарау", en: "Browse the catalogue" },
+  "spec.mark": { ru: "Обозначение опоры", kk: "Тірек белгісі", en: "Pole designation" },
+  "spec.height": { ru: "Н, мм", kk: "Н, мм", en: "H, mm" },
+  "spec.mass": { ru: "Масса, кг", kk: "Салмағы, кг", en: "Mass, kg" },
+
+  "pick.dia": { ru: "Dн/ Dв, мм", kk: "Dс/ Dі, мм", en: "Dout/ Din, mm" },
+  "pick.flange": { ru: "А × В, d", kk: "А × В, d", en: "A × B, d" },
+  "pick.anchor": { ru: "Тип фундамента: анкерный", kk: "Іргетас түрі: анкерлі", en: "Foundation: anchor" },
+  "pick.pipe": { ru: "Тип фундамента: трубный", kk: "Іргетас түрі: құбырлы", en: "Foundation: pipe" },
 
   "a11y.langs": { ru: "Выбор языка", kk: "Тілді таңдау", en: "Language" },
   "a11y.mainnav": {
@@ -429,6 +424,103 @@ const T: Dict = {
     kk: "Негізгі навигация",
     en: "Main navigation",
   },
+  /* ── бренд, адрес, документы ─────────────────────────────── */
+  "brand.name": { ru: "Энергосистемы ЭЛТО", kk: "Энергосистемы ЭЛТО", en: "ELTO Energy Systems" },
+  "brand.legal": { ru: "ТОО «Энергосистемы ЭЛТО»", kk: "«Энергосистемы ЭЛТО» ЖШС", en: "ELTO Energy Systems LLP" },
+  "brand.legalFull": {
+    ru: "Товарищество с ограниченной ответственностью «Энергосистемы ЭЛТО»",
+    kk: "«Энергосистемы ЭЛТО» жауапкершілігі шектеулі серіктестігі",
+    en: "ELTO Energy Systems Limited Liability Partnership",
+  },
+  "brand.claim": {
+    ru: "ТОО «Энергосистемы ЭЛТО» — завод-производитель опор освещения, мачт и металлоконструкций различного назначения.",
+    kk: "«Энергосистемы ЭЛТО» ЖШС — әр түрлі мақсаттағы жарықтандыру тіректерін, мачталар мен металл конструкцияларды шығаратын зауыт.",
+    en: "ELTO Energy Systems LLP manufactures lighting poles, masts and steel structures for various purposes.",
+  },
+  "address.1": {
+    ru: "г. Караганда, район Алихана Букейханова,",
+    kk: "Қарағанды қ., Әлихан Бөкейхан ауданы,",
+    en: "Karaganda, Alikhan Bokeikhan district,",
+  },
+  "address.2": {
+    ru: "учетный квартал 018, строение 20",
+    kk: "018 есептік квартал, 20 құрылыс",
+    en: "registration block 018, building 20",
+  },
+  "address.full": {
+    ru: "Республика Казахстан, Карагандинская область, г. Караганда, район Әлихан Бөкейхан, учётный квартал 018, строение 20",
+    kk: "Қазақстан Республикасы, Қарағанды облысы, Қарағанды қ., Әлихан Бөкейхан ауданы, 018 есептік квартал, 20 құрылыс",
+    en: "Republic of Kazakhstan, Karaganda Region, Karaganda, Alikhan Bokeikhan district, registration block 018, building 20",
+  },
+  "doc.poles": { ru: "Каталог опор освещения", kk: "Жарықтандыру тіректерінің каталогы", en: "Lighting poles catalogue" },
+  "doc.lep": { ru: "Каталог опор ЛЭП", kk: "ЭБЖ тіректерінің каталогы", en: "Power line towers catalogue" },
+  "about.founded": { ru: "Год основания", kk: "Құрылған жылы", en: "Founded" },
+  "contacts.phones": { ru: "Наши контактные телефоны", kk: "Біздің байланыс телефондарымыз", en: "Our phone numbers" },
+  "map.2gis": { ru: "2ГИС", kk: "2ГИС", en: "2GIS" },
+  "a11y.crumbs": { ru: "Хлебные крошки", kk: "Навигация тізбегі", en: "Breadcrumbs" },
+  "file.mb": { ru: "МБ", kk: "МБ", en: "MB" },
+  "spec.hShort": { ru: "Н", kk: "Н", en: "H" },
+
+  /* ── главная: блоки с формулировками оригинала ───────────── */
+  "home.advantage": { ru: "Преимущество", kk: "Артықшылығымыз", en: "Advantages" },
+  "home.services": { ru: "Услуги", kk: "Қызметтер", en: "Services" },
+  "stage.cut": { ru: "Плазменная резка металла", kk: "Металды плазмалық кесу", en: "Plasma metal cutting" },
+  "stage.bend": { ru: "Гибка металла", kk: "Металды иілу", en: "Metal bending" },
+  "stage.assembly": { ru: "Сборка секций", kk: "Секцияларды құрастыру", en: "Section assembly" },
+  "stage.assembly.text": {
+    ru: "Сборка секций осуществляется посадкой одной секции в другую методом «конус в конус» на расстоянии порядка 1м. Стяжка секций производится со значительным возрастающим усилием, порядка 1,5 -2 тонн, что обеспечивает надёжное и неразборное соединение за счёт заклинивания граней смежных секций между собой, без необходимости сварных работ.",
+    kk: "Секциялар бір секцияны екіншісіне шамамен 1 м қашықтықта «конусқа конус» әдісімен кигізу арқылы құрастырылады. Секцияларды тарту шамамен 1,5-2 тонна айтарлықтай өсетін күшпен жүргізіледі, бұл дәнекерлеу жұмыстарынсыз іргелес секциялардың қырларының бір-біріне сыналануы есебінен сенімді әрі ажыратылмайтын қосылысты қамтамасыз етеді.",
+    en: "The sections are joined by sliding one into another, cone into cone, over about 1 m. They are pulled together with a large and increasing force of about 1.5-2 tonnes, which gives a reliable permanent joint, as the faces of adjacent sections wedge against each other, with no welding needed.",
+  },
+  "stage.zinc": { ru: "Услуги горячего цинкования", kk: "Ыстық мырыштау қызметтері", en: "Hot-dip galvanizing services" },
+  "stage.weld": { ru: "Сборка и сварка", kk: "Құрастыру және дәнекерлеу", en: "Assembly and welding" },
+  "stage.galv": { ru: "Горячее цинкование", kk: "Ыстық мырыштау", en: "Hot-dip galvanizing" },
+  "why.1": {
+    ru: "Работа с нами - работа с *производителем,* без *посредников.*",
+    kk: "Бізбен жұмыс — делдалсыз, тікелей *өндірушімен* *жұмыс.*",
+    en: "Working with us means working with the *manufacturer,* with no *middlemen.*",
+  },
+  "why.2": { ru: "Мы работаем от завода изготовителя.", kk: "Біз өндіруші зауыттан жұмыс істейміз.", en: "We work directly from the manufacturing plant." },
+  "why.3": { ru: "У нас современное оборудование.", kk: "Бізде заманауи жабдық бар.", en: "We have modern equipment." },
+  "why.4": {
+    ru: "Мониторинг качества продукции на всех этапах производства.",
+    kk: "Өндірістің барлық кезеңінде өнім сапасы бақыланады.",
+    en: "Product quality is monitored at every stage of production.",
+  },
+  "why.5": { ru: "Гарантия и контроль качества.", kk: "Кепілдік және сапа бақылауы.", en: "Warranty and quality control." },
+  "why.6": { ru: "Доступные цены.", kk: "Қолжетімді бағалар.", en: "Affordable prices." },
+  "why.7": {
+    ru: "Ваши заказы оформляются и доставляются *вовремя!*",
+    kk: "Тапсырыстарыңыз *уақытында* рәсімделіп, жеткізіледі!",
+    en: "Your orders are processed and delivered *on time!*",
+  },
+  "why.8": {
+    ru: "Индивидуальный подход и внимательное отношение к каждому заказчику.",
+    kk: "Әр тапсырыс берушіге жеке көзқарас пен ықыласты қарым-қатынас.",
+    en: "An individual approach and close attention to every customer.",
+  },
+  "why.9": {
+    ru: "Доставка в любой регион РК, России и СНГ быстро и в *срок.*",
+    kk: "ҚР, Ресей және ТМД-ның кез келген өңіріне жылдам әрі *мерзімінде* жеткізу.",
+    en: "Fast delivery to any region of Kazakhstan, Russia and the CIS, *on schedule.*",
+  },
+  "geo.title": {
+    ru: "Установлены во всех областных центрах *и крупных городах*",
+    kk: "Барлық облыс орталықтарында *және ірі қалаларда* орнатылған",
+    en: "Installed in every regional centre *and major city*",
+  },
+  "geo.lead": {
+    ru: "Оборудованием укомплектованы тысячи энергетических объектов не только в Казахстане, но и странах СНГ.",
+    kk: "Біздің жабдықпен Қазақстанда ғана емес, ТМД елдерінде де мыңдаған энергетикалық нысандар жарақтандырылған.",
+    en: "Thousands of energy facilities, not only in Kazakhstan but across the CIS, are fitted with our equipment.",
+  },
+  "geo.since": { ru: "Завод работает с 2014 года.", kk: "Зауыт 2014 жылдан бері жұмыс істейді.", en: "The plant has been operating since 2014." },
+  "phone.prod.title": { ru: "От листа до цинка", kk: "Табақтан мырышқа дейін", en: "From sheet to zinc" },
+  "phone.prod.sub": { ru: "Собственное производство в Караганде.", kk: "Қарағандыдағы өз өндірісіміз.", en: "Our own production in Karaganda." },
+  "phone.why": { ru: "Работа с производителем, без посредников", kk: "Делдалсыз, тікелей өндірушімен жұмыс", en: "Work with the manufacturer, no middlemen" },
+  "alt.stadium": { ru: "Освещение стадиона на опорах ELTO", kk: "ELTO тіректеріндегі стадион жарығы", en: "Stadium lighting on ELTO poles" },
+  "alt.zincShop": { ru: "Цех горячего цинкования ELTO", kk: "ELTO ыстық мырыштау цехы", en: "ELTO hot-dip galvanizing shop" },
+  "caption.zincShop": { ru: "Цех горячего цинкования, Караганда", kk: "Ыстық мырыштау цехы, Қарағанды", en: "Hot-dip galvanizing shop, Karaganda" },
 };
 
 export function t(key: string, lang: Lang): string {

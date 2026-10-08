@@ -21,7 +21,7 @@ import TaskPicker from "@/components/ui/TaskPicker";
 import { pages, products, site, topCategories } from "@/lib/data";
 import { categoryPath, productPath, toRoute } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
-import { ADDRESS_LINES, EMAIL, PHONE, PHONE_HREF, whatsappHref } from "@/lib/contacts";
+import { EMAIL, PHONE, PHONE_HREF, whatsappHref } from "@/lib/contacts";
 import { useLead } from "@/components/lead/LeadProvider";
 import {
   PHONE_HERO_ALT,
@@ -48,10 +48,10 @@ const INDEX_SHOWN = 8;
 
 /** Этапы производства — фото завода и страницы услуг оригинала. */
 const STEPS = [
-  { title: "Плазменная резка металла", photo: "rezka_katochka.jpg", slug: "plazmennaya-rezka-metalla" },
-  { title: "Гибка металла", photo: "gibka_katochka.jpg", slug: "gibka-metalla" },
-  { title: "Сборка и сварка", photo: "1_11.jpg" },
-  { title: "Горячее цинкование", photo: "img_20250818_160758.jpg", slug: "uslugi-goryachego-cinkovaniya" },
+  { title: "stage.cut", photo: "rezka_katochka.jpg", slug: "plazmennaya-rezka-metalla" },
+  { title: "stage.bend", photo: "gibka_katochka.jpg", slug: "gibka-metalla" },
+  { title: "stage.weld", photo: "1_11.jpg" },
+  { title: "stage.galv", photo: "img_20250818_160758.jpg", slug: "uslugi-goryachego-cinkovaniya" },
 ];
 
 /** Порядок — как в блоке «Преимущество» на главной оригинала. */
@@ -96,9 +96,9 @@ export function PhoneHero({ lang }: { lang: Lang }) {
         <picture>
           <source type="image/avif" srcSet={PHONE_HERO_AVIF} sizes="100vw" />
           <source type="image/webp" srcSet={PHONE_HERO_WEBP} sizes="100vw" />
-          <img src={PHONE_HERO_SRC} alt={PHONE_HERO_ALT} width={1080} height={1350} fetchPriority="high" />
+          <img src={PHONE_HERO_SRC} alt={t(PHONE_HERO_ALT, lang)} width={1080} height={1350} fetchPriority="high" />
         </picture>
-        <figcaption>{PHONE_HERO_CAPTION}</figcaption>
+        <figcaption>{t(PHONE_HERO_CAPTION, lang)}</figcaption>
       </figure>
     </section>
   );
@@ -218,8 +218,8 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
 
       {/* ── производство: этапы по порядку ── */}
       <section className="ph-sec" data-ground="paper">
-        <h2 className="ph-h2">От листа до цинка</h2>
-        <p className="ph-sub">Собственное производство в Караганде.</p>
+        <h2 className="ph-h2">{t("phone.prod.title", lang)}</h2>
+        <p className="ph-sub">{t("phone.prod.sub", lang)}</p>
         <ol className="ph-steps">
           {STEPS.map((s, i) => {
             const body = (
@@ -229,7 +229,7 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
                 </span>
                 <span className="ph-step__t">
                   <span className="ph-step__no">{i + 1}</span>
-                  {s.title}
+                  {t(s.title, lang)}
                 </span>
               </>
             );
@@ -251,13 +251,12 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
       {/* ── где стоят изделия ── */}
       <section className="ph-sec ph-sec--white" data-ground="paper">
         {/* обе фразы — дословно из публикации о компании на elto.kz */}
-        <h2 className="ph-h2">Установлены во всех областных центрах и крупных городах</h2>
+        <h2 className="ph-h2">{t("geo.title", lang).replace(/\*/g, "")}</h2>
         <p className="ph-sub">
-          Оборудованием укомплектованы тысячи энергетических объектов не только в
-          Казахстане, но и странах СНГ. Завод работает с 2014 года.
+          {t("geo.lead", lang)} {t("geo.since", lang)}
         </p>
         <figure className="ph-wide">
-          <Img file="whatsapp_image_2024-04-09_at_19.25.24_1.jpg" alt="Освещение стадиона на опорах ELTO" sizes="100vw" fit="cover" />
+          <Img file="whatsapp_image_2024-04-09_at_19.25.24_1.jpg" alt={t("alt.stadium", lang)} sizes="100vw" fit="cover" />
         </figure>
         {partners.length > 0 && (
           <>
@@ -278,7 +277,7 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
 
       {/* ── почему ELTO ── */}
       <section className="ph-sec" data-ground="paper">
-        <h2 className="ph-h2">Работа с производителем, без посредников</h2>
+        <h2 className="ph-h2">{t("phone.why", lang)}</h2>
         <ul className="ph-why">
           {advantages.map((p) => (
             <li key={p!.s}>{pick(p!.t, lang)}</li>
@@ -328,7 +327,7 @@ export default function PhoneHome({ lang }: { lang: Lang }) {
         <p className="ph-contact__meta">
           <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
           <br />
-          {ADDRESS_LINES[0]}, {ADDRESS_LINES[1]}
+          {t("address.1", lang)} {t("address.2", lang)}
         </p>
       </section>
     </div>

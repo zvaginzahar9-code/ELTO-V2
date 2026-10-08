@@ -3,7 +3,9 @@
   {
    "slug": "opory-osveshcheniya-granyonye",
    "title": {
-    "ru": "Опоры освещения гранёные"
+    "ru": "Опоры освещения гранёные",
+    "kk": "Қырлы жарықтандыру тіректері",
+    "en": "Polygonal lighting poles"
    },
    "image": "opora_stvpznak_0.jpg",
    "count": 7,
@@ -21,7 +23,9 @@
   {
    "slug": "elektromontazhnye-izdeliya",
    "title": {
-    "ru": "Электромонтажные изделия"
+    "ru": "Электромонтажные изделия",
+    "kk": "Электр монтаждау бұйымдары",
+    "en": "Electrical installation products"
    },
    "image": "lotok_lm.jpg",
    "count": 80,
@@ -138,7 +142,9 @@
   {
    "slug": "machty-radioreleynye",
    "title": {
-    "ru": "Мачты радиорелейные"
+    "ru": "Мачты радиорелейные",
+    "kk": "Радиорелелік мачталар",
+    "en": "Radio relay masts"
    },
    "image": "2.jpg",
    "count": 4,
@@ -153,7 +159,9 @@
   {
    "slug": "machty-osveshcheniya-pmo-vmo",
    "title": {
-    "ru": "Мачты освещения (ПМО, ВМО)"
+    "ru": "Мачты освещения (ПМО, ВМО)",
+    "kk": "Жарықтандыру мачталары (ПМО, ВМО)",
+    "en": "Lighting masts (PMO, VMO)"
    },
    "image": "stpr.jpg",
    "count": 7,
@@ -171,7 +179,9 @@
   {
    "slug": "opory-trubchatye",
    "title": {
-    "ru": "Опоры трубчатые"
+    "ru": "Опоры трубчатые",
+    "kk": "Құбырлы тіректер",
+    "en": "Tubular poles"
    },
    "image": "opora_trubchataya_nesilovaya_flancevaya_otfotp_znak_0.jpg",
    "count": 3,
@@ -185,7 +195,9 @@
   {
    "slug": "kronshteyny-opor-osveshcheniya",
    "title": {
-    "ru": "Кронштейны опор освещения"
+    "ru": "Кронштейны опор освещения",
+    "kk": "Жарықтандыру тіректерінің кронштейндері",
+    "en": "Lighting pole brackets"
    },
    "image": "dvuh_rozhkovyy_.png",
    "count": 10,
@@ -206,7 +218,9 @@
   {
    "slug": "zakladnye-detali-fundamenta",
    "title": {
-    "ru": "Закладные детали фундамента"
+    "ru": "Закладные детали фундамента",
+    "kk": "Іргетастың ендірме бөлшектері",
+    "en": "Embedded foundation parts"
    },
    "image": "katochka_17.jpg",
    "count": 3,
@@ -220,7 +234,9 @@
   {
    "slug": "opory-dekorativnogo-osveshcheniya",
    "title": {
-    "ru": "Опоры декоративного освещения"
+    "ru": "Опоры декоративного освещения",
+    "kk": "Сәндік жарықтандыру тіректері",
+    "en": "Decorative lighting poles"
    },
    "image": "alatau.jpg",
    "count": 12,
@@ -243,7 +259,9 @@
   {
    "slug": "mnogogrannye-opory-lep",
    "title": {
-    "ru": "Многогранные опоры ЛЭП"
+    "ru": "Многогранные опоры ЛЭП",
+    "kk": "ЭБЖ көпқырлы тіректері",
+    "en": "Polygonal power line towers"
    },
    "image": "katochka_2.jpg",
    "count": 1,
@@ -255,7 +273,9 @@
   {
    "slug": "opora-lep",
    "title": {
-    "ru": "Опора ЛЭП"
+    "ru": "Опора ЛЭП",
+    "kk": "ЭБЖ тірегі",
+    "en": "Power line tower"
    },
    "image": "1u35-2t_2.jpg",
    "count": 103,
@@ -377,7 +397,9 @@
   {
    "slug": "zabory-i-ograzhdeniya",
    "title": {
-    "ru": "Заборы и ограждения"
+    "ru": "Заборы и ограждения",
+    "kk": "Дуалдар мен қоршаулар",
+    "en": "Fences and barriers"
    },
    "image": "11-md.jpg",
    "count": 5,
@@ -393,7 +415,9 @@
   {
    "slug": "svetodiodnye-svetilniki",
    "title": {
-    "ru": "Светодиодные светильники"
+    "ru": "Светодиодные светильники",
+    "kk": "Жарықдиодты шамдар",
+    "en": "LED luminaires"
    },
    "image": "dku-led-01-120w_0.jpg",
    "count": 3,
@@ -407,7 +431,9 @@
   {
    "slug": "flagshtok-ulichnyy",
    "title": {
-    "ru": "Флагшток уличный"
+    "ru": "Флагшток уличный",
+    "kk": "Көшедегі жалауша тірегі",
+    "en": "Outdoor flagpole"
    },
    "image": "flagshtok_of_znak_0.jpg",
    "count": 1,
@@ -419,7 +445,9 @@
   {
    "slug": "molnieotvody-mogk",
    "title": {
-    "ru": "Молниеотводы МОГК"
+    "ru": "Молниеотводы МОГК",
+    "kk": "Найзағайқағарлар МОГК",
+    "en": "Lightning rods MOGK"
    },
    "image": "molnieotvod_mogk_znak.jpg",
    "count": 1,
@@ -431,7 +459,9 @@
   {
    "slug": "svetofornye-opory",
    "title": {
-    "ru": "Светофорные опоры"
+    "ru": "Светофорные опоры",
+    "kk": "Бағдаршам тіректері",
+    "en": "Traffic light poles"
    },
    "image": "opora_portalnogo_tipa_vozdushnaya_zebra_znak_0_0.jpg",
    "count": 2,
@@ -444,7 +474,9 @@
   {
    "slug": "metallokonstrukcii",
    "title": {
-    "ru": "Металлоконструкции"
+    "ru": "Металлоконструкции",
+    "kk": "Металл конструкциялар",
+    "en": "Steel structures"
    },
    "image": "pmz_19.jpg",
    "count": 5,
@@ -462,7 +494,9 @@
   {
    "slug": "uslugi",
    "title": {
-    "ru": "Услуги"
+    "ru": "Услуги",
+    "kk": "Қызметтер",
+    "en": "Services"
    },
    "image": "img_20250818_155550_1.jpg",
    "count": 7,
@@ -482,7 +516,9 @@
   "ankera": {
    "slug": "ankera",
    "title": {
-    "ru": "Анкера"
+    "ru": "Анкера",
+    "kk": "Анкерлер",
+    "en": "Anchors"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -497,7 +533,9 @@
   "ankerno-uglovye-opory-220-kv": {
    "slug": "ankerno-uglovye-opory-220-kv",
    "title": {
-    "ru": "Анкерно-угловые опоры 220 кВ"
+    "ru": "Анкерно-угловые опоры 220 кВ",
+    "kk": "Анкерлік-бұрыштық тіректер 220 кВ",
+    "en": "Anchor-angle towers 220 kV"
    },
    "parent": "opora-lep",
    "children": [],
@@ -510,7 +548,9 @@
   "ankerno-uglovye-vl-110-kv": {
    "slug": "ankerno-uglovye-vl-110-kv",
    "title": {
-    "ru": "Анкерно-угловые ВЛ 110 кВ"
+    "ru": "Анкерно-угловые ВЛ 110 кВ",
+    "kk": "ӘЖ анкерлік-бұрыштық тіректері 110 кВ",
+    "en": "Overhead line anchor-angle towers 110 kV"
    },
    "parent": "opora-lep",
    "children": [],
@@ -549,7 +589,9 @@
   "ankerno-uglovye-vl-35-kv": {
    "slug": "ankerno-uglovye-vl-35-kv",
    "title": {
-    "ru": "Анкерно-угловые ВЛ 35 кВ"
+    "ru": "Анкерно-угловые ВЛ 35 кВ",
+    "kk": "ӘЖ анкерлік-бұрыштық тіректері 35 кВ",
+    "en": "Overhead line anchor-angle towers 35 kV"
    },
    "parent": "opora-lep",
    "children": [],
@@ -587,7 +629,9 @@
   "derzhateli": {
    "slug": "derzhateli",
    "title": {
-    "ru": "Держатели"
+    "ru": "Держатели",
+    "kk": "Ұстағыштар",
+    "en": "Holders"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -602,7 +646,9 @@
   "elektromontazhnye-izdeliya": {
    "slug": "elektromontazhnye-izdeliya",
    "title": {
-    "ru": "Электромонтажные изделия"
+    "ru": "Электромонтажные изделия",
+    "kk": "Электр монтаждау бұйымдары",
+    "en": "Electrical installation products"
    },
    "parent": null,
    "children": [
@@ -720,7 +766,9 @@
   "flagshtok-ulichnyy": {
    "slug": "flagshtok-ulichnyy",
    "title": {
-    "ru": "Флагшток уличный"
+    "ru": "Флагшток уличный",
+    "kk": "Көшедегі жалауша тірегі",
+    "en": "Outdoor flagpole"
    },
    "parent": null,
    "children": [],
@@ -733,7 +781,9 @@
   "flazhki": {
    "slug": "flazhki",
    "title": {
-    "ru": "Флажки"
+    "ru": "Флажки",
+    "kk": "Жалаушалар",
+    "en": "Flags"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -746,7 +796,9 @@
   "homuty": {
    "slug": "homuty",
    "title": {
-    "ru": "Хомуты"
+    "ru": "Хомуты",
+    "kk": "Қамыттар",
+    "en": "Clamps"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -759,7 +811,9 @@
   "koroba": {
    "slug": "koroba",
    "title": {
-    "ru": "Короба"
+    "ru": "Короба",
+    "kk": "Қораптар",
+    "en": "Trunking"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -773,7 +827,9 @@
   "kronshteyny-opor-osveshcheniya": {
    "slug": "kronshteyny-opor-osveshcheniya",
    "title": {
-    "ru": "Кронштейны опор освещения"
+    "ru": "Кронштейны опор освещения",
+    "kk": "Жарықтандыру тіректерінің кронштейндері",
+    "en": "Lighting pole brackets"
    },
    "parent": null,
    "children": [],
@@ -795,7 +851,9 @@
   "kronshteyny": {
    "slug": "kronshteyny",
    "title": {
-    "ru": "Кронштейны"
+    "ru": "Кронштейны",
+    "kk": "Кронштейндер",
+    "en": "Brackets"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -812,7 +870,9 @@
   "kryshki": {
    "slug": "kryshki",
    "title": {
-    "ru": "Крышки"
+    "ru": "Крышки",
+    "kk": "Қақпақтар",
+    "en": "Covers"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -833,7 +893,9 @@
   "lep": {
    "slug": "lep",
    "title": {
-    "ru": "ЛЭП"
+    "ru": "ЛЭП",
+    "kk": "ЛЭП",
+    "en": "LEP"
    },
    "parent": null,
    "children": [],
@@ -844,7 +906,9 @@
   "lotki": {
    "slug": "lotki",
    "title": {
-    "ru": "Лотки"
+    "ru": "Лотки",
+    "kk": "Науалар",
+    "en": "Trays"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -869,7 +933,9 @@
   "machty-osveshcheniya-pmo-vmo": {
    "slug": "machty-osveshcheniya-pmo-vmo",
    "title": {
-    "ru": "Мачты освещения (ПМО, ВМО)"
+    "ru": "Мачты освещения (ПМО, ВМО)",
+    "kk": "Жарықтандыру мачталары (ПМО, ВМО)",
+    "en": "Lighting masts (PMO, VMO)"
    },
    "parent": null,
    "children": [],
@@ -888,7 +954,9 @@
   "machty-pmzh": {
    "slug": "machty-pmzh",
    "title": {
-    "ru": "Мачты ПМЖ"
+    "ru": "Мачты ПМЖ",
+    "kk": "Мачталар ПМЖ",
+    "en": "Masts PMZh"
    },
    "parent": "metallokonstrukcii",
    "children": [],
@@ -903,7 +971,9 @@
   "machty-radioreleynye": {
    "slug": "machty-radioreleynye",
    "title": {
-    "ru": "Мачты радиорелейные"
+    "ru": "Мачты радиорелейные",
+    "kk": "Радиорелелік мачталар",
+    "en": "Radio relay masts"
    },
    "parent": null,
    "children": [],
@@ -919,7 +989,9 @@
   "metallokonstrukcii": {
    "slug": "metallokonstrukcii",
    "title": {
-    "ru": "Металлоконструкции"
+    "ru": "Металлоконструкции",
+    "kk": "Металл конструкциялар",
+    "en": "Steel structures"
    },
    "parent": null,
    "children": [
@@ -938,7 +1010,9 @@
   "mnogogrannye-opory-lep": {
    "slug": "mnogogrannye-opory-lep",
    "title": {
-    "ru": "Многогранные опоры ЛЭП"
+    "ru": "Многогранные опоры ЛЭП",
+    "kk": "ЭБЖ көпқырлы тіректері",
+    "en": "Polygonal power line towers"
    },
    "parent": null,
    "children": [],
@@ -951,7 +1025,9 @@
   "molnieotvody-mogk": {
    "slug": "molnieotvody-mogk",
    "title": {
-    "ru": "Молниеотводы МОГК"
+    "ru": "Молниеотводы МОГК",
+    "kk": "Найзағайқағарлар МОГК",
+    "en": "Lightning rods MOGK"
    },
    "parent": null,
    "children": [],
@@ -964,7 +1040,9 @@
   "mufty": {
    "slug": "mufty",
    "title": {
-    "ru": "Муфты"
+    "ru": "Муфты",
+    "kk": "Муфталар",
+    "en": "Couplings"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -978,7 +1056,9 @@
   "nakladki": {
    "slug": "nakladki",
    "title": {
-    "ru": "Накладки"
+    "ru": "Накладки",
+    "kk": "Жапсырмалар",
+    "en": "Straps"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -991,7 +1071,9 @@
   "opora-lep": {
    "slug": "opora-lep",
    "title": {
-    "ru": "Опора ЛЭП"
+    "ru": "Опора ЛЭП",
+    "kk": "ЭБЖ тірегі",
+    "en": "Power line tower"
    },
    "parent": null,
    "children": [
@@ -1114,7 +1196,9 @@
   "opory-dekorativnogo-osveshcheniya": {
    "slug": "opory-dekorativnogo-osveshcheniya",
    "title": {
-    "ru": "Опоры декоративного освещения"
+    "ru": "Опоры декоративного освещения",
+    "kk": "Сәндік жарықтандыру тіректері",
+    "en": "Decorative lighting poles"
    },
    "parent": null,
    "children": [],
@@ -1138,7 +1222,9 @@
   "opory-osveshcheniya-granyonye": {
    "slug": "opory-osveshcheniya-granyonye",
    "title": {
-    "ru": "Опоры освещения гранёные"
+    "ru": "Опоры освещения гранёные",
+    "kk": "Қырлы жарықтандыру тіректері",
+    "en": "Polygonal lighting poles"
    },
    "parent": null,
    "children": [],
@@ -1157,7 +1243,9 @@
   "opory-trubchatye": {
    "slug": "opory-trubchatye",
    "title": {
-    "ru": "Опоры трубчатые"
+    "ru": "Опоры трубчатые",
+    "kk": "Құбырлы тіректер",
+    "en": "Tubular poles"
    },
    "parent": null,
    "children": [],
@@ -1172,7 +1260,9 @@
   "osnovaniya": {
    "slug": "osnovaniya",
    "title": {
-    "ru": "Основания"
+    "ru": "Основания",
+    "kk": "Негіздер",
+    "en": "Bases"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1186,7 +1276,9 @@
   "perehodnye-opory-vl-110-kv": {
    "slug": "perehodnye-opory-vl-110-kv",
    "title": {
-    "ru": "Переходные опоры ВЛ 110 кВ"
+    "ru": "Переходные опоры ВЛ 110 кВ",
+    "kk": "ӘЖ өтпелі тіректері 110 кВ",
+    "en": "Overhead line transition towers 110 kV"
    },
    "parent": "opora-lep",
    "children": [],
@@ -1199,7 +1291,9 @@
   "perehodnye-opory-vl-35-kv": {
    "slug": "perehodnye-opory-vl-35-kv",
    "title": {
-    "ru": "Переходные опоры ВЛ 35 кв"
+    "ru": "Переходные опоры ВЛ 35 кв",
+    "kk": "ӘЖ 35 кВ өтпелі тіректері",
+    "en": "Transition towers for 35 kV overhead lines"
    },
    "parent": "opora-lep",
    "children": [],
@@ -1217,7 +1311,9 @@
   "peremychki": {
    "slug": "peremychki",
    "title": {
-    "ru": "Перемычки"
+    "ru": "Перемычки",
+    "kk": "Секіртпелер",
+    "en": "Jumpers"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1230,7 +1326,9 @@
   "podveski": {
    "slug": "podveski",
    "title": {
-    "ru": "Подвески"
+    "ru": "Подвески",
+    "kk": "Аспалар",
+    "en": "Hangers"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1245,7 +1343,9 @@
   "polki-kabelnye": {
    "slug": "polki-kabelnye",
    "title": {
-    "ru": "Полки кабельные"
+    "ru": "Полки кабельные",
+    "kk": "Кабель сөрелері",
+    "en": "Cable shelves"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1259,7 +1359,9 @@
   "polosy-zazemleniya": {
    "slug": "polosy-zazemleniya",
    "title": {
-    "ru": "Полосы заземления"
+    "ru": "Полосы заземления",
+    "kk": "Жерге тұйықтау жолақтары",
+    "en": "Earthing strips"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1273,7 +1375,9 @@
   "prizhimy": {
    "slug": "prizhimy",
    "title": {
-    "ru": "Прижимы"
+    "ru": "Прижимы",
+    "kk": "Қысқыштар",
+    "en": "Clamps"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1286,7 +1390,9 @@
   "profilya": {
    "slug": "profilya",
    "title": {
-    "ru": "Профиля"
+    "ru": "Профиля",
+    "kk": "Профильдер",
+    "en": "Profiles"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1300,7 +1406,9 @@
   "promezhutochnye-opory-110-kv": {
    "slug": "promezhutochnye-opory-110-kv",
    "title": {
-    "ru": "Промежуточные опоры 110 кВ"
+    "ru": "Промежуточные опоры 110 кВ",
+    "kk": "Аралық тіректер 110 кВ",
+    "en": "Intermediate towers 110 kV"
    },
    "parent": "opora-lep",
    "children": [],
@@ -1313,7 +1421,9 @@
   "promezhutochnye-opory-vl-35-kv": {
    "slug": "promezhutochnye-opory-vl-35-kv",
    "title": {
-    "ru": "Промежуточные опоры ВЛ 35 КВ"
+    "ru": "Промежуточные опоры ВЛ 35 КВ",
+    "kk": "ӘЖ аралық тіректері 35 КВ",
+    "en": "Overhead line intermediate towers 35 KV"
    },
    "parent": "opora-lep",
    "children": [],
@@ -1366,7 +1476,9 @@
   "road-fences": {
    "slug": "road-fences",
    "title": {
-    "ru": "Road fences"
+    "ru": "Road fences",
+    "kk": "Road fences",
+    "en": "Road fences"
    },
    "parent": null,
    "children": [],
@@ -1377,7 +1489,9 @@
   "shinoderzhateli": {
    "slug": "shinoderzhateli",
    "title": {
-    "ru": "Шинодержатели"
+    "ru": "Шинодержатели",
+    "kk": "Шина ұстағыштар",
+    "en": "Busbar holders"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1391,7 +1505,9 @@
   "shvellera": {
    "slug": "shvellera",
    "title": {
-    "ru": "Швеллера"
+    "ru": "Швеллера",
+    "kk": "Швеллерлер",
+    "en": "Channels"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1404,7 +1520,9 @@
   "skoby": {
    "slug": "skoby",
    "title": {
-    "ru": "Скобы"
+    "ru": "Скобы",
+    "kk": "Қапсырмалар",
+    "en": "Clips"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1421,7 +1539,9 @@
   "soediniteli": {
    "slug": "soediniteli",
    "title": {
-    "ru": "Соединители"
+    "ru": "Соединители",
+    "kk": "Қосқыштар",
+    "en": "Connectors"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1437,7 +1557,9 @@
   "stoyki-kabelnye": {
    "slug": "stoyki-kabelnye",
    "title": {
-    "ru": "Стойки кабельные"
+    "ru": "Стойки кабельные",
+    "kk": "Кабель тіреулері",
+    "en": "Cable posts"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1453,7 +1575,9 @@
   "svetodiodnye-svetilniki": {
    "slug": "svetodiodnye-svetilniki",
    "title": {
-    "ru": "Светодиодные светильники"
+    "ru": "Светодиодные светильники",
+    "kk": "Жарықдиодты шамдар",
+    "en": "LED luminaires"
    },
    "parent": null,
    "children": [],
@@ -1468,7 +1592,9 @@
   "svetofornye-opory": {
    "slug": "svetofornye-opory",
    "title": {
-    "ru": "Светофорные опоры"
+    "ru": "Светофорные опоры",
+    "kk": "Бағдаршам тіректері",
+    "en": "Traffic light poles"
    },
    "parent": null,
    "children": [],
@@ -1482,7 +1608,9 @@
   "ugolki": {
    "slug": "ugolki",
    "title": {
-    "ru": "Уголки"
+    "ru": "Уголки",
+    "kk": "Бұрыштамалар",
+    "en": "Angles"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1495,7 +1623,9 @@
   "uslugi": {
    "slug": "uslugi",
    "title": {
-    "ru": "Услуги"
+    "ru": "Услуги",
+    "kk": "Қызметтер",
+    "en": "Services"
    },
    "parent": null,
    "children": [],
@@ -1514,7 +1644,9 @@
   "zabory-i-ograzhdeniya": {
    "slug": "zabory-i-ograzhdeniya",
    "title": {
-    "ru": "Заборы и ограждения"
+    "ru": "Заборы и ограждения",
+    "kk": "Дуалдар мен қоршаулар",
+    "en": "Fences and barriers"
    },
    "parent": null,
    "children": [],
@@ -1531,7 +1663,9 @@
   "zaglushki-torcevye": {
    "slug": "zaglushki-torcevye",
    "title": {
-    "ru": "Заглушки торцевые"
+    "ru": "Заглушки торцевые",
+    "kk": "Шеткі бітеуіштер",
+    "en": "End caps"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],
@@ -1545,7 +1679,9 @@
   "zakladnye-detali-fundamenta": {
    "slug": "zakladnye-detali-fundamenta",
    "title": {
-    "ru": "Закладные детали фундамента"
+    "ru": "Закладные детали фундамента",
+    "kk": "Іргетастың ендірме бөлшектері",
+    "en": "Embedded foundation parts"
    },
    "parent": null,
    "children": [],
@@ -1560,7 +1696,9 @@
   "zazhimy": {
    "slug": "zazhimy",
    "title": {
-    "ru": "Зажимы"
+    "ru": "Зажимы",
+    "kk": "Қысқыштар",
+    "en": "Clamps"
    },
    "parent": "elektromontazhnye-izdeliya",
    "children": [],

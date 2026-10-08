@@ -1,30 +1,31 @@
 /**
- * СЦЕНА 06 — ГЕОГРАФИЯ И ПАРТНЁРЫ
+ * СЦЕНА 08 — ДОВЕРИЕ
  *
- * Камера снижается из стратосферы к городу, чьи улицы стали схемой света:
- * узлы схемы оказываются рядами фонарей. Это и есть утверждение сцены —
- * изделия ELTO стоят в областных центрах по всей стране. Затем грунт
- * меняется: светлая полоса с логотипами партнёров.
+ * Поток отступает вдаль и ложится на горизонт, а камера снижается из
+ * леса светящихся колонн к городу, чьи улицы стали схемой света: узлы
+ * схемы оказываются рядами фонарей. Утверждение сцены — дословно из
+ * публикации о компании на elto.kz: изделия ELTO стоят во всех областных
+ * центрах.
  *
- * Полоса светлая не ради контраста: логотипы партнёров нарисованы под белый
- * фон, и на графите половина из них просто исчезает.
- *
- * Названия и логотипы — со страницы «Партнеры» оригинала, в её порядке.
+ * Ниже — партнёры со страницы «Партнеры» оригинала, в её порядке, одной
+ * бегущей лентой. Логотипы нарисованы под белый фон, поэтому каждый
+ * стоит на своей светлой плашке; лента останавливается под курсором и
+ * при фокусе, а без анимации становится обычной сеткой.
  */
 
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import Reveal from "@/components/motion/Reveal";
 import ScrollSequence, { type SequenceHandle } from "@/components/motion/ScrollSequence";
+import Img from "@/components/ui/Img";
+import Pill from "@/components/ui/Pill";
+import Title from "@/components/motion/Title";
 import { MEDIA, hasShot } from "@/motion/media";
 import { registerScene, span, lerp } from "@/motion/scene";
 import { reducedMotion } from "@/motion/clock";
-import Img from "@/components/ui/Img";
+import { useFlowStop } from "@/motion/use-flow";
+import { horizonFlow } from "./flow-shapes";
 import { imgSrc } from "@/lib/image-url";
 import views from "@/data/views.json";
 import { t, type Lang } from "@/lib/i18n";
-import { useArcStop } from "@/motion/use-arc";
-import { horizonArc, quietArc } from "./arc-shapes";
 
 const FALLBACK = imgSrc("uepdhfvotuc.jpg", 1600);
 
@@ -35,27 +36,19 @@ export default function Geography({ lang }: { lang: Lang }) {
   const root = useRef<HTMLElement>(null);
   const seq = useRef<SequenceHandle>(null);
   const rise = useRef<SequenceHandle>(null);
-  const strip = useRef<HTMLElement>(null);
-  useArcStop(root, horizonArc);
-  useArcStop(strip, quietArc);
+  useFlowStop(root, horizonFlow);
 
   const partners = (
     table[lang]?.partners?.length ? table[lang].partners : table.ru.partners || []
   ).filter((p) => p.image);
 
-  /*
-   * Две половины одной сцены. Сначала камера поднимается из леса светящихся
-   * колонн над туманом, и сверху колонны складываются в сетку огней; потом
-   * сетка перетекает в город, к которому камера снижается. Текст приходит,
-   * когда город уже виден.
-   */
   useEffect(() => {
     const el = root.current;
     if (!el || reducedMotion()) return;
     const risePlate = el.querySelector<HTMLElement>(".geo__plate--rise");
     const cityPlate = el.querySelector<HTMLElement>(".geo__plate--city");
-    const copy = el.querySelector<HTMLElement>(".geo__inner");
-    const scrim = el.querySelector<HTMLElement>(".geo__scrim");
+    const copy = el.querySelector<HTMLElement>(".geo__copy");
+    const stage = el.querySelector<HTMLElement>(".geo__stage");
 
     return registerScene(el, {
       mode: "cover",
@@ -66,9 +59,16 @@ export default function Geography({ lang }: { lang: Lang }) {
         if (risePlate) risePlate.style.opacity = (1 - swap).toFixed(3);
         if (cityPlate) {
           cityPlate.style.opacity = swap.toFixed(3);
-          cityPlate.style.transform = `scale(${lerp(1.12, 1, span(p, 0.4, 0.8)).toFixed(4)})`;
+          cityPlate.style.transform = `scale(${lerp(1.14, 1, span(p, 0.4, 0.85)).toFixed(4)})`;
         }
-        if (scrim) scrim.style.opacity = span(p, 0.5, 0.66).toFixed(3);
+        // кадр входит узким окном и раскрывается, но остаётся окном в белой
+        // странице: тёмный снимок города не должен заливать экран целиком
+        if (stage) {
+          const open = span(p, 0, 0.16);
+          const v = 8 - open * 3;
+          const h = 11 - open * 7;
+          stage.style.clipPath = `inset(${v.toFixed(2)}vh ${h.toFixed(2)}vw round 28px)`;
+        }
         if (copy) {
           const v = span(p, 0.55, 0.68);
           copy.style.opacity = v.toFixed(3);
@@ -79,10 +79,11 @@ export default function Geography({ lang }: { lang: Lang }) {
   }, []);
 
   const ready = hasShot("gorod");
+  const strip = partners.slice(0, 16);
 
   return (
     <>
-      <section id="geography" ref={root} className="scene geo" data-ground="dark">
+      <section id="geography" ref={root} className="scene geo" data-ground="paper">
         <div className="geo__stage">
           {hasShot("vzlet") && (
             <div className="geo__plate geo__plate--rise gpu">
@@ -116,39 +117,29 @@ export default function Geography({ lang }: { lang: Lang }) {
           </div>
           <div className="geo__scrim" aria-hidden="true" />
 
-          <div className="shell geo__inner">
-            <span className="index">{t("home.partners", lang)}</span>
-            {/* обе фразы — дословно из публикации о компании на elto.kz */}
-            <Reveal as="h2" className="geo__title display" kind="lines">
-              Установлены во всех областных центрах
-              <br />и крупных городах
-            </Reveal>
-            <Reveal as="p" className="lead geo__lead" delay={120}>
-              Оборудованием укомплектованы тысячи энергетических объектов не только в
-              Казахстане, но и странах СНГ.
-            </Reveal>
+          <div className="shell geo__copy">
+            <h2 className="geo__title">
+              {t("geo.title", lang)
+                .split(/\*(.+?)\*/)
+                .map((part, i) => (i % 2 ? <em key={i}>{part}</em> : part))}
+            </h2>
+            <p className="geo__lead">{t("geo.lead", lang)}</p>
           </div>
         </div>
       </section>
 
-      <section ref={strip} className="partners ground-paper" data-ground="paper">
-        <div className="shell partners__inner">
-          <div className="partners__head">
-            <h2 className="label partners__h">{t("home.partners", lang)}</h2>
-            <Link className="btn" to={`/${lang}/partners`}>
-              {t("common.all", lang)}
-            </Link>
-          </div>
-          <ul className="partners__grid">
-            {partners.slice(0, 14).map((p) => (
-              <li className="partners__item" key={p.slug}>
-                <Img
-                  file={p.image}
-                  alt={p.title}
-                  sizes="(max-width: 860px) 40vw, 14vw"
-                  fit="contain"
-                />
-                <span className="label partners__name">{p.title}</span>
+      <section className="partners" data-ground="paper">
+        <div className="shell partners__head">
+          <Title className="partners__title" text={`${t("home.partners", lang)}`} />
+          <Pill tone="glass" to={`/${lang}/partners`}>
+            {t("common.more", lang)}
+          </Pill>
+        </div>
+        <div className="partners__belt" tabIndex={-1}>
+          <ul className="partners__run">
+            {[...strip, ...strip].map((p, i) => (
+              <li className="partners__item" key={p.slug + i} aria-hidden={i >= strip.length || undefined}>
+                <Img file={p.image} alt={i < strip.length ? p.title : ""} sizes="180px" fit="contain" />
               </li>
             ))}
           </ul>

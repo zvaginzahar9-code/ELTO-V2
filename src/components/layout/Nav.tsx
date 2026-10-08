@@ -13,13 +13,16 @@
  * Подписи пунктов взяты с оригинала на соответствующем языке.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { animate, stagger } from "animejs";
 import { LANGS, LANG_LABEL, t, type Lang } from "@/lib/i18n";
-import { site } from "@/lib/data";
+import { site, topCategories } from "@/lib/data";
+import { categoryPath } from "@/lib/routes";
+import Img from "@/components/ui/Img";
 import { toRoute } from "@/lib/routes";
-import { EMAIL, PHONE, PHONE_HREF, whatsappHref } from "@/lib/contacts";
+import { CATALOG_DOCS, EMAIL, PHONE, PHONE_HREF, whatsappHref } from "@/lib/contacts";
+import { pick } from "@/lib/i18n";
 import { lockScroll, reducedMotion } from "@/motion/clock";
 import Logo from "@/components/ui/Logo";
 import { useLead } from "@/components/lead/LeadProvider";
@@ -34,6 +37,10 @@ export default function Nav({ lang }: { lang: Lang }) {
   const [hidden, setHidden] = useState(false);
   const [solid, setSolid] = useState(false);
   const [onPaper, setOnPaper] = useState(false);
+  const [mega, setMega] = useState(false);
+  const [megaCat, setMegaCat] = useState(0);
+  const megaTimer = useRef(0);
+  const megaRoot = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const openLead = useLead();
 
@@ -52,6 +59,7 @@ export default function Nav({ lang }: { lang: Lang }) {
   if (shownFor !== location.pathname) {
     setShownFor(location.pathname);
     if (open) setOpen(false);
+    if (mega) setMega(false);
   }
 
   useEffect(() => {
@@ -64,6 +72,32 @@ export default function Nav({ lang }: { lang: Lang }) {
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
+
+  /* мегаменю каталога: открывается наведением и фокусом, Escape закрывает */
+  useEffect(() => {
+    if (!mega) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      // фокус возвращается на пункт «Каталог», а не теряется вместе с панелью
+      megaRoot.current?.querySelector<HTMLElement>(".nav__cat")?.focus();
+      setMega(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mega]);
+  const megaOpen = () => {
+    window.clearTimeout(megaTimer.current);
+    setMega(true);
+  };
+  // закрытие с задержкой: курсор успевает перейти с пункта на панель
+  const megaClose = () => {
+    window.clearTimeout(megaTimer.current);
+    megaTimer.current = window.setTimeout(() => {
+      // пока фокус внутри панели, курсор её не закрывает
+      if (megaRoot.current?.contains(document.activeElement)) return;
+      setMega(false);
+    }, 160);
+  };
 
   /* прогресс, направление прокрутки, плотность фона */
   useEffect(() => {
@@ -134,18 +168,84 @@ export default function Nav({ lang }: { lang: Lang }) {
           </Link>
 
           <nav className="nav__links" aria-label={t("a11y.mainnav", lang)}>
-            <NavLink
-              to={`/${lang}/catalog`}
-              className={({ isActive }) => "nav__cat" + (isActive ? " is-active" : "")}
+            <div
+              className="nav__mega"
+              ref={megaRoot}
+              onPointerEnter={megaOpen}
+              onPointerLeave={megaClose}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node)) setMega(false);
+              }}
+              onKeyDown={(e) => {
+                // с клавиатуры панель открывается стрелкой вниз: Tab по шапке
+                // не должен проходить через семнадцать разделов
+                if (e.key !== "ArrowDown") return;
+                e.preventDefault();
+                megaOpen();
+                requestAnimationFrame(() =>
+                  megaRoot.current?.querySelector<HTMLElement>(".mega__list a")?.focus()
+                );
+              }}
             >
-              <span className="nav__cat-grid" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <i />
-              </span>
-              {t("cta.catalog", lang)}
-            </NavLink>
+              <NavLink
+                to={`/${lang}/catalog`}
+                className={({ isActive }) => "nav__cat" + (isActive ? " is-active" : "")}
+                aria-expanded={mega}
+                aria-controls="mega-panel"
+              >
+                <span className="nav__cat-grid" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                {t("cta.catalog", lang)}
+              </NavLink>
+
+              <div id="mega-panel" className="mega" data-open={mega ? "true" : "false"}>
+                <div className="mega__shell bezel">
+                  <div className="bezel__core mega__core">
+                    <figure className="mega__shot" aria-hidden="true">
+                      {topCategories.map((c, i) => (
+                        <div key={c.slug} className={"mega__img" + (i === megaCat ? " is-on" : "")}>
+                          <Img file={c.image} alt="" sizes="260px" fit="contain" />
+                        </div>
+                      ))}
+                      <figcaption>
+                        <span>{pick(topCategories[megaCat]?.title, lang)}</span>
+                        <b>{topCategories[megaCat]?.count}</b>
+                      </figcaption>
+                    </figure>
+                    <ul className="mega__list">
+                      {topCategories.map((c, i) => (
+                        <li key={c.slug} style={{ "--k": i } as CSSProperties}>
+                          <Link
+                            to={categoryPath(lang, c.slug)}
+                            onPointerEnter={() => setMegaCat(i)}
+                            onFocus={() => setMegaCat(i)}
+                            className={i === megaCat ? "is-on" : undefined}
+                          >
+                            {pick(c.title, lang)}
+                            <span>{c.count}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mega__side">
+                      <Link className="mega__all" to={`/${lang}/catalog`}>
+                        {t("cta.catalog", lang)}
+                      </Link>
+                      {CATALOG_DOCS.map((d) => (
+                        <a key={d.href} href={d.href} target="_blank" rel="noreferrer" className="mega__doc">
+                          {t(`doc.${d.key}`, lang)}
+                          <small>PDF</small>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             {primary.map((m) => (
               <NavLink
                 key={m.href + m.text}

@@ -188,7 +188,7 @@ export default function Catalog({ lang }: { lang: Lang }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                ↓ {d.label}
+                ↓ {t(`doc.${d.key}`, lang)}
               </a>
             ))}
           </div>

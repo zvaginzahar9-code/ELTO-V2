@@ -9,20 +9,11 @@
 
 import { t, type Lang } from "../lib/i18n";
 
-/** Разделы, за которыми на сайт приходят чаще всего — входы прямо из героя. */
-export const QUICK_SECTIONS = [
-  "opory-osveshcheniya-granyonye",
-  "machty-osveshcheniya-pmo-vmo",
-  "opora-lep",
-  "opory-dekorativnogo-osveshcheniya",
-  "elektromontazhnye-izdeliya",
-];
-
 /** Описание главной — формулировки со страницы «О нас» оригинала. */
 export const HOME_DESCRIPTION: Record<Lang, string> = {
-  ru: "ТОО «Энергосистемы ЭЛТО» — завод-производитель опор освещения, мачт и металлоконструкций различного назначения. Собственное производство в Караганде. Каталог продукции, характеристики и расчёт стоимости.",
+  ru: "ТОО «Энергосистемы ЭЛТО» является заводом производителем опор освещения, мачт и металлоконструкций различного назначения. Наше собственное производство находится в Казахстане в городе Караганда.",
   kk: "«Энергосистемы ЭЛТО» ЖШС — жарық тіректерін, мачталарды және металл конструкцияларды өндіруші зауыт. Қарағандыдағы өз өндірісі.",
-  en: "Energosistemy ELTO LLP manufactures lighting poles, masts and steel structures at its own plant in Karaganda, Kazakhstan.",
+  en: "ELTO Energy Systems LLP is a manufacturer of lighting poles, masts and steel structures for various purposes. Our own production facility is in Karaganda, Kazakhstan.",
 };
 
 /**
@@ -43,10 +34,13 @@ export function breakLines(text: string, perLine: number): string[] {
   return out;
 }
 
-/** «Что» — крупно, строками; «откуда» — второй строкой, светом. */
+/** Заголовок — крупно, строками; два последних слова — акцентной строкой. */
 export function heroTitle(lang: Lang) {
   const full = t("hero.h1", lang);
-  const [what, where = ""] = full.split(" — ");
+  // два последних слова формулировки оригинала — акцентной строкой
+  const words = full.split(" ");
+  const what = words.slice(0, -2).join(" ");
+  const where = words.slice(-2).join(" ");
   return { full, lines: breakLines(what, 22), where };
 }
 
@@ -57,5 +51,5 @@ export function heroTitle(lang: Lang) {
 export const PHONE_HERO_AVIF = "/media/phone/hero-720.avif 720w, /media/phone/hero-1080.avif 1080w";
 export const PHONE_HERO_WEBP = "/media/phone/hero-720.webp 720w, /media/phone/hero-1080.webp 1080w";
 export const PHONE_HERO_SRC = "/media/phone/hero-720.webp";
-export const PHONE_HERO_ALT = "Цех горячего цинкования ELTO";
-export const PHONE_HERO_CAPTION = "Цех горячего цинкования, Караганда";
+export const PHONE_HERO_ALT = "alt.zincShop";
+export const PHONE_HERO_CAPTION = "caption.zincShop";

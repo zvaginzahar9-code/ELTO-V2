@@ -114,7 +114,7 @@ export async function POST(request: Request) {
   const head = [
     topic && `Тема: ${topic}`,
     `Имя: ${name}`,
-    company && `Компания: ${company}`,
+    company && `Должность: ${company}`,
     `Контакт: ${contact}`,
     attachment && `Вложение: ${attachment.filename}`,
   ].filter(Boolean);

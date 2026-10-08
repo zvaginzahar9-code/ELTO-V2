@@ -9,11 +9,9 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import Reveal from "@/components/motion/Reveal";
 import Img from "@/components/ui/Img";
-import { pages, site } from "@/lib/data";
+import { descOf, pages, site } from "@/lib/data";
 import { toRoute } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
-import { useArcStop } from "@/motion/use-arc";
-import { quietArc } from "./arc-shapes";
 
 const clean = (teaser: string, title: string) =>
   teaser
@@ -24,7 +22,6 @@ const clean = (teaser: string, title: string) =>
 
 export default function News({ lang }: { lang: Lang }) {
   const root = useRef<HTMLElement>(null);
-  useArcStop(root, quietArc);
   const block = site.home.ru?.news;
   const byslug = new Map(pages.map((p) => [p.s, p]));
 
@@ -38,7 +35,7 @@ export default function News({ lang }: { lang: Lang }) {
         slug,
         href: toRoute(n.href, lang),
         title: page ? pick(page.t, lang) : n.title,
-        teaser: page?.d || clean(n.teaser, n.title),
+        teaser: (page && descOf(page, lang)) || clean(n.teaser, n.title),
         image: page?.i || "",
       };
     });
@@ -46,15 +43,14 @@ export default function News({ lang }: { lang: Lang }) {
   if (!items.length) return null;
 
   return (
-    <section id="news" ref={root} className="scene news ground-paper" data-ground="paper">
+    <section id="news" ref={root} className="scene news" data-ground="paper">
       <div className="shell news__inner">
         <header className="news__head">
-          <span className="index">{t("home.news", lang)}</span>
-          <Reveal as="h2" className="news__title display" kind="lines">
+                    <Reveal as="h2" className="news__title display" kind="lines">
             {t("home.news", lang)}
           </Reveal>
           <Link className="btn news__all" to={`/${lang}/news`}>
-            {t("common.all", lang)}
+            {t("common.more", lang)}
           </Link>
         </header>
 

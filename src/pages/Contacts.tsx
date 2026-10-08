@@ -6,16 +6,16 @@
  * внизу страницы — живая карта с маркером производства (см. OfficeMap).
  */
 
+import { useMemo } from "react";
 import Seo from "@/components/Seo";
 import Reveal from "@/components/motion/Reveal";
 import BackLink from "@/components/ui/BackLink";
 import OfficeMap from "@/components/ui/OfficeMap";
 import LeadForm from "@/components/lead/LeadForm";
-import { loadPage, type PageFull } from "@/lib/data";
+import { loadPage, type PageFull, localize } from "@/lib/data";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { useRecord } from "@/lib/use-record";
 import {
-  ADDRESS_LINES,
   EMAIL,
   PHONE,
   PHONE_2,
@@ -28,7 +28,8 @@ import {
 const CONTACTS_SLUG = "kontakty";
 
 export default function Contacts({ lang }: { lang: Lang }) {
-  const { data } = useRecord<PageFull>(CONTACTS_SLUG, loadPage);
+  const { data: raw } = useRecord<PageFull>(CONTACTS_SLUG, loadPage);
+  const data = useMemo(() => localize(raw, lang), [raw, lang]);
 
   const table = data?.tables?.[0];
 
@@ -38,7 +39,7 @@ export default function Contacts({ lang }: { lang: Lang }) {
         lang={lang}
         path="/contacts"
         title={pick(data?.title, lang) || t("nav.contacts", lang)}
-        description={`${ADDRESS_LINES.join(" ")} · ${PHONE} · ${EMAIL}`}
+        description={`${t("address.1", lang)} ${t("address.2", lang)} · ${PHONE} · ${EMAIL}`}
       />
       <header className="page__head shell">
         <BackLink to={`/${lang}`} label={t("back.home", lang)} />
@@ -52,9 +53,9 @@ export default function Contacts({ lang }: { lang: Lang }) {
         <div className="contacts__block">
           <h2 className="label">{t("contacts.address", lang)}</h2>
           <address className="contacts__address">
-            {ADDRESS_LINES[0]}
+            {t("address.1", lang)}
             <br />
-            {ADDRESS_LINES[1]}
+            {t("address.2", lang)}
           </address>
         </div>
         <div className="contacts__block">
@@ -92,7 +93,7 @@ export default function Contacts({ lang }: { lang: Lang }) {
 
       {table && (
         <section className="shell contacts__people">
-          <h2 className="label contacts__h">Наши контактные телефоны</h2>
+          <h2 className="label contacts__h">{t("contacts.phones", lang)}</h2>
           <div className="spec-wrap">
             <table className="spec">
               <thead>

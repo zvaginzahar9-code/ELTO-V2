@@ -8,7 +8,7 @@
     "build": "npm run prepare:data && tsc -b && vite build",
     "prepare:data": "node scripts/build-search.mjs && node scripts/build-sitemap.mjs",
     "preview": "vite preview",
-    "data": "node scripts/build-data.mjs",
+    "data": "node scripts/build-data.mjs && node scripts/build-i18n.mjs",
     "images": "node scripts/build-images.mjs",
     "media": "node scripts/process-media.mjs",
     "fonts": "node scripts/build-fonts.mjs",
@@ -27,6 +27,7 @@
     "qa:headers": "node scripts/headers-check.mjs"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "animejs": "^4.5.0",
     "lenis": "^1.3.26",
     "react": "^19.3.0",

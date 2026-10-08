@@ -14,11 +14,6 @@ export const PHONE_2_HREF = "tel:+77057590030";
 
 export const EMAIL = "sales@elto.kz";
 
-export const ADDRESS_LINES = [
-  "г. Караганда, район Алихана Букейханова,",
-  "учетный квартал 018, строение 20",
-];
-
 export const INSTAGRAM = "https://www.instagram.com/energosistemy_elto/";
 
 /** WhatsApp отдела продаж — тот же номер, что в шапке оригинала. */
@@ -32,10 +27,10 @@ export function mailtoHref(subject: string, body = "") {
   return `mailto:${EMAIL}?${q}`;
 }
 
-/** PDF-каталоги, которые лежат на оригинале. */
+/** PDF-каталоги, которые лежат на оригинале; подпись — ключ словаря doc.<key>. */
 export const CATALOG_DOCS = [
-  { key: "poles", label: "Каталог опор освещения", href: "/docs/katalog_opor_elto.pdf" },
-  { key: "lep", label: "Каталог опор ЛЭП", href: "/docs/katalog_novyy_do_330kvpdf.pdf" },
+  { key: "poles", href: "/docs/katalog_opor_elto.pdf" },
+  { key: "lep", href: "/docs/katalog_novyy_do_330kvpdf.pdf" },
 ] as const;
 
 /** Разделы, к которым относится PDF-каталог опор освещения. */

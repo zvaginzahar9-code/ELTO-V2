@@ -1,122 +1,154 @@
 /**
- * СЦЕНА 04 — СТОЙКА
+ * СЦЕНА 06 — КАТАЛОГ
  *
- * Семнадцать разделов каталога в порядке оригинала. Раздел не «появляется» —
- * он поднимается снизу вверх, как поднимают опору: превью раскрывается
- * маской от основания к вершине. Отсюда и вертикальный формат кадра —
- * пропорции изделий ELTO, а не квадрат карточки.
- *
- * Ниже — второй вход для тех, кто не знает маркировку: подбор по задаче.
+ * После знака поток разгоняется: широкий быстрый веер справа, по которому
+ * бегут искры, — каталог читается как поток данных. Семнадцать разделов
+ * оригинала въезжают строками, каждая со своим запаздыванием, прокрутка
+ * задаёт скорость. Под курсором строка загорается, к ней тянется свет
+ * потока, а рядом с курсором летит превью раздела — фотография изделия
+ * на белом стенде, как в каталоге.
  *
  * Названия, порядок и счётчики позиций — из выгрузки каталога оригинала.
  */
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Reveal from "@/components/motion/Reveal";
 import Img from "@/components/ui/Img";
-import TaskPicker from "@/components/ui/TaskPicker";
+import Pill from "@/components/ui/Pill";
+import Title from "@/components/motion/Title";
+import { registerScene } from "@/motion/scene";
+import { onFrame, reducedMotion } from "@/motion/clock";
+import { flowAttract } from "@/motion/flow";
+import { useFlowStop } from "@/motion/use-flow";
+import { streamFlow } from "./flow-shapes";
 import { topCategories } from "@/lib/data";
 import { categoryPath } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
-import { useArcStop } from "@/motion/use-arc";
-import { fanArc } from "./arc-shapes";
 
 export default function CatalogScene({ lang }: { lang: Lang }) {
-  const [active, setActive] = useState(0);
-  const [all, setAll] = useState(false);
-  const listRef = useRef<HTMLUListElement>(null);
   const root = useRef<HTMLElement>(null);
-  useArcStop(root, fanArc);
+  const preview = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(-1);
+  /** превью показывается только под мышью: при клавиатуре ему негде стоять */
+  const [pointer, setPointer] = useState(false);
+  useFlowStop(root, streamFlow);
+
+  /* строки въезжают потоком — каждая со своим запаздыванием */
+  useEffect(() => {
+    const el = root.current;
+    if (!el || reducedMotion()) return;
+    const rows = Array.from(el.querySelectorAll<HTMLElement>(".cat__row"));
+    return registerScene(el, {
+      mode: "enter",
+      onUpdate(p) {
+        rows.forEach((row, i) => {
+          const a = 0.06 + i * 0.012;
+          const v = Math.min(1, Math.max(0, (p - a) / 0.14));
+          const e = 1 - Math.pow(1 - v, 3);
+          row.style.setProperty("--in", e.toFixed(3));
+        });
+      },
+    });
+  }, []);
+
+  /* превью летит за курсором и наклоняется по скорости */
+  useEffect(() => {
+    const card = preview.current;
+    const el = root.current;
+    if (!card || !el) return;
+    let x = 0;
+    let y = 0;
+    let tx = 0;
+    let ty = 0;
+    let off: (() => void) | null = null;
+    // превью тикает в общем такте сайта, а не своим циклом
+    const tick = () => {
+      const dx = tx - x;
+      x += dx * 0.16;
+      y += (ty - y) * 0.16;
+      const tilt = Math.max(-12, Math.min(12, dx * 0.08));
+      card.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${tilt.toFixed(2)}deg)`;
+    };
+    const onMove = (e: PointerEvent) => {
+      // превью идёт за курсором по высоте, но стоит справа от названий,
+      // а по горизонтали лишь чуть тянется к курсору
+      const lr = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      tx = lr.right + 48 + (e.clientX - lr.left) * 0.04;
+      ty = e.clientY - 150;
+      if (!off) {
+        x = tx;
+        y = ty;
+        off = onFrame(tick);
+        setPointer(true);
+      }
+    };
+    const list = el.querySelector(".cat__list");
+    const leave = () => {
+      off?.();
+      off = null;
+      setPointer(false);
+      setActive(-1);
+      flowAttract(null);
+    };
+    list?.addEventListener("pointermove", onMove as EventListener);
+    list?.addEventListener("pointerleave", leave);
+    return () => {
+      off?.();
+      list?.removeEventListener("pointermove", onMove as EventListener);
+      list?.removeEventListener("pointerleave", leave);
+      flowAttract(null);
+    };
+  }, []);
+
+  const focusRow = (i: number, node: HTMLElement) => {
+    setActive(i);
+    // замер на следующем кадре: фокус с клавиатуры сначала прокручивает строку в кадр
+    requestAnimationFrame(() => {
+      const r = node.getBoundingClientRect();
+      flowAttract([0.7, (r.top + r.height / 2) / window.innerHeight]);
+    });
+  };
+
+  const [first, ...rest] = t("catalog.title", lang).split(" ");
 
   return (
-    <section id="catalog" ref={root} className="scene cat ground-paper" data-ground="paper">
+    <section id="catalog" ref={root} className="scene cat" data-ground="paper">
       <div className="shell cat__inner">
         <header className="cat__head">
-          <span className="index">{t("home.catalog", lang)}</span>
-          <Reveal as="h2" className="cat__title display" kind="lines">
-            {(() => {
-              const [first, ...rest] = t("catalog.title", lang).split(" ");
-              return rest.length ? (
-                <>
-                  {first} <em>{rest.join(" ")}</em>
-                </>
-              ) : (
-                first
-              );
-            })()}
-          </Reveal>
-          <Link className="btn btn--ink cat__all" to={`/${lang}/catalog`}>
-            {t("catalog.all", lang)}
-            <span className="btn__arrow" aria-hidden="true">
-              →
-            </span>
-          </Link>
+          <Title className="cat__title" text={rest.length ? `${first} *${rest.join(" ")}*` : first} />
+          <Pill tone="glass" to={`/${lang}/catalog`}>
+            {t("common.more", lang)}
+          </Pill>
         </header>
 
-        <h3 className="cat__mode label">{t("search.know", lang)}</h3>
-
-        <div className="cat__body">
-          <ul className={"cat__list" + (all ? " is-all" : "")} ref={listRef}>
-            {topCategories.map((c, i) => (
-              <li
-                key={c.slug}
-                className={"cat__row" + (i === active ? " is-active" : "")}
-                onMouseEnter={() => setActive(i)}
-                onFocus={() => setActive(i)}
+        <ol className="cat__list">
+          {topCategories.map((c, i) => (
+            <li key={c.slug} className={"cat__row" + (i === active ? " is-on" : "")}>
+              <Link
+                className="cat__link"
+                to={categoryPath(lang, c.slug)}
+                onPointerEnter={(e) => focusRow(i, e.currentTarget)}
+                onFocus={(e) => focusRow(i, e.currentTarget)}
+                onBlur={() => {
+                  setActive(-1);
+                  flowAttract(null);
+                }}
               >
-                <Link className="cat__link" to={categoryPath(lang, c.slug)}>
-                  {/* на телефоне строка становится плиткой, и превью — её лицо */}
-                  <span className="cat__thumb" aria-hidden="true">
-                    <Img file={c.image} alt="" sizes="(max-width: 860px) 44vw, 0px" fit="contain" />
-                  </span>
-                  <span className="cat__no mono">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="cat__name title">{pick(c.title, lang)}</span>
-                  <span className="cat__count mono">{c.count}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+                <span className="cat__name">{pick(c.title, lang)}</span>
+                <span className="cat__count">{c.count}</span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </div>
 
-          {/* семнадцать плиток подряд — это три экрана; на телефоне сначала восемь */}
-          {!all && (
-            <button
-              type="button"
-              className="btn cat__more"
-              onClick={() => setAll(true)}
-            >
-              {t("catalog.showAll", lang)}
-              <span className="mono">{topCategories.length}</span>
-            </button>
-          )}
-
-          <div className="cat__stage" aria-hidden="true">
-            {topCategories.map((c, i) => (
-              <figure
-                key={c.slug}
-                className={"cat__shot" + (i === active ? " is-on" : "")}
-              >
-                <Img
-                  file={c.image}
-                  alt=""
-                  sizes="(max-width: 980px) 0px, 34vw"
-                  fit="contain"
-                />
-                <figcaption className="label">{pick(c.title, lang)}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-
-        <div className="cat__tasks">
-          <header className="cat__tasks-head">
-            <h3 className="cat__mode label">{t("search.help", lang)}</h3>
-            <Reveal as="p" className="cat__tasks-title title">
-              {t("task.title", lang)}
-            </Reveal>
-            <p className="cat__tasks-lead">{t("task.lead", lang)}</p>
-          </header>
-          <TaskPicker lang={lang} />
+      <div className={"cat__preview" + (active > -1 && pointer ? " is-on" : "")} ref={preview} aria-hidden="true">
+        <div className="cat__preview-core">
+          {topCategories.map((c, i) => (
+            <figure key={c.slug} className={"cat__shot" + (i === active ? " is-on" : "")}>
+              <Img file={c.image} alt="" sizes="280px" fit="contain" />
+            </figure>
+          ))}
         </div>
       </div>
     </section>

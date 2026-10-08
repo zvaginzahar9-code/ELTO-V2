@@ -6,14 +6,14 @@
  * который уже был на elto.kz.
  */
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Seo from "@/components/Seo";
 import Reveal from "@/components/motion/Reveal";
 import BackLink from "@/components/ui/BackLink";
 import Counter from "@/components/motion/Counter";
 import Img from "@/components/ui/Img";
-import { loadPage, pages, products, topCategories, type PageFull } from "@/lib/data";
+import { loadPage, pages, products, topCategories, type PageFull, localize, descOf } from "@/lib/data";
 import { infoPath, rewriteLinks } from "@/lib/routes";
 import { pick, t, type Lang } from "@/lib/i18n";
 import { useRecord } from "@/lib/use-record";
@@ -38,7 +38,8 @@ const ABOUT_SLUG = "o-nas";
 const FILM = "https://www.youtube-nocookie.com/embed/2lW6Hn6otPU";
 
 export default function About({ lang }: { lang: Lang }) {
-  const { data } = useRecord<PageFull>(ABOUT_SLUG, loadPage);
+  const { data: raw } = useRecord<PageFull>(ABOUT_SLUG, loadPage);
+  const data = useMemo(() => localize(raw, lang), [raw, lang]);
   const [film, setFilm] = useState(false);
 
   const byslug = new Map(pages.map((p) => [p.s, p]));
@@ -57,7 +58,7 @@ export default function About({ lang }: { lang: Lang }) {
         <BackLink to={`/${lang}`} label={t("back.home", lang)} />
         <span className="index">{t("home.company", lang)}</span>
         <Reveal as="h1" className="page__title display" kind="lines">
-          {pick(data?.title, lang) || "О нас"}
+          {pick(data?.title, lang) || t("nav.company", lang)}
         </Reveal>
       </header>
 
@@ -89,7 +90,7 @@ export default function About({ lang }: { lang: Lang }) {
 
           <dl className="about__figures">
             <div className="fig">
-              <dt className="label">Год основания</dt>
+              <dt className="label">{t("about.founded", lang)}</dt>
               <dd className="fig__v mono">
                 <Counter to={2014} />
               </dd>
@@ -128,7 +129,7 @@ export default function About({ lang }: { lang: Lang }) {
                         fit="contain"
                       />
                     ) : (
-                      <p className="sect__excerpt">{p!.d}</p>
+                      <p className="sect__excerpt">{descOf(p!, lang)}</p>
                     )}
                   </div>
                   <h3 className="sect__h title">{pick(p!.t, lang)}</h3>

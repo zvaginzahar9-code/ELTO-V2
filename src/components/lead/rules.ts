@@ -25,7 +25,7 @@ export function leadText(f: LeadFields, fileName?: string, policy?: string) {
   const head = [
     f.topic && `Тема: ${f.topic}`,
     `Имя: ${f.name}`,
-    f.company && `Компания: ${f.company}`,
+    f.company && `Должность: ${f.company}`,
     `Контакт: ${f.contact}`,
     fileName && `Файл ТЗ: ${fileName} (приложу к письму)`,
   ].filter(Boolean);
