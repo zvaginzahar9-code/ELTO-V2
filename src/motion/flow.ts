@@ -419,8 +419,15 @@ function setupLayer(canvas: HTMLCanvasElement): Layer | null {
     antialias: false,
     premultipliedAlpha: true,
     powerPreference: "high-performance",
+    failIfMajorPerformanceCaveat: true,
   });
   if (!gl) return null;
+  // Программный WebGL (SwiftShader, llvmpipe, Microsoft Basic Render): каждый
+  // кадр ленты занимает главный поток на сотню миллисекунд, страница стоит.
+  // Такой машине — статичный фон вместо живой ленты.
+  const info = gl.getExtension("WEBGL_debug_renderer_info");
+  const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "";
+  if (/swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer)) return null;
 
   const strand = compile(gl, STRAND_VS, STRAND_FS);
   const spark = compile(gl, SPARK_VS, SPARK_FS);
